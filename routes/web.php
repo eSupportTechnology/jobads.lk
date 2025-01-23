@@ -7,7 +7,6 @@ Route::get('/', function () {
     return view('folder.dashboard');
 });
 
-
 // Dashboard
 Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
@@ -55,7 +54,6 @@ Route::get('/admin/about-us', [AboutUsController::class, 'index'])->name('admin.
 Route::get('/admin/terms', [TermsAndConditionController::class, 'index'])->name('admin.terms.index');
 Route::get('/faqs', [FaqController::class, 'index'])->name('faqs.index');
 
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -66,4 +64,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

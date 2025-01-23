@@ -9,13 +9,15 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'status',
-    ];
+    protected $fillable = ['name', 'status'];
 
+    // Define the relationship with subcategories
     public function subcategories()
     {
-        return $this->hasMany(Subcategory::class);
+        return $this->hasMany(Subcategory::class, 'category_id');
+    }
+    public function jobPostings()
+    {
+        return $this->hasMany(JobPosting::class);
     }
 }

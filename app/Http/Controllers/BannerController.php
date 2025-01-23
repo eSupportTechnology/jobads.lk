@@ -16,8 +16,22 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $banners = Banner::with(['category', 'package'])->get();
-        return view('banners.index', compact('banners'));
+        $pendingBanners = Banner::with(['category', 'package'])
+            ->where('status', 'pending')
+            ->latest()
+            ->paginate(10, ['*'], 'pending_page');
+
+        $publishedBanners = Banner::with(['category', 'package'])
+            ->where('status', 'published') // Changed from 'approved'
+            ->latest()
+            ->paginate(10, ['*'], 'published_page');
+
+        $rejectedBanners = Banner::with(['category', 'package'])
+            ->where('status', 'rejected')
+            ->latest()
+            ->paginate(10, ['*'], 'rejected_page');
+
+        return view('Admin.banner.index', compact('pendingBanners', 'publishedBanners', 'rejectedBanners'));
     }
 
     public function store(Request $request)
@@ -47,15 +61,14 @@ class BannerController extends Controller
                 'package_id' => $validated['package_id'],
                 'payment_method' => $validated['payment_method'],
                 'placement' => $validated['placement'],
-                'status' => 'pending', // Default status
-                'user_id' => auth()->id(), // Assuming you have authentication
+                'status' => 'pending',
+                'user_id' => auth()->id(),
             ]);
 
             DB::commit();
 
             // Handle different payment methods
             if ($validated['payment_method'] === 'online') {
-                // Store banner ID in session for payment processing
                 session(['pending_banner_id' => $banner->id]);
                 return redirect()->route('payment.checkout');
             }
@@ -138,57 +151,60 @@ class BannerController extends Controller
         $banner->update($request->all());
         return redirect()->route('banners.index')->with('success', 'Banner updated successfully.');
     }
+    // Controller function
     public function updateStatus(Request $request, Banner $banner)
     {
-        try {
-            // Validate the request
-            $validated = $request->validate([
-                'status' => 'required|in:pending,approved,rejected',
-                'rejection_reason' => 'required_if:status,rejected|nullable|string|max:500',
-            ]);
+        // Log initial state
+        \Log::info("Before update:", [
+            'banner_id' => $banner->id,
+            'old_status' => $banner->getOriginal('status'),
+            'attributes' => $banner->getAttributes(),
+        ]);
 
-            // Start transaction
-            DB::beginTransaction();
+        // Validate the request
+        $request->validate([
+            'status' => 'required|in:pending,published,rejected',
+            'rejection_reason' => 'required_if:status,rejected|nullable|string|max:1000',
+        ]);
 
-            // Update banner status
-            $banner->status = $validated['status'];
+        // Update the banner
+        $banner->status = $request->status;
+        $banner->admin_id = auth('admin')->id(); // Store the current admin's ID
 
-            // Handle rejection reason
-            if ($validated['status'] === 'rejected') {
-                $banner->rejection_reason = $validated['rejection_reason'];
-            } else {
-                $banner->rejection_reason = null; // Clear rejection reason if status is not rejected
-            }
-
-            // If banner is being approved, set the published date
-            if ($validated['status'] === 'approved') {
-                $banner->published_at = now();
-            }
-
-            $banner->save();
-
-            // If status is approved, you might want to notify the user
-            if ($validated['status'] === 'approved') {
-                // You can implement notification logic here
-                // Notification::send($banner->user, new BannerApprovedNotification($banner));
-            }
-
-            // If status is rejected, you might want to notify the user with rejection reason
-            if ($validated['status'] === 'rejected') {
-                // You can implement notification logic here
-                // Notification::send($banner->user, new BannerRejectedNotification($banner));
-            }
-
-            DB::commit();
-
-            return redirect()->back()->with('success', 'Banner status updated successfully.');
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->back()
-                ->withErrors(['error' => 'An error occurred while updating the banner status.'])
-                ->withInput();
+        // Handle rejection reason
+        if ($request->status === 'rejected') {
+            $banner->rejection_reason = $request->rejection_reason;
+        } else {
+            $banner->rejection_reason = null; // Clear rejection reason if status is not rejected
         }
+
+        // Track changes
+        $isDirty = $banner->isDirty();
+        $changes = $banner->getDirty();
+
+        // Save changes
+        $saved = $banner->save();
+
+        // Log the update result
+        \Log::info("After update:", [
+            'banner_id' => $banner->id,
+            'new_status' => $banner->status,
+            'admin_id' => $banner->admin_id,
+            'rejection_reason' => $banner->rejection_reason,
+            'was_dirty' => $isDirty,
+            'changes' => $changes,
+            'save_result' => $saved,
+        ]);
+
+        // Return with appropriate message
+        $message = match ($request->status) {
+            'published' => 'Banner has been published successfully.',
+            'rejected' => 'Banner has been rejected with reason.',
+            'pending' => 'Banner has been set to pending.',
+            default => 'Status updated successfully.'
+        };
+
+        return redirect()->back()->with('success', $message);
     }
     /**
      * Remove the specified banner from storage.

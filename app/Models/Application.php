@@ -9,6 +9,11 @@ class Application extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'name',
         'email',
@@ -21,19 +26,23 @@ class Application extends Model
         'job_posting_id',
     ];
 
+    /**
+     * Define the relationship with the User model.
+     */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * Define the relationship with the Employer model.
+     */
     public function employer()
     {
-        return $this->belongsTo(Employer::class);
+        return $this->belongsTo(Employer::class, 'employer_id');
     }
-
-    public function jobPosting()
+    public function job()
     {
-        return $this->belongsTo(JobPosting::class);
+        return $this->belongsTo(JobPosting::class, 'job_posting_id');
     }
 }
-
