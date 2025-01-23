@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Employer extends Model
+class Employer extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $fillable = [
         'company_name',
@@ -17,7 +18,7 @@ class Employer extends Model
         'business_info',
         'job_posting_settings',
         'is_active',
-        'logo',
+        'logo', // Include the logo field
     ];
 
     protected $hidden = [
@@ -25,9 +26,20 @@ class Employer extends Model
         'remember_token',
     ];
 
+    protected $casts = [
+        'job_posting_settings' => 'array',
+    ];
+
+    public function jobPostings()
+    {
+        return $this->hasMany(JobPosting::class);
+    }
     public function applications()
     {
-        return $this->hasMany(Application::class);
+        return $this->hasMany(Application::class, 'employer_id');
+    }
+    public function feedback()
+    {
+        return $this->hasMany(Feedback::class, 'employer_id');
     }
 }
-

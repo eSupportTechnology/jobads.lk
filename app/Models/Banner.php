@@ -9,6 +9,9 @@ class Banner extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     */
     protected $fillable = [
         'title',
         'description',
@@ -20,13 +23,19 @@ class Banner extends Model
         'status',
     ];
 
+    /**
+     * Relationship with the Category model.
+     */
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
+    /**
+     * Relationship with the BannerPackage model.
+     */
     public function package()
     {
-        return $this->belongsTo(BannerPackage::class);
+        return $this->belongsTo(BannerPackage::class, 'package_id');
     }
 }

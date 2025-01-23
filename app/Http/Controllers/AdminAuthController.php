@@ -35,7 +35,7 @@ class AdminAuthController extends Controller
     // Show the login form
     public function showLoginForm()
     {
-        return view('Admin.login'); // Ensure you have a view at resources/views/admin/login.blade.php
+        return view('admin.login'); // Ensure you have a view at resources/views/admin/login.blade.php
     }
 
     // Handle login

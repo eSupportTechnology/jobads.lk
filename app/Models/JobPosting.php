@@ -9,10 +9,13 @@ class JobPosting extends Model
 {
     use HasFactory;
 
+    protected $table = 'job_postings';
+
     protected $fillable = [
         'title',
         'description',
         'category_id',
+        'package_id',
         'subcategory_id',
         'location',
         'country',
@@ -21,31 +24,49 @@ class JobPosting extends Model
         'requirements',
         'employer_id',
         'admin_id',
-        'creator_id',
         'closing_date',
         'approved_date',
         'rejected_date',
         'status',
-        'payment_method',
         'rejection_reason',
         'job_id',
         'is_active',
-        'package_id',
-        'view_count',
+        'creator_id',
+        'payment_method',
+        'country_id',
     ];
 
-    public function applications()
-    {
-        return $this->hasMany(Application::class);
-    }
-
+    // Relationships
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function subcategory()
+    {
+        return $this->belongsTo(Subcategory::class);
     }
 
     public function employer()
     {
         return $this->belongsTo(Employer::class);
     }
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
+    }
+    public function applications()
+    {
+        return $this->hasMany(Application::class, 'job_posting_id');
+    }
+    public function flaggedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'flagged_jobs', 'job_posting_id', 'user_id');
+    }
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
 }
