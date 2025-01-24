@@ -1,0 +1,626 @@
+/* General reset */
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+        sans-serif;
+    background-color: rgb(255, 255, 255);
+}
+
+.feedback-section {
+    text-align: center;
+    position: relative; /* Enable positioning for child elements */
+    margin-top: 5px;
+}
+.closing-date {
+    font-size: 10px !important;
+}
+.feedback-btn2 {
+    padding: 10px 20px;
+    background: linear-gradient(to bottom, #28adce, #18799c);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    margin-left: 1000px;
+}
+.employer-btn {
+    padding: 10px 20px;
+    background: linear-gradient(to bottom, #28adce, #18799c);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+}
+.rectangle {
+    position: absolute; /* Position the rectangle under the button */
+    top: 0; /* Adjust to match the button's position */
+    left: 50%; /* Center the rectangle horizontally */
+    transform: translateX(-50%); /* Align rectangle to the center */
+    width: 100%; /* Set rectangle width */
+    height: 70px; /* Set rectangle height */
+    background: #a7cbf457; /* Light gray background for rectangle */
+    z-index: 0; /* Place the rectangle behind the button */
+    margin-top: -8px;
+    border-radius: 0 0 35px 35px;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2); /* Subtle shadow with blur and transparency */
+}
+
+.feedback-btn {
+    /* Ensure the button is above the rectangle */
+    padding: 10px 20px;
+    background: linear-gradient(to bottom, #90c0f4, #0056b3);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+
+    outline: 2px solid #0056b3; /* Adds the outline around the button */
+    outline-offset: 0px; /* Adds space between the button and the outline */
+}
+
+.feedback-btn:hover {
+    background: linear-gradient(to right, #0056b3, #003a80);
+    color: #ffffff;
+}
+
+.filters {
+    display: flex;
+    gap: 10px; /* Maintain spacing between elements */
+    align-items: center;
+    margin: 20px 0;
+    justify-content: center; /* Center align filters */
+    padding: 0 20px;
+    border-bottom: 4px solid #3a7ecc;
+}
+
+.text-input {
+    flex: none; /* Remove flexibility for width */
+    width: 500px; /* Set a smaller fixed width */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.filters input {
+    padding: 5px 10px; /* Keep height the same */
+    margin: 0 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 16px;
+    width: 400px; /* Adjust width automatically if needed */
+}
+.filters select {
+    padding: 5px 10px; /* Keep height the same */
+    margin: 0 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 16px;
+    width: 200px; /* Adjust width automatically if needed */
+}
+
+.view-btn {
+    font-size: 25px; /* Adjust the size of the icon */
+    color: #0056b3; /* Icon color */
+    border: none;
+    border-radius: 5px;
+}
+
+.job-listings {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    justify-content: space-between; /* Space items evenly on each line */
+    margin: 20px 90px;
+}
+
+.job-listing {
+    text-align: left;
+    margin: -10px;
+    flex: 1 1 calc(33.33% - 20px); /* Ensure 3 columns by dividing the row into 3 parts */
+    box-sizing: border-box; /* Include padding and borders in width calculations */
+}
+
+/* Job listings container */
+.job-listingsss-container {
+    max-height: 400px; /* Adjust the height to your preference */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #ccc; /* Optional: Add a border for better visual separation */
+    padding: 10px; /* Optional: Add padding inside the scroll box */
+    margin: 20px 0; /* Add some spacing around the scroll box */
+    background-color: #f9f9f9; /* Optional: Background color */
+    border-radius: 8px; /* Optional: Rounded corners */
+    width: 80%;
+}
+.job-listingsss {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping of rows */
+    gap: 20px; /* Space between rows */
+    justify-content: space-between; /* Spread out the rows evenly */
+}
+.company-name {
+    font-size: 12px;
+    color: #c96602;
+}
+.location {
+    font-size: 12px;
+    color: #000;
+}
+/* Job card styling */
+.job-card {
+    padding: 10px;
+    font-size: 14px;
+    /* Slightly reduce width (adjust as needed) */
+
+    border-bottom: 1px dotted #000;
+    cursor: pointer; /* Show pointer cursor on hover */
+}
+
+/* Hover effect for all job cards */
+.job-card:hover {
+    transform: scale(1.05); /* Slight zoom-in effect */
+}
+
+/* Adding vertical lines between the job cards */
+.job-listingsss-row {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+.job-card:hover {
+    transform: scale(1.05); /* Hover effect */
+}
+
+.job-card p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.hr2 {
+    width: 100%;
+    height: 75px;
+    background-color: #a7cbf4b3;
+    margin-top: -80px;
+    box-shadow: 0px 2px 3px rgba(0.2, 0.2, 0.2, 0.2);
+}
+/* Job Titles Section */
+.job-titles-container {
+    display: flex;
+    padding: 20px;
+}
+
+.job-titles-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    gap: -100px;
+}
+.jobseeker-btn {
+    padding: 10px 15px;
+    border: none;
+    background: linear-gradient(to bottom, #28adce, #18799c);
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+
+    display: inline-block; /* Add this */
+    text-decoration: none; /* Add this for link styling */
+}
+.job-titles {
+    text-decoration: none;
+    color: #007bff; /* Blue color for links */
+    font-size: 16px;
+
+    transition: color 0.3s ease;
+    margin-top: 5px;
+}
+
+.job-titles:hover {
+    color: #f12203; /* Darker blue on hover */
+}
+
+/* Categories styles*/
+
+/* General body styling */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Job categories wrapper */
+.job-categories-wrapper {
+    max-width: 1120px; /* Matches max-w-7xl */
+    margin: 0 auto; /* Center horizontally */
+    padding: 16px; /* Default padding */
+}
+
+/* Grid layout */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Default 2 columns */
+    gap: -10px; /* Spacing between items */
+}
+
+@media (min-width: 640px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on small screens */
+    }
+}
+
+@media (min-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(5, 1fr); /* 5 columns on large screens */
+    }
+}
+
+/* Job Listings Section */
+.job-listings-container {
+    flex: 3;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.jobtitle {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    color: rgb(2, 11, 88);
+}
+
+.job-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* Four equal columns */
+    grid-auto-rows: 1fr; /* Ensure rows automatically adjust to fill available space */
+    padding: 0; /* Remove padding around the grid if not needed */
+    margin: 0; /* Remove margin for tight alignment */
+}
+.categories-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f2f2f2;
+    padding: 5px 20px;
+    border-bottom: 2px solid #ccc;
+}
+.job-card .job-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #0897ba;
+    text-decoration: none;
+}
+
+.job-card .job-title:hover {
+    text-decoration: none;
+}
+.job-card:hover {
+    background-color: #9fbdc867;
+    border-radius: 5px;
+}
+.job-card {
+    height: 80px;
+}
+
+@media screen and (max-width: 768px) {
+    /* Change job grid to 2 columns on smaller screens */
+    .job-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 equal columns */
+    }
+
+    /* Adjust job card size for smaller screens */
+    .job-card {
+        height: auto; /* Allow height to adjust based on content */
+        width: 100px;
+        border-bottom: 1px dotted #ccc; /* Same color */
+        width: 60%; /* Reduce width for mobile screens */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* Further adjustments for very small screens */
+    .job-grid {
+        grid-template-columns: 1fr; /* 1 column for very small screens */
+    }
+
+    .job-card {
+        height: auto; /* Auto height for better readability */
+        margin-bottom: 10px; /* Space between job cards */
+        width: 100px;
+    }
+}
+/* Main Layout */
+.main-content {
+    display: flex;
+    gap: 20px;
+}
+
+/* Category links */
+/* Categories Section */
+.categories-container {
+    width: 100%;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+.categories-list {
+    display: flex;
+    flex-wrap: wrap;
+
+    padding: 0 15px;
+    margin-top: 5px;
+    background: #d9d9d9;
+
+    /* background: #f5f5f5; */
+}
+
+.category-link {
+    flex: 1 0 16.666%; /* Changed to 16.666% for 6 columns */
+    padding: 8px 10px;
+    color: black;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+}
+
+.red-bg {
+    background-color: #ba0000;
+    color: white;
+}
+
+.gray-bg {
+    background-color: #e8e8e8;
+}
+
+.category-link:hover {
+    color: #ba0000;
+    text-decoration: none;
+}
+.category-link:active {
+    color: black; /* Temporary color during click */
+    text-decoration: none;
+}
+.category-link.visited {
+    background-color: #ba0000; /* Custom "visited" color */
+    color: #fff;
+    text-decoration: none;
+}
+/* Changed to target every 6th item */
+.category-link:nth-child(6n) {
+    border-right: none;
+}
+
+.scroll-wrapper {
+    display: flex;
+    flex-direction: row; /* Arrange items horizontally */
+    align-items: center;
+    justify-content: center; /* Center the content horizontally */
+    gap: 10px; /* Space between buttons and the list */
+    position: relative; /* Ensure proper alignment */
+}
+
+.categories-list {
+    display: flex;
+    flex-direction: column; /* Keep list items vertical */
+    overflow-y: auto; /* Allow vertical scrolling */
+    max-height: 200px; /* Adjust as needed */
+    padding: 20px;
+    width: 1500px; /* Adjust width as needed */
+    scroll-behavior: smooth; /* Smooth scrolling */
+    gap: 15px; /* Add space between list items */
+}
+
+.category-link:hover {
+    background-color: #d9d9d9;
+    cursor: pointer;
+}
+
+.scroll-btn {
+    width: 30px; /* Button size */
+    height: 30px; /* Button size */
+    font-size: 20px;
+    color: white;
+    border: none;
+    border-radius: 50%; /* Circular shape */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: #18799c;
+    transition: background-color 0.3s, opacity 0.3s; /* Smooth transition for hover effect */
+}
+
+.scroll-btn:hover {
+    background-color: white; /* Transparent background on hover */
+    opacity: 0.7; /* Slight opacity change for hover effect */
+    color: #18799c;
+}
+
+.scroll-btn i {
+    font-size: 24px; /* Arrow icon size */
+}
+
+#scrollLeft {
+    margin-left: 5px;
+}
+#scrollRight {
+    margin-right: 5px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1200px) {
+    .category-link {
+        flex: 1 0 20%; /* 5 columns */
+    }
+    .category-link:nth-child(6n) {
+        border-right: 1px solid #ddd;
+    }
+    .category-link:nth-child(5n) {
+        border-right: none;
+    }
+    .view-btn {
+        margin-left: 60px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .category-link {
+        flex: 1 0 25%; /* 4 columns */
+    }
+    .category-link:nth-child(5n) {
+        border-right: 1px solid #ddd;
+    }
+    .category-link:nth-child(4n) {
+        border-right: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .category-link {
+        flex: 1 0 33.333%; /* 3 columns */
+    }
+    .category-link:nth-child(4n) {
+        border-right: 1px solid #ddd;
+    }
+    .category-link:nth-child(3n) {
+        border-right: none;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .category-link {
+        flex: 1 0 50%; /* 2 columns */
+    }
+    .category-link:nth-child(3n) {
+        border-right: 1px solid #ddd;
+    }
+    .category-link:nth-child(2n) {
+        border-right: none;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .category-link {
+        flex: 1 0 100%; /* 1 column */
+        border-right: none;
+    }
+}
+/* Mobile-Responsive Styles */
+@media (max-width: 768px) {
+    .feedback-btn {
+        margin-left: 0; /* Center the button on smaller screens */
+        width: 100%; /* Make the button take full width */
+    }
+
+    .job-listings {
+        flex-direction: column; /* Stack job listings vertically */
+    }
+
+    .job-card {
+        width: 100%; /* Full width on smaller screens */
+        margin-bottom: 20px; /* Add spacing between cards */
+    }
+
+    .filters {
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .job-listingsss {
+        flex-direction: column;
+    }
+
+    .categories-list {
+        grid-template-columns: repeat(2, 1fr); /* 2 items per row */
+    }
+}
+
+@media (max-width: 480px) {
+    .job-listings {
+        gap: 20px;
+    }
+
+    .filters input,
+    .filters select {
+        width: 80%; /* Full width on smaller screens */
+        margin: 5px 0;
+        margin-left: 20px;
+    }
+
+    .category-link {
+        font-size: 14px;
+        padding: 6px;
+    }
+
+    .job-card {
+        padding: 15px;
+        margin-left: -10px;
+    }
+}
+.ads-banner {
+    width: 100%; /* Use 100% width for responsiveness */
+    max-width: 1800px; /* Add a maximum width to maintain structure */
+    height: 200px;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: auto; /* Center-align horizontally */
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+}
+.ads-banner img {
+    width: 100%; /* Image scales to fit container */
+    max-width: 80%; /* Restrict to a percentage of the parent width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+    .ads-banner {
+        height: auto; /* Adjust height for smaller screens */
+        margin-left: 0; /* Remove negative margin for mobile */
+        padding: 0 10px; /* Add padding for spacing */
+    }
+    .ads-banner img {
+        max-width: 100%; /* Use full width on smaller screens */
+        height: auto; /* Maintain aspect ratio */
+    }
+}
+
+/* Responsive Grid for Job Listings */
+@media (max-width: 1024px) {
+    .job-listing {
+        flex: 1 1 calc(50% - 20px); /* 2 columns */
+    }
+}
+
+@media (max-width: 768px) {
+    .job-listing {
+        flex: 1 1 100%; /* Full width on smaller screens */
+    }
+
+    .feedback-btn2 {
+        margin-left: 0; /* Center the button */
+    }
+}
