@@ -1,0 +1,455 @@
+/* Unique Header Styles */
+.unique-header {
+    display: flex;
+
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    border-bottom: 3px solid #cccbcb;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Unique Logo Styles */
+.unique-header .logo img {
+    max-width: 150px;
+    height: auto;
+}
+
+/* Unique Navigation Links */
+.unique-nav-links {
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.post-vacancy {
+    background-color: #069533;
+    color: #fff;
+    padding: 7px; /* Increased padding for better click area */
+    border-radius: 5px; /* Slightly more rounded corners */
+    font-size: 16px; /* Increased font size for better readability */
+    text-decoration: none;
+    margin-left: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease,
+        box-shadow 0.2s ease;
+    display: inline-block; /* Ensures proper block-level behavior for a button */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+}
+
+.post-vacancy:hover {
+    background-color: #048c2d; /* Slightly darker green on hover */
+    transform: translateY(-2px); /* Adds a lift effect */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Enhances the shadow on hover */
+}
+
+.post-vacancy:active {
+    transform: translateY(0); /* Removes the lift effect */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Returns to normal shadow */
+    background-color: #037b28; /* Slightly darker green for active state */
+}
+
+.feedback-btn {
+    background-color: #f6fa08;
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 14px;
+    text-decoration: none;
+    margin-left: 10px;
+    transition: background-color 0.3s ease-in-out;
+}
+.unique-nav-links a {
+    text-decoration: none;
+    color: #1267e7;
+    font-weight: bold;
+}
+
+/* .unique-nav-links a:hover {
+    color: #e10707;
+    text-decoration: none;
+} */
+
+/* Unique Search Bar Styles */
+.unique-search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.unique-search-bar input {
+    padding: 5px;
+    border: 1px solid #069533;
+    border-radius: 3px;
+    margin-right: 5px;
+    width: 150px; /* Initial width */
+    transition: width 0.3s ease-in-out; /* Smooth transition for width change */
+}
+
+.unique-search-bar input:focus {
+    width: 250px; /* Expanded width on focus */
+    border-color: #0a5d04;
+    box-shadow: 0 0 8px rgba(10, 93, 4, 0.3); /* Optional: Add a glow effect on focus */
+}
+
+.unique-search-bar input:hover {
+    border: 1px solid #0a5d04;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+.unique-search-bar button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    color: white;
+}
+
+/* Unique Auth Buttons */
+.unique-auth-buttons button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.unique-auth-buttons .login-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.unique-auth-buttons .signup-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.unique-auth-buttons .login-btn:hover,
+.unique-auth-buttons .signup-btn:hover {
+    opacity: 0.8;
+}
+
+/* Profile Dropdown Styles */
+.profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.profile-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 1;
+    width: 200px;
+    right: 0; /* Align dropdown to the right */
+}
+
+.profile-dropdown-content a {
+    color: black;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.profile-dropdown:hover .profile-dropdown-content {
+    display: block;
+}
+
+/* Popup Box Styles */
+.popup-box {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.popup-content h3 {
+    color: blue;
+}
+
+.popup-image {
+    max-width: 50%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Close Button Styles */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Search Bar Button Hover Effect */
+.animated-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 55px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.animated-button:hover {
+    transform: scale(1.1);
+    background-color: #d80606;
+}
+
+/* Menu and Button Styles */
+.menu a {
+    margin: 0 10px;
+    text-decoration: none;
+}
+.menu {
+    margin-left: auto; /* Push menu to the left */
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between items */
+}
+.signup-btn {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: black;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.signup-btn:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+.login-btn {
+    padding: 8px 15px;
+    background-color: green;
+    color: black;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.login-btn:hover {
+    background-color: #185203;
+    color: white;
+}
+/* Responsive Styles for Mobile Devices */
+@media (max-width: 768px) {
+    .unique-header {
+        flex-direction: column;
+        align-items: flex-start; /* Aligns items to the left */
+    }
+
+    .unique-nav-links {
+        flex-direction: column;
+        gap: 10px; /* Adds spacing for stacked links */
+    }
+
+    .post-vacancy {
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+
+    .unique-search-bar {
+        flex-direction: column;
+        width: 100%; /* Ensures full-width on small screens */
+    }
+
+    .unique-search-bar input {
+        margin: 0;
+        width: 100%; /* Stretches across the screen */
+    }
+
+    .unique-auth-buttons {
+        flex-direction: column; /* Stacks buttons vertically */
+        width: 100%;
+    }
+
+    .unique-auth-buttons button {
+        margin: 5px 0; /* Adds spacing between buttons */
+        width: 100%; /* Makes buttons span the full width */
+    }
+
+    .profile-dropdown-content {
+        right: auto; /* Ensures dropdown is properly aligned on mobile */
+        width: 100%; /* Full width for better usability */
+    }
+}
+
+@media (max-width: 480px) {
+    .unique-header .logo img {
+        max-width: 100px; /* Further reduce logo size */
+    }
+
+    .unique-nav-links {
+        gap: 5px;
+    }
+
+    .post-vacancy {
+        font-size: 10px;
+        padding: 5px 8px;
+    }
+
+    .feedback-btn {
+        font-size: 10px;
+    }
+
+    .unique-search-bar button {
+        font-size: 12px;
+        padding: 5px;
+    }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .unique-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .unique-nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background-color: #ffffff;
+        padding: 10px 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+    }
+
+    .unique-nav-links.show {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .unique-auth-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .unique-auth-buttons button {
+        margin: 10px 0;
+        width: 100%;
+    }
+
+    .profile-dropdown-content {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .unique-header .logo img {
+        max-width: 100px;
+    }
+
+    .unique-nav-links {
+        gap: 5px;
+    }
+
+    .unique-auth-buttons button {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .post-vacancy {
+        font-size: 12px;
+        padding: 5px 8px;
+    }
+
+    .feedback-btn {
+        font-size: 10px;
+    }
+
+    .unique-search-bar {
+        display: none; /* Optional: Hide on very small screens */
+    }
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .popup-content {
+        max-width: 90%; /* Take most of the screen width */
+        padding: 15px; /* Reduced padding for smaller screens */
+    }
+
+    .popup-content h3 {
+        font-size: 18px; /* Slightly smaller font size */
+    }
+
+    .popup-image {
+        max-width: 70%; /* Further reduction for better fit */
+    }
+
+    .close-btn {
+        font-size: 18px; /* Smaller close button for mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .popup-content {
+        max-width: 65%; /* Take almost the full width of the screen */
+        padding: 10px; /* Minimized padding */
+    }
+
+    .popup-content h3 {
+        font-size: 16px; /* Smaller font for very small screens */
+    }
+
+    .popup-image {
+        max-width: 60%; /* Reduce image width further */
+    }
+
+    .close-btn {
+        font-size: 16px; /* Smaller close button */
+    }
+}
