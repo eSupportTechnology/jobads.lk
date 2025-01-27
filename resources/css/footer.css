@@ -207,3 +207,52 @@
 .footer-section1 a:hover::after {
     width: 100%;
 }
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .table-container a {
+        font-size: 10px; /* Reduce font size for smaller screens */
+    }
+
+    .table-container td {
+        font-size: 10px; /* Adjust table text size */
+    }
+
+    .footer-section1 {
+        margin: 5px; /* Reduce margin for smaller screens */
+        min-width: 150px; /* Adjust minimum width */
+    }
+
+    .footer-section1 a {
+        font-size: 14px; /* Slightly increase clickable link size for better usability */
+    }
+
+    .footer-section1 a::after {
+        bottom: -1px; /* Adjust underline position */
+        height: 1px; /* Make underline thinner */
+    }
+}
+
+@media (max-width: 480px) {
+    .table-container a {
+        font-size: 9px; /* Further reduce font size for very small screens */
+    }
+
+    .table-container td {
+        font-size: 9px; /* Adjust table text size */
+    }
+
+    .footer-section1 {
+        margin: 3px; /* Reduce margin even further */
+        min-width: 120px; /* Smaller minimum width for compact layout */
+    }
+
+    .footer-section1 a {
+        font-size: 12px; /* Keep links readable on small screens */
+    }
+
+    .footer-section1 a::after {
+        bottom: -0.5px; /* Adjust underline for smaller sizes */
+        height: 1px; /* Thinner underline */
+    }
+}
