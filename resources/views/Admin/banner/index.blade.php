@@ -122,6 +122,7 @@
                                             <th>Details</th>
                                             <th>Stats</th>
                                             <th>Status</th>
+                                            <th>Update</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -133,7 +134,7 @@
                                                 <td>
                                                     <div class="d-flex flex-column gap-1">
                                                         <small
-                                                            class="text-muted">{{ $banner->category ? $banner->category->name : 'N/A' }}</small>
+                                                            class="text-muted">{{ $banner->category ? $banner->category->name : '' }}</small>
                                                         <small class="text-muted">{{ ucfirst($banner->placement) }}</small>
                                                         <button type="button" class="btn btn-view mt-1"
                                                             data-bs-toggle="modal"
@@ -193,6 +194,18 @@
                                                         <button type="submit"
                                                             class="btn btn-primary btn-sm">Update</button>
                                                     </form>
+                                                    
+
+                                                </td>
+                                                <td>
+                                                <form action="{{ route('banners.destroy', $banner->id) }}" method="POST" class="d-inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm " title="Delete Banner" 
+                                                            onclick="return confirm('Are you sure you want to delete this banner?')">
+                                                            Delete
+                                                        </button>
+                                                    </form>
                                                 </td>
                                             </tr>
 
@@ -238,7 +251,7 @@
                                                                             <span
                                                                                 class="banner-details-label">Package</span>
                                                                             <span
-                                                                                class="banner-details-value">{{ $banner->package->name }}</span>
+                                                                                class="banner-details-value">{{ $banner->package->duration }}</span>
                                                                         </li>
                                                                         <li>
                                                                             <span class="banner-details-label">Total

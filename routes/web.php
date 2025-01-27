@@ -23,6 +23,7 @@ use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CVController;
 use App\Http\Controllers\EducationController;
+use App\Http\Controllers\EmpBannerController;
 use App\Http\Controllers\EmployerAuthController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FeedbackController;
@@ -852,7 +853,25 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
         ->name('admin.banners.update-status');
 
     // Remove the specified banner from storage
-    Route::delete('/banners/{banner}', [BannerController::class, 'destroy'])->name('banners.destroy');
+    Route::delete('/banners/{id}', [BannerController::class, 'destroy'])->name('banners.destroy');
+});
+
+Route::middleware('auth:employer')->group(function () {
+    Route::get('emp/banners', [EmpBannerController::class, 'index'])->name('empbanners.index');
+
+    // Show the form for creating a new banner
+    Route::get('emp/banners/create', [EmpBannerController::class, 'create'])->name('empbanners.create');
+
+    // Store a newly created banner in storage
+    Route::post('emp/banners', [EmpBannerController::class, 'store'])->name('empbanners.store');
+
+    // Show the form for editing the specified banner
+    Route::get('emp/banners/{banner}/edit', [EmpBannerController::class, 'edit'])->name('empbanners.edit');
+
+    // Update the specified banner in storage
+    Route::put('emp/banners/{banner}', [EmpBannerController::class, 'update'])->name('empbanners.update');
+      // Remove the specified banner from storage
+      Route::delete('emp/banners/{banner}', [EmpBannerController::class, 'destroy'])->name('empbanners.destroy');
 });
 
 Route::middleware(['admin'])->group(function () {
