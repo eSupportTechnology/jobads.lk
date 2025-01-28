@@ -14,7 +14,7 @@ class PackageContactController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'email' => 'required|email|unique:posts,email',
+            'email' => 'required|email|unique:package_contacts,email',
             'contact' => 'required',
             'description_one' => 'required',
             'description_two' => 'required',
@@ -46,7 +46,7 @@ class PackageContactController extends Controller
         $post = PackageContact::findOrFail($id);
 
         $request->validate([
-            'email' => 'required|email|unique:posts,email,' . $post->id,
+            'email' => 'required|email|unique:package_contacts,email,' . $post->id,
             'contact' => 'required',
             'description_one' => 'required',
             'description_two' => 'required',
@@ -54,7 +54,7 @@ class PackageContactController extends Controller
 
         $post->update($request->all());
 
-        return response()->json(['message' => 'Post updated successfully!', 'post' => $post]);
+        return redirect()->back()->with('success', 'updated successfully.');
     }
 
     // Delete a specific post
@@ -63,6 +63,6 @@ class PackageContactController extends Controller
         $post = PackageContact::findOrFail($id);
         $post->delete();
 
-        return response()->json(['message' => 'Post deleted successfully!']);
+        return redirect()->back()->with('success', 'Deleted successfully.');
     }
 }
