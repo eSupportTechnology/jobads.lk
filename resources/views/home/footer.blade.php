@@ -1,50 +1,51 @@
 <footer class="main-footer">
-    <div class="footer-content">
-        <div class="footer-section">
-            <h3>About Us</h3>
-            <p>
-                We are a leading job portal connecting talented individuals with top employers worldwide.
-                Your career journey starts here.
+    <div class="footer-content" style="display: flex; justify-content: space-between; gap: 30px; max-width: 1200px; margin: 0 auto;">
+        <div class="footer-section" style="flex: 1;">
+            <h3 style="font-size: 22px; font-weight: bold; ">About Us</h3>
+            <p style="font-size: 17px; line-height: 1.6;">
+                We are a leading job portal connecting talented individuals with top employers worldwide. Your career journey starts here.
             </p>
         </div>
 
-
-
-        <div class="footer-section">
-            <h3>Quick Links</h3>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="{{ route('faqs.home') }}">FAQ</a></li>
-                <li><a href="privacy">Privacy policy</a></li>
-                <li><a href="{{ route('terms.index') }}">T & C</a></li>
-                <li><a href="feedback">Add Feedback</a></li>
-                <li><a href="{{ route('about-us.index') }}">About Us</a></li>
+        <div class="footer-section" style="flex: 1;">
+            <h3 style="font-size: 22px; font-weight: bold; ">Quick Links</h3>
+            <ul style="padding-left: 20px; font-size: 17px; line-height: 1.6;">
+                <li><a href="/" style=" text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='white'">Home</a></li>
+                <li><a href="{{ route('faqs.home') }}" style=" text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='white'" >FAQ</a></li>
+                <li><a href="privacy" style=" text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='white'" >Privacy policy</a></li>
+                <li><a href="{{ route('terms.index') }}" style=" text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='white'">T & C</a></li>
+                <li><a href="feedback" style=" text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='white'">Add Feedback</a></li>
+                <li><a href="{{ route('about-us.index') }}" style=" text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='white'">About Us</a></li>
             </ul>
         </div>
-        @foreach ($contacts as $contact)
-            <div class="footer-section1">
-                <h3>Contact</h3>
-                <ul>
-                    <p>Phone: {{ $contact->phone }}</p>
 
-                    <li>
-                        <p>Email: <a href="mailto:{{ $contact->email }}">{{ $contact->email }}</a></p>
-                    </li>
-                    <li><a href="tel :{{ $contact->phone }}">
-                            <p>Phone: {{ $contact->phone }}</p>
-                        </a></li>
-                    <li><a href="https://www.google.com/maps/place/{{ $contact->address }}" target="_blank"
-                            rel="noopener noreferrer">
-                            <p>Address: {{ $contact->address }}</p>
-                        </a></li>
-                </ul>
-            </div>
+        @foreach ($contacts as $contact)
+        <div class="footer-section1" style="flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center;">
+            <h3 style="font-size: 22px; font-weight: bold; margin-bottom: 20px;">Contact</h3>
+            <ul style="font-size: 17px; line-height: 1.6; list-style-type: none; padding-left: 0; text-align: center;">
+                <li style="display: flex; align-items: center; margin-bottom: 10px; justify-content: center;">
+                    <i class="fa fa-phone" style="margin-right: 10px;"></i>
+                    <a href="tel:{{ $contact->phone }}" style="text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#0897ba'">Phone: {{ $contact->phone }}</a>
+                </li>
+                <li style="display: flex; align-items: center; margin-bottom: 10px; justify-content: center;">
+                    <i class="fa fa-envelope" style="margin-right: 10px;"></i>
+                    <a href="mailto:{{ $contact->email }}" style="text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#0897ba'">Email: {{ $contact->email }}</a>
+                </li>
+                <li style="display: flex; align-items: center; margin-bottom: 10px; justify-content: center;">
+                    <i class="fa fa-map-marker" style="margin-right: 10px;"></i>
+                    <a href="https://www.google.com/maps/place/{{ $contact->address }}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#0897ba'">Address: {{ $contact->address }}</a>
+                </li>
+            </ul>
+        </div>
         @endforeach
+
     </div>
-    <div class="footer-bottom">
-        <p>&copy; 2024 Job Portal. All Rights Reserved.</p>
+
+    <div class="footer-bottom" >
+        <p style="font-size: 16px; color: #fff;">&copy; 2024 Job Portal. All Rights Reserved.</p>
     </div>
 </footer>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const mainCategoryLinks = document.querySelectorAll('.main-category');
