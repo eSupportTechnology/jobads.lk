@@ -16,10 +16,14 @@ return new class extends Migration
                 ->comment('Stores the reason for rejection if banner is rejected');
 
             $table->foreignId('admin_id')->nullable()->after('rejection_reason')
-                ->constrained('users')
+                ->constrained('admins')
                 ->nullOnDelete()
                 ->comment('ID of the admin who last updated the banner status');
 
+            $table->foreignId('employer_id')->nullable()->after('package_id')
+                ->constrained('employers')
+                ->nullOnDelete()
+                ->comment('ID of the employers');
         });
     }
 

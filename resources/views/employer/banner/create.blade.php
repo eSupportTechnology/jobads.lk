@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('layouts.employer.master')
 
 @section('title', 'Create Banner')
 
@@ -89,20 +89,10 @@
                         <h5>Create Banner</h5>
                     </div>
                     <div class="card-body">
-                        <form id="bannerForm" action="{{ route('banners.store') }}" method="POST"
+                        <form id="bannerForm" action="{{ route('empbanners.store') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
 
-                            <div class="mb-3">
-                                <label for="employer_id_0" class="form-label">Employer</label>
-                                <select name="employer_id" id="employer_id" class="form-control"
-                                    required>
-                                    <option value="">Select an employer</option>
-                                    @foreach ($employers as $employer)
-                                        <option value="{{ $employer->id }}">{{ $employer->company_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
 
                             <div class="mb-3">
                                 <label for="package_id" class="form-label">Package</label>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\Banner;
 use App\Models\Category;
 use App\Models\ContactUs;
 use App\Models\Country;
@@ -258,7 +259,16 @@ class JobPostingController extends Controller
         $contacts = ContactUs::all();
         $countries = Country::all();
 
-        return view('home.home', compact('categories', 'jobs', 'contacts', 'countries'));
+        $now = Carbon::now();
+
+        // Fetch banners where status is 'published' and duration is valid
+        $banners = Banner::join('banner_packages', 'banners.package_id', '=', 'banner_packages.id')
+        ->where('banners.status', 'published')
+        ->whereRaw('DATE_ADD(banners.updated_at, INTERVAL banner_packages.duration DAY) >= ?', [$now])
+        ->select('banners.*', 'banner_packages.duration')
+        ->get();
+
+        return view('home.home', compact('categories', 'jobs', 'contacts', 'countries','banners'));
     }
     public function toggleActiveStatus($id)
     {

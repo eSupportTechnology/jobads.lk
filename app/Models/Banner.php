@@ -20,7 +20,10 @@ class Banner extends Model
         'package_id',
         'payment_method',
         'placement',
+        'admin_id',
+        'employer_id',
         'status',
+
     ];
 
     /**
@@ -37,5 +40,10 @@ class Banner extends Model
     public function package()
     {
         return $this->belongsTo(BannerPackage::class, 'package_id');
+    }
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class,'admin_id');
     }
 }
