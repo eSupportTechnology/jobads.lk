@@ -54,6 +54,7 @@
             object-fit: contain;
             /* Adjusts how the image fits within the container */
         }
+        
     </style>
 </head>
 
@@ -62,24 +63,64 @@
 
     <!-- Categories Section -->
     <section class="categories-container">
-        <div class="categories-header">
-            <a href="/login" class="jobseeker-btn">JOBSEEKER LOGIN</a>
-            <a href="{{ route('feedback.home') }}" class=" feedback-btn2">Feedback</a>
-            <a href="{{ route('employer.login') }}" class=" employer-btn">EMPLOYER LOGIN</a>
+    <div class="categories-header" style="background: linear-gradient(to bottom, #28adce, #18799c);justify-content: flex-end; gap: 15px;">
+        <a href="{{ route('login') }}" 
+        class="category-btn" 
+        style="text-decoration: none; padding: 10px 20px; border-radius: 5px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; 
+         background-color: #a4d8e6; color: black; font-weight:600"
+        onmouseover=" this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 24px rgba(0, 0, 0, 0.3)'; this.style.backgroundColor='#6c9dbd';" 
+        onmouseout=" this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.2)'; this.style.backgroundColor='#a4d8e6';">
+            JOBSEEKER LOGIN
+        </a>
+
+        <a href="{{ route('feedback.home') }}" 
+        class="category-btn" 
+        style="text-decoration: none; padding: 10px 20px; border-radius: 5px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+        transition: all 0.3s ease;  background-color: #a4d8e6; color: black; font-weight:600"
+        onmouseover=" this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 24px rgba(0, 0, 0, 0.3)'; this.style.backgroundColor='#6c9dbd';" 
+        onmouseout=" this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.2)'; this.style.backgroundColor='#a4d8e6';">
+            Feedback
+        </a>
+
+        <a href="{{ route('employer.login') }}" 
+        class="category-btn" 
+        style="text-decoration: none; padding: 10px 20px; border-radius: 5px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+         transition: all 0.3s ease;  background-color: #a4d8e6; color: black; font-weight:600"
+        onmouseover=" this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 24px rgba(0, 0, 0, 0.3)'; this.style.backgroundColor='#6c9dbd';" 
+        onmouseout=" this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.2)'; this.style.backgroundColor='#a4d8e6';">
+            EMPLOYER LOGIN
+        </a>
+    </div>
+</section>
+
+
+
+        <div class="scroll-wrapper" >
+          
+        <button class="scroll-btn left-scroll" id="scrollLeft">
+            <i class="fa fa-chevron-left"></i>
+        </button>
+
+            
+            <div class="categories-list" id="categoriesList" 
+                style="padding: 20px;    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); border-radius:15px">
+                @foreach ($categories as $category)
+                    <a href="javascript:void(0);" data-category-id="{{ $category->id }}" class="category-link"
+                        style="text-decoration: none; background-color: #f8f9fa; padding: 10px 20px; border-radius: 5px; width:265px;
+                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); font-size: 16px; transition: all 0.3s ease; white-space: nowrap;"
+                        onmouseover="this.style.backgroundColor='#1267e7'; this.style.color='white'; this.style.transform='scale(1.05)';"
+                        onmouseout="this.style.backgroundColor='#f8f9fa'; this.style.color='black'; this.style.transform='scale(1)';">
+                        {{ $category->name }}
+                    </a>
+                @endforeach
+            </div>
+
+            <button class="scroll-btn right-scroll" id="scrollRight">
+                <i class="fa fa-chevron-right"></i>
+            </button>
 
         </div>
-        <div class="scroll-wrapper">
-            <button class="scroll-btn left-scroll" id="scrollLeft">
-                < </button>
-                    <div class="categories-list" id="categoriesList">
-                        @foreach ($categories as $category)
-                        <a href="javascript:void(0);" data-category-id="{{ $category->id }}" class="category-link">
-                            {{ $category->name }}
-                        </a>
-                        @endforeach
-                    </div>
-                    <button class="scroll-btn right-scroll" id="scrollRight">></button>
-        </div>
+
     </section>
     <!-- <div class="ads-banner">
         <img src="{{ asset('assets/images/ads.jpg') }}" alt="">
@@ -111,7 +152,7 @@
 
 
     <!-- Filters Section -->
-    <section class="filters">
+    <section class="filters"  style="background-color: rgba(0, 0, 0, 0.1); padding:15px">
         <p class="jobtitle">
             Available Jobs: {{ $jobs->count() }} new hot jobs
         </p>
@@ -124,7 +165,7 @@
             <select name="country" class="dropdown">
                 <option value="">Select Country</option>
                 @foreach ($countries as $country)
-                <option value="{{ $country->country }}"
+                <option value="{{ $country->country }}" style="color:black"
                     {{ request('country') == $country->country ? 'selected' : '' }}>
                     {{ $country->country }}
                 </option>
@@ -140,10 +181,8 @@
         <hr>
     </section>
 
-
-
     <!-- Job Listings Section -->
-    <section id="job-listings" class="job-listings-container">
+    <section id="job-listings" class="job-listings-container" >
         <h3 class="job-listings-title">Available Jobs</h3>
         <div class="job-grid">
             @if ($jobs->isEmpty())
@@ -151,19 +190,19 @@
             @else
             @foreach ($jobs as $job)
             <div class="job-card">
-
-                <a href="{{ route('job.details', $job->id) }}" class="job-title">
+                <a href="{{ route('job.details', $job->id) }}" class="job-title" style="font-size:20px; margin-bottom: 0px;">
                     {{ $job->title }}
                 </a>
-                <p><strong class="company-name">{{ $job->employer->company_name }}</strong></p>
-                <p class="location">{{ $job->location }}</p>
-                <p class="closing-date">{{ $job->closing_date }}</p>
+                <p class="company-name" style="font-size: 15px;  margin-top: 2px; margin-bottom: 0px; font-weight:600">{{ $job->employer->company_name }}</p>
+                <p class="location" style="font-size: 15px;margin-bottom: 0px; ">{{ $job->location }}</p>
+                <p style="font-size: 14px; color:red; margin-top: 3px; line-height: 1.2;">{{ $job->closing_date }}</p>
             </div>
+
             @endforeach
             @endif
         </div>
-
     </section>
+
 
 
 
@@ -266,6 +305,40 @@
         });
     </script>
 
+<script>
+    const categoriesList = document.getElementById('categoriesList'); // The list container
+    let isMouseDown = false;
+    let startX;
+    let scrollLeft;
+
+    // Mouse down event
+    categoriesList.addEventListener('mousedown', (e) => {
+        isMouseDown = true;
+        startX = e.pageX - categoriesList.offsetLeft;
+        scrollLeft = categoriesList.scrollLeft;
+        categoriesList.style.cursor = 'grabbing'; // Change cursor on drag
+    });
+
+    // Mouse leave and up events
+    categoriesList.addEventListener('mouseleave', () => {
+        isMouseDown = false;
+        categoriesList.style.cursor = 'grab'; // Revert cursor back
+    });
+
+    categoriesList.addEventListener('mouseup', () => {
+        isMouseDown = false;
+        categoriesList.style.cursor = 'grab'; // Revert cursor back
+    });
+
+    // Mouse move event for dragging
+    categoriesList.addEventListener('mousemove', (e) => {
+        if (!isMouseDown) return;  // Do nothing if mouse button is not pressed
+        e.preventDefault();  // Prevent text selection or other default actions
+        const x = e.pageX - categoriesList.offsetLeft; // Get current mouse position
+        const walk = (x - startX) * 2; // Calculate scroll amount, adjust multiplier for speed
+        categoriesList.scrollLeft = scrollLeft - walk; // Update scroll position of the container
+    });
+</script>
 
 
 </body>

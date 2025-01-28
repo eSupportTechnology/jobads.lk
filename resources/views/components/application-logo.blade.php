@@ -3,8 +3,7 @@
 @endphp
 
 @if ($contact && $contact->logo_img)
-<img class="img-fluid" style="width: 200px" src="https://jobads.ottesupport.xyz/storage/app/public/contactus/logo.png" alt="Application Logo">
-
+    <img src="{{ asset('Jobads.png') }}" alt="Application Logo"  class="img-fluid" style="max-height: 60px;">
 @else
-    <p>No logo available</p>
+    <img src="{{ asset('Jobads.png') }}" alt="Application Logo"  class="img-fluid" style="max-height: 60px;">
 @endif

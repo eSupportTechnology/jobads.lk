@@ -121,46 +121,78 @@
 </head>
 
 <body>
-    <header class="unique-header">
+<header class="unique-header" 
+        style=" border-bottom: 3px solid #cccbcb;  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);">
+
         <div class="logo">
             <a href="/">
-                <x-application-logo class="unique-logo" />
+                <img src="{{ asset('Jobads.png') }}" alt="Logo" class="unique-logo" style="max-height: 60px; margin-left: 20px;">
             </a>
+
         </div>
         <button class="menu-toggle" aria-label="Toggle Navigation">
             ☰
         </button>
-        <nav class="nav-links unique-nav-links">
-            <a href="{{ route('user.postvacancy') }} ">Post Your Vacancy</a>
-            <a href="{{ route('feedback.home') }}">Feedback</a>
-            <a href="/topemployees">Top Employers</a>
-            <a href="#" id="contact-us-btn">Contact Us</a>
+        <nav class="nav-links unique-nav-links" style="margin-left:45px;margin-top:15px">
+            <!-- "Post Your Vacancy" as a button -->
+            <a href="{{ route('user.postvacancy') }}" 
+            style="background: linear-gradient(to bottom, #28adce, #18799c); color: white;transition: color 0.3s ease, 
+            transform 0.3s ease; padding: 10px 10px; text-decoration: none; border-radius: 5px;"
+            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 10px rgba(0, 0, 0, 0.15)';"
+            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)';">
+            Post Your Vacancy
+            </a>
+
+          <!-- Other navigation links -->
+            <a href="{{ route('feedback.home') }}" 
+            style="text-decoration: none; color: black; font-size: 16px; transition: color 0.3s ease, transform 0.3s ease;" 
+            onmouseover="this.style.color='black'; this.style.transform='translateY(-2px)';" 
+            onmouseout="this.style.color='black'; this.style.transform='translateY(0)';">
+            Feedback
+            </a>
+            <a href="/topemployees" 
+            style="text-decoration: none;color: black;font-size: 16px;  transition: color 0.3s ease, transform 0.3s ease;" 
+            onmouseover="this.style.color='black'; this.style.transform='translateY(-2px)';" 
+            onmouseout="this.style.color='black'; this.style.transform='translateY(0)';">
+            Top Employers
+            </a>
+            <a href="#" id="contact-us-btn" 
+            style="text-decoration: none;color: black; font-size: 16px;  transition: color 0.3s ease, transform 0.3s ease;" 
+            onmouseover="this.style.color='black'; this.style.transform='translateY(-2px)';" 
+            onmouseout="this.style.color='black'; this.style.transform='translateY(0)';">
+            Contact Us
+            </a>
+
         </nav>
+
 
 
 
         </div>
         <div class="menu">
-            @auth
-                <!-- For authenticated users -->
-                <!-- <a href="{{ route('dashboard') }}">Dashboard</a> -->
-                <div class="profile-dropdown">
-                    <!-- Replace Button with Image -->
-                    <img src="/images/profileimage.png" alt="Profile Image" class="profile-image">
-                    <div class="profile-dropdown-content">
-                        <a href="{{ route('profile.edit') }}">My Profile</a>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-
-                            <x-dropdown-link :href="route('logout')"
-                                onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </x-dropdown-link>
-                        </form>
-                    </div>
+        @auth
+            <!-- For authenticated users -->
+            <div class="profile-dropdown">
+                <!-- Display First Letter of User's Name in a Circle -->
+                <div class="profile-letter-circle" style="width: 40px; height: 40px; border-radius: 50%; margin-right:30px; margin-top:10px;
+                background-color: #28adce; color: white; display: flex; align-items: center; justify-content: 
+                center; font-size: 18px; font-weight: bold;">
+                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                 </div>
-            @endauth
+                </span> <!-- Display user name -->
+                <div class="profile-dropdown-content">
+                    <a href="{{ route('profile.edit') }}">My Profile</a>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <x-dropdown-link :href="route('logout')"
+                            onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                            {{ __('Log Out') }}
+                        </x-dropdown-link>
+                    </form>
+                </div>
+            </div>
+        @endauth
 
             {{-- @guest
                 <!-- For guests -->

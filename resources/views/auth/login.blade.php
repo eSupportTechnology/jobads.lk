@@ -1,63 +1,85 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@extends('layouts.authentication.master')
+@section('title', 'Job Seeker Login')
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+@endsection
 
-        <style>
-            h1 {
-                text-align: center;
-                margin-bottom: 20px;
-                color: white;
-                font-size: 30px;
+@section('content')
+    <div class="container-fluid p-0">
+        <div class="row m-0">
+            <div class="col-12 p-0">
+                <div class="login-card">
+                    <div>
+                        <div class="text-center">
+                            <a class="logo" href="{{ route('home') }}">
+                                <x-application-logo />
+                            </a>
+                        </div>
+                        <div class="login-main">
+                            <form method="POST" action="{{ route('login') }}">
+                                @csrf
+                                <h4>Sign in to your Job Seeker Account</h4>
+                                <p>Enter your email & password to log in</p>
+
+                                <!-- Email Field -->
+                                <div class="form-group">
+                                    <label class="col-form-label">Email Address</label>
+                                        <input class="form-control" type="email" name="email" required
+                                        placeholder="example@gmail.com"/>
+                                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                </div>
+
+                                <!-- Password Field -->
+                                <div class="form-group">
+                                <label class="col-form-label">Password</label>
+                                <input class="form-control" type="password" name="password" required=""
+                                        placeholder="*********">
+                                    <div class="show-hide"><span class="show"> </span></div>
+                                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                </div>
+
+                           
+                                <!-- Remember Me and Forgot Password -->
+                                <div class="form-group mb-0">
+                                    <div class="checkbox p-0">
+                                        <input id="checkbox1" class="checkbox" type="checkbox" name="remember">
+                                        <label class="text-muted" for="checkbox1">Remember password</label>
+                                    </div>
+                                    <a class="link" href="{{ route('forget-password') }}">Forgot password?</a>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <button class="btn btn-primary btn-block mt-3" type="submit">Sign in</button>
+
+
+
+                                <!-- Create Account Link -->
+                                <p class="mt-4 mb-0">
+                                    Don't have an account?
+                                    <a class="ms-2" href="/register">Create Account</a>
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('script')
+    <script>
+        // Add functionality for the "Show" password toggle
+        document.querySelector('.show-hide .show').addEventListener('click', function() {
+            const passwordField = document.querySelector('input[name="password"]');
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                this.textContent = "Hide";
+            } else {
+                passwordField.type = "password";
+                this.textContent = "Show";
             }
-        </style>
-
-        <h1>Login</h1>
-
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required
-                autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox"
-                    class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
-                    name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-        <a href="/register" style="text-decoration: none ; color: blue  ">create account
-        </a>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-                    href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+        });
+    </script>
+@endsection
