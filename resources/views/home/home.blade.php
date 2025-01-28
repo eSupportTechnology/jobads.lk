@@ -64,7 +64,7 @@
     <section class="categories-container">
         <div class="categories-header">
             <a href="/login" class="jobseeker-btn">JOBSEEKER LOGIN</a>
-            <a href="{{ route('feedback.home') }}" class=" feedback-btn2">Feedback</a>
+            {{-- <a href="{{ route('feedback.home') }}" class=" feedback-btn2">Feedback</a> --}}
             <a href="{{ route('employer.login') }}" class=" employer-btn">EMPLOYER LOGIN</a>
 
         </div>
@@ -73,9 +73,9 @@
                 < </button>
                     <div class="categories-list" id="categoriesList">
                         @foreach ($categories as $category)
-                        <a href="javascript:void(0);" data-category-id="{{ $category->id }}" class="category-link">
-                            {{ $category->name }}
-                        </a>
+                            <a href="javascript:void(0);" data-category-id="{{ $category->id }}" class="category-link">
+                                {{ $category->name }}
+                            </a>
                         @endforeach
                     </div>
                     <button class="scroll-btn right-scroll" id="scrollRight">></button>
@@ -91,13 +91,13 @@
         <div class="swiper-container ads-banner">
             <div class="swiper-wrapper">
                 @forelse ($banners as $banner)
-                <div class="swiper-slide banner-item">
-                    <img src="{{ asset('storage/' . $banner->image) }}" alt="{{ $banner->title }}">
-                </div>
+                    <div class="swiper-slide banner-item">
+                        <img src="{{ asset('storage/' . $banner->image) }}" alt="{{ $banner->title }}">
+                    </div>
                 @empty
-                <div class="swiper-slide">
-                    <p>No banners available.</p>
-                </div>
+                    <div class="swiper-slide">
+                        <p>No banners available.</p>
+                    </div>
                 @endforelse
             </div>
             <!-- Add navigation buttons if needed -->
@@ -124,10 +124,10 @@
             <select name="country" class="dropdown">
                 <option value="">Select Country</option>
                 @foreach ($countries as $country)
-                <option value="{{ $country->country }}"
-                    {{ request('country') == $country->country ? 'selected' : '' }}>
-                    {{ $country->country }}
-                </option>
+                    <option value="{{ $country->country }}"
+                        {{ request('country') == $country->country ? 'selected' : '' }}>
+                        {{ $country->country }}
+                    </option>
                 @endforeach
             </select>
 
@@ -147,19 +147,19 @@
         <h3 class="job-listings-title">Available Jobs</h3>
         <div class="job-grid">
             @if ($jobs->isEmpty())
-            <p>No jobs found matching your criteria.</p>
+                <p>No jobs found matching your criteria.</p>
             @else
-            @foreach ($jobs as $job)
-            <div class="job-card">
+                @foreach ($jobs as $job)
+                    <div class="job-card">
 
-                <a href="{{ route('job.details', $job->id) }}" class="job-title">
-                    {{ $job->title }}
-                </a>
-                <p><strong class="company-name">{{ $job->employer->company_name }}</strong></p>
-                <p class="location">{{ $job->location }}</p>
-                <p class="closing-date">{{ $job->closing_date }}</p>
-            </div>
-            @endforeach
+                        <a href="{{ route('job.details', $job->id) }}" class="job-title">
+                            {{ $job->title }}
+                        </a>
+                        <p><strong class="company-name">{{ $job->employer->company_name }}</strong></p>
+                        <p class="location">{{ $job->location }}</p>
+                        <p class="closing-date">{{ $job->closing_date }}</p>
+                    </div>
+                @endforeach
             @endif
         </div>
 
@@ -226,25 +226,25 @@
 
 
     <!-- <script>
-    let currentAd = 0;
-    const ads = document.querySelectorAll('.ads-banner img'); // Select all ad images
-    const totalAds = ads.length;
+        let currentAd = 0;
+        const ads = document.querySelectorAll('.ads-banner img'); // Select all ad images
+        const totalAds = ads.length;
 
-    // Function to change the displayed ad
-    function showNextAd() {
-        // Hide the current ad
-        ads[currentAd].style.opacity = 0;
+        // Function to change the displayed ad
+        function showNextAd() {
+            // Hide the current ad
+            ads[currentAd].style.opacity = 0;
 
-        // Move to the next ad
-        currentAd = (currentAd + 1) % totalAds; // Loop back to the first ad
+            // Move to the next ad
+            currentAd = (currentAd + 1) % totalAds; // Loop back to the first ad
 
-        // Show the new ad
-        ads[currentAd].style.opacity = 1;
-    }
+            // Show the new ad
+            ads[currentAd].style.opacity = 1;
+        }
 
-    // Change the ad every 10 seconds
-    setInterval(showNextAd, 10000); // 10000 ms = 10 seconds
-</script> -->
+        // Change the ad every 10 seconds
+        setInterval(showNextAd, 10000); // 10000 ms = 10 seconds
+    </script> -->
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {

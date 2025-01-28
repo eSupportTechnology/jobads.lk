@@ -15,7 +15,7 @@ class EmployerAuthController extends Controller
     public function list()
     {
         $employers = Employer::all(); // Fetch all employers
-        return view('admin.employerlist', compact('employers')); // Pass to view
+        return view('Admin.employerlist', compact('employers')); // Pass to view
     }
     // Show the login form
     public function showLoginForm()

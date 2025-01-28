@@ -40,7 +40,7 @@ class JobPostingController extends Controller
             ->where('is_active', true)
             ->paginate(10); // Rejected jobs are displayed regardless of closing date
 
-        return view('admin.jobview', compact('jobPostings', 'pendingJobs', 'rejectedJobs'));
+        return view('Admin.jobview', compact('jobPostings', 'pendingJobs', 'rejectedJobs'));
     }
 
     public function topEmployers()
@@ -263,12 +263,12 @@ class JobPostingController extends Controller
 
         // Fetch banners where status is 'published' and duration is valid
         $banners = Banner::join('banner_packages', 'banners.package_id', '=', 'banner_packages.id')
-        ->where('banners.status', 'published')
-        ->whereRaw('DATE_ADD(banners.updated_at, INTERVAL banner_packages.duration DAY) >= ?', [$now])
-        ->select('banners.*', 'banner_packages.duration')
-        ->get();
+            ->where('banners.status', 'published')
+            ->whereRaw('DATE_ADD(banners.updated_at, INTERVAL banner_packages.duration DAY) >= ?', [$now])
+            ->select('banners.*', 'banner_packages.duration')
+            ->get();
 
-        return view('home.home', compact('categories', 'jobs', 'contacts', 'countries','banners'));
+        return view('home.home', compact('categories', 'jobs', 'contacts', 'countries', 'banners'));
     }
     public function toggleActiveStatus($id)
     {
@@ -289,7 +289,7 @@ class JobPostingController extends Controller
     public function show($id)
     {
         $job = JobPosting::with(['category', 'employer'])->findOrFail($id);
-        return view('admin.showonejob', compact('job'
+        return view('Admin.showonejob', compact('job'
         ));
     }
     public function showjob($id)
@@ -516,7 +516,7 @@ class JobPostingController extends Controller
                 ];
             });
 
-        return view('admin.report.application', compact(
+        return view('Admin.report.application', compact(
             'dailyApplications',
             'dailyUsers',
             'dailyApplicationsData',
