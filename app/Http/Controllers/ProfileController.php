@@ -37,7 +37,7 @@ class ProfileController extends Controller
         $educations = $user->jobEducations ?? collect();
         $contacts = ContactUs::all();
 
-        return view('user.jobseekerprofile.jobseekerprofile', compact('user', 'experiences', 'educations', 'contacts'));
+        return view('User.jobseekerprofile.jobseekerprofile', compact('user', 'experiences', 'educations', 'contacts'));
     }
     public function showpersonal(Request $request): View
     {
@@ -49,7 +49,7 @@ class ProfileController extends Controller
         $educations = $user->jobEducations ?? collect();
         $contacts = ContactUs::all();
 
-        return view('user.jobseekerprofile.personal', compact('user', 'experiences', 'educations', 'contacts'));
+        return view('User.jobseekerprofile.personal', compact('user', 'experiences', 'educations', 'contacts'));
     }
 
     public function update(ProfileUpdateRequest $request): RedirectResponse

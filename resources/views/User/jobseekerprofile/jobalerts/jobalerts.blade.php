@@ -8,11 +8,11 @@
 
 
     <link rel="stylesheet" href="{{ asset('css/jobalerts.css') }}">
-   
+
 </head>
 
 <body>
-    @include('user.jobseekerprofile.mainview.profilelayout')
+    @include('User.jobseekerprofile.mainview.profilelayout')
     <div class="jobalerts-container">
         <h2 class="jobalerts-title">
             Job Alert Preferences

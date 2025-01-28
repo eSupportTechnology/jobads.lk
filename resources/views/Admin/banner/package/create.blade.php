@@ -35,9 +35,10 @@
                                     <label class="form-label">Duration</label>
                                     <select name="duration" class="form-control @error('duration') is-invalid @enderror"
                                         required>
-                                        <option value="7">7 Days</option>
-                                        <option value="21">21 Days</option>
+                                        <option value="7days">7 Days</option>
+                                        <option value="21days">21 Days</option>
                                     </select>
+
                                     @error('duration')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

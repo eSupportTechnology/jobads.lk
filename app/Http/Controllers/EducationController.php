@@ -19,7 +19,7 @@ class EducationController extends Controller
         $educations = JobEducation::where('job_seeker_id', $user_id)->get();
         $contacts = ContactUs::all();
 
-        return view('user.jobseekerprofile.education', compact('educations', 'contacts'));
+        return view('User.jobseekerprofile.education', compact('educations', 'contacts'));
     }
 
     public function store(Request $request)

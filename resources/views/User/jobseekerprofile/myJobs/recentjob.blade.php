@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,12 +10,13 @@
     <link rel="stylesheet" href="{{ asset('css/header.css') }}">
     <link rel="stylesheet" href="{{ asset('css/profileview.css') }}">
     <link rel="stylesheet" href="{{ asset('css/myapplication.css') }}">
-   
+
 </head>
+
 <body>
-@include('user.jobseekerprofile.mainview.profilelayout')
-<div class="jobcontainer">
-<div class="jobsection">
+    @include('User.jobseekerprofile.mainview.profilelayout')
+    <div class="jobcontainer">
+        <div class="jobsection">
             <h2>Recent Vacancies</h2>
             <div class="jobfilter">
                 <label for="jobvacancy-filter">Recent Vacancies for:</label>
@@ -60,28 +62,32 @@
                         <td>Mon Dec 23 2024</td>
                         <td>Thu Jan 23 2025</td>
                         <td><a href="#">Full View</a></td>
-                    </tr> <tr>
+                    </tr>
+                    <tr>
                         <td style="background-color: blue;">1</td>
                         <td>0001303770</td>
                         <td>Senior Mechatronics Engineers <br> Data Management Systems (Pvt) Ltd</td>
                         <td>Mon Dec 23 2024</td>
                         <td>Thu Jan 23 2025</td>
                         <td><a href="#">Full View</a></td>
-                    </tr> <tr>
+                    </tr>
+                    <tr>
                         <td style="background-color: blue;">1</td>
                         <td>0001303770</td>
                         <td>Senior Mechatronics Engineers <br> Data Management Systems (Pvt) Ltd</td>
                         <td>Mon Dec 23 2024</td>
                         <td>Thu Jan 23 2025</td>
                         <td><a href="#">Full View</a></td>
-                    </tr> <tr>
+                    </tr>
+                    <tr>
                         <td style="background-color: blue;">1</td>
                         <td>0001303770</td>
                         <td>Senior Mechatronics Engineers <br> Data Management Systems (Pvt) Ltd</td>
                         <td>Mon Dec 23 2024</td>
                         <td>Thu Jan 23 2025</td>
                         <td><a href="#">Full View</a></td>
-                    </tr> <tr>
+                    </tr>
+                    <tr>
                         <td style="background-color: blue;">1</td>
                         <td>0001303770</td>
                         <td>Senior Mechatronics Engineers <br> Data Management Systems (Pvt) Ltd</td>
@@ -96,4 +102,5 @@
     </div>
     </div>
 </body>
+
 </html>

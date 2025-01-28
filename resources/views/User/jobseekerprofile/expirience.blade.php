@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <style>
-   
+
 </style>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,11 +12,11 @@
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('css/expirienceprofile.css') }}">
-   
+
 </head>
 
 <body>
-@include('user.jobseekerprofile.mainview.profilelayout')
+    @include('User.jobseekerprofile.mainview.profilelayout')
     <div class="experience-container">
         <h2 class="section-header">Professional Experience</h2>
 

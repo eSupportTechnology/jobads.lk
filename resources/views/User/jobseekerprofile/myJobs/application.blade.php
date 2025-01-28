@@ -10,12 +10,12 @@
     <link rel="stylesheet" href="{{ asset('css/header.css') }}">
     <link rel="stylesheet" href="{{ asset('css/profileview.css') }}">
     <link rel="stylesheet" href="{{ asset('css/myapplication.css') }}">
-   
+
 </head>
 
 <body>
 
-    @include('user.jobseekerprofile.mainview.profilelayout')
+    @include('User.jobseekerprofile.mainview.profilelayout')
     <div class="jobcontainer">
         <div class="jobsection">
             <h2>Recent Vacancies</h2>

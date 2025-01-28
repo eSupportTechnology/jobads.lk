@@ -68,39 +68,39 @@
                                     <tbody>
                                         @foreach ($banners as $banner)
                                             <tr>
-                                            <td>#{{ $banner->id }}</td>
+                                                <td>#{{ $banner->id }}</td>
                                                 <td>{{ $banner->title }}</td>
                                                 <td>
                                                     <div class="d-flex flex-column gap-1">
                                                         <small
                                                             class="text-muted">{{ $banner->category ? $banner->category->name : '' }}</small>
                                                         <small class="text-muted">{{ ucfirst($banner->placement) }}</small>
-                                                        
+
                                                     </div>
                                                 </td>
                                                 <td>{{ $banner->package->duration ?? 'N/A' }}</td>
                                                 <td>{{ $banner->admin->name ?? 'N/A' }}</td>
                                                 <td>
-                                                {{ $banner->status ?? 'N/A' }}
+                                                    {{ $banner->status ?? 'N/A' }}
                                                 </td>
-                                          
+
                                                 <td>
                                                     <div class="action-buttons">
-                                                       
-                                                    @if ($banner->status=='pending')
-                                                    <!-- Edit Button -->
-                                                        <a href="{{ route('empbanners.edit', $banner->id) }}"
-                                                            class="btn-action btn-edit" title="Edit Job">
-                                                            <i class="icon-pencil-alt"></i>
-                                                        </a>
-                                                    @else
-                                                    <a href="#" class="btn-action btn-edit disabled" title="Edit Job" tabindex="-1" aria-disabled="true">
-                                                        <i class="icon-pencil-alt"></i>
-                                                    </a>
 
-                                                    @endif
-                                                        
-                                                    
+                                                        @if ($banner->status == 'pending')
+                                                            <!-- Edit Button -->
+                                                            <a href="{{ route('empbanners.edit', $banner->id) }}"
+                                                                class="btn-action btn-edit" title="Edit Job">
+                                                                <i class="icon-pencil-alt"></i>
+                                                            </a>
+                                                        @else
+                                                            <a href="#" class="btn-action btn-edit disabled"
+                                                                title="Edit Job" tabindex="-1" aria-disabled="true">
+                                                                <i class="icon-pencil-alt"></i>
+                                                            </a>
+                                                        @endif
+
+
 
                                                         <!-- Delete Button -->
                                                         {{-- <form

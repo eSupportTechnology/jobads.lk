@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/profileview.css') }}">
     <link rel="stylesheet" href="{{ asset('css/education.css') }}">
     <link rel="stylesheet" href="{{ asset('css/myapplication.css') }}">
-   
+
 </head>
 
 <body>
@@ -66,7 +66,7 @@
 
     <!-- Component Content Section -->
     <div id="componentContainer">
-        @include('user.jobseekerprofile.jobseekerprofile')
+        @include('User.jobseekerprofile.jobseekerprofile')
 
     </div>
 

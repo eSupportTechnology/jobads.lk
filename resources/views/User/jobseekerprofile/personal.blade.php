@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('css/personalprofile.css') }}">
-  
+
 </head>
 
 <body>
-    @include('user.jobseekerprofile.mainview.profilelayout')
+    @include('User.jobseekerprofile.mainview.profilelayout')
 
     <div class="personalcontainer">
         <h1>Personal Details</h1>
