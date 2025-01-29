@@ -1,8 +1,3 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #f8f9fa; /* Light background */
-}
 
 .bannercontainer {
     border: 1px solid #409cf1;
@@ -46,4 +41,51 @@ a:hover {
 
 strong {
     color: #000; /* Strong tags for emphasis */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    body {
+        margin: 10px;
+    }
+
+    .bannercontainer {
+        margin: 10px;
+        padding: 10px;
+        max-width: 100%; /* Take full width of the screen */
+    }
+
+    .bannerheader {
+        font-size: 1em; /* Smaller font size for headers */
+        padding: 8px 10px;
+    }
+
+    .bannercontent {
+        padding: 10px;
+    }
+
+    .content p {
+        font-size: 0.9em; /* Slightly smaller text */
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .bannercontainer {
+        padding: 8px;
+        margin: 5px;
+    }
+
+    .bannerheader {
+        font-size: 0.9em; /* Smaller headers for very small screens */
+        padding: 5px 8px;
+    }
+
+    .bannercontent {
+        padding: 8px;
+    }
+
+    .content p {
+        font-size: 0.8em; /* Smaller text */
+    }
 }

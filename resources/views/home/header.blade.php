@@ -13,7 +13,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 20px;
+            padding: 20px 30px;
             background-color: #ffffff;
             border-bottom: 3px solid #cccbcb;
             position: sticky;
@@ -66,6 +66,7 @@
         .unique-nav-links {
             display: flex;
             gap: 20px;
+            margin-left:5%;
         }
 
         .unique-nav-links a {

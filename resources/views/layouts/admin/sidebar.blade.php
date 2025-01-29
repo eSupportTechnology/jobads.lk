@@ -1,7 +1,7 @@
 <div class="sidebar-wrapper" sidebar-layout="stroke-svg">
     <div>
         <div class="logo-wrapper"><a href="{{ route('index') }}">
-                <img src="{{ asset('assets/images/logo/logo1.png') }}" class="img-fluid " style="width: 90px;"
+                <img src="{{ asset('assets/images/logo/logo1.png') }}" class="img-fluid " style="width: 70px;"
                     alt="">
 
             </a>

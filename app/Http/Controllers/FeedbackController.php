@@ -79,7 +79,7 @@ class FeedbackController extends Controller
     public function manageFeedback()
     {
         $feedback = Feedback::all();
-        return view('admin.feedback.manage', compact('feedback'));
+        return view('Admin.feedback.manage', compact('feedback'));
     }
 
     public function destroy(Feedback $feedback)

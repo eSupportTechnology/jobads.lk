@@ -40,7 +40,7 @@ class JobPostingController extends Controller
             ->where('is_active', true)
             ->paginate(10); // Rejected jobs are displayed regardless of closing date
 
-        return view('admin.jobview', compact('jobPostings', 'pendingJobs', 'rejectedJobs'));
+        return view('Admin.jobview', compact('jobPostings', 'pendingJobs', 'rejectedJobs'));
     }
 
     public function topEmployers()
@@ -516,7 +516,7 @@ class JobPostingController extends Controller
                 ];
             });
 
-        return view('admin.report.application', compact(
+        return view('Admin.report.application', compact(
             'dailyApplications',
             'dailyUsers',
             'dailyApplicationsData',

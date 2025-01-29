@@ -272,6 +272,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/list', [AdminAuthController::class, 'adminList'])->name('admin.list');
 
     Route::get('/admin/employer-list', [EmployerAuthController::class, 'list'])->name('employer.list');
+
     Route::delete('/employer/delete/{id}', function ($id) {
         $employer = \App\Models\Employer::findOrFail($id);
         $employer->delete();
@@ -285,6 +286,8 @@ Route::middleware('admin')->group(function () {
 });
 
 Route::get('/contactus', [ContactUsController::class, 'index'])->name('contactus.index');
+
+
 Route::middleware('admin')->prefix('admin')->group(function () {
     // List all categories
     Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories.index');
@@ -306,6 +309,8 @@ Route::middleware('admin')->prefix('admin')->group(function () {
 
     // Job Posting admin side route
     Route::get('job_postings', [JobPostingController::class, 'index'])->name('job_postings.index');
+
+
     Route::patch('job_postings/{id}/status', [JobPostingController::class, 'updateStatus'])->name('job_postings.updateStatus');
 
     //
@@ -688,7 +693,8 @@ Route::get('/privacy', function () {
 Route::get('/postjob', function () {
     return view('user.postvacancy.postvacancy');
 })->name('user.postvacancy');
-Route::get('/postjob', [PackageContactController::class, 'index'])->name('user.postvacancy');
+
+Route::get('/postjob/new', [PackageContactController::class, 'index'])->name('user.postvacancy');
 
 Route::get('/postjob/topads', function () {
     return view('user.postvacancy.topads');
