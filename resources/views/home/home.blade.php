@@ -54,7 +54,43 @@
             object-fit: contain;
             /* Adjusts how the image fits within the container */
         }
-        
+      
+    .filters-form {
+        display: flex;
+        flex-wrap: wrap; 
+        gap: 10px;
+        justify-content: center; 
+        align-items: center; 
+    }
+
+    .text-input, .dropdown {
+        flex: 1; 
+        min-width: 220px; 
+    }
+
+    @media (max-width: 1200px) {
+        .filters-form {
+            flex-direction: column; 
+            align-items: stretch; 
+        }
+
+        .text-input, .dropdown, .view-btn {
+            width: 100%; 
+            max-width: 400px; 
+        }
+    }
+
+    .scroll-wrapper {
+     background-color: #d9d9d9;;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+     margin:0 10px;
+   }
+
+   .categories-container {
+       overflow-x: auto;
+       scrollbar-width: none; 
+   }
+
     </style>
 </head>
 
@@ -63,10 +99,10 @@
 
     <!-- Categories Section -->
     <section class="categories-container">
-    <div class="categories-header" style="background: linear-gradient(to bottom, #28adce, #18799c);justify-content: flex-end; gap: 15px;">
+    <div class="categories-header" style="background: linear-gradient(to bottom, #28adce, #18799c);justify-content: flex-end; gap: 15px; min-height:40px; height:auto">
         <a href="{{ route('login') }}" 
         class="category-btn" 
-        style="text-decoration: none; padding: 10px 20px; border-radius: 5px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; 
+        style="text-decoration: none; padding: 6px 6px; border-radius: 5px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; 
          background-color: #a4d8e6; color: black; font-weight:600"
         onmouseover=" this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 24px rgba(0, 0, 0, 0.3)'; this.style.backgroundColor='#6c9dbd';" 
         onmouseout=" this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.2)'; this.style.backgroundColor='#a4d8e6';">
@@ -75,7 +111,7 @@
 
         <a href="{{ route('feedback.home') }}" 
         class="category-btn" 
-        style="text-decoration: none; padding: 10px 20px; border-radius: 5px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+        style="text-decoration: none; padding: 6px 6px; border-radius: 5px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
         transition: all 0.3s ease;  background-color: #a4d8e6; color: black; font-weight:600"
         onmouseover=" this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 24px rgba(0, 0, 0, 0.3)'; this.style.backgroundColor='#6c9dbd';" 
         onmouseout=" this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.2)'; this.style.backgroundColor='#a4d8e6';">
@@ -84,7 +120,7 @@
 
         <a href="{{ route('employer.login') }}" 
         class="category-btn" 
-        style="text-decoration: none; padding: 10px 20px; border-radius: 5px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        style="text-decoration: none; padding: 6px 6px; border-radius: 5px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
          transition: all 0.3s ease;  background-color: #a4d8e6; color: black; font-weight:600"
         onmouseover=" this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 24px rgba(0, 0, 0, 0.3)'; this.style.backgroundColor='#6c9dbd';" 
         onmouseout=" this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.2)'; this.style.backgroundColor='#a4d8e6';">
@@ -102,18 +138,18 @@
         </button>
 
             
-            <div class="categories-list" id="categoriesList" 
-                style="padding: 20px;    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); border-radius:15px">
-                @foreach ($categories as $category)
-                    <a href="javascript:void(0);" data-category-id="{{ $category->id }}" class="category-link"
-                        style="text-decoration: none; background-color: #f8f9fa; padding: 10px 20px; border-radius: 5px; width:265px;
-                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); font-size: 16px; transition: all 0.3s ease; white-space: nowrap;"
-                        onmouseover="this.style.backgroundColor='#1267e7'; this.style.color='white'; this.style.transform='scale(1.05)';"
-                        onmouseout="this.style.backgroundColor='#f8f9fa'; this.style.color='black'; this.style.transform='scale(1)';">
-                        {{ $category->name }}
-                    </a>
-                @endforeach
-            </div>
+        <div class="categories-list" id="categoriesList"
+            style="padding: 10px; border-radius: 15px; display: flex; flex-wrap: wrap; gap: 5px; justify-content: center;">
+            @foreach ($categories as $category)
+                <a href="javascript:void(0);" data-category-id="{{ $category->id }}" class="category-link"
+                    style="text-decoration: none; background-color: #f8f9fa; padding: 8px 15px; border-radius: 5px; min-width:222px;width: auto;
+                        font-size: 16px; transition: all 0.3s ease; white-space: nowrap; display: inline-block; "
+                    onmouseover="this.style.backgroundColor='#1267e7'; this.style.color='white'; this.style.transform='scale(1.05)';"
+                    onmouseout="this.style.backgroundColor='#f8f9fa'; this.style.color='black'; this.style.transform='scale(1)';">
+                    {{ $category->name }}
+                </a>
+            @endforeach
+        </div>
 
             <button class="scroll-btn right-scroll" id="scrollRight">
                 <i class="fa fa-chevron-right"></i>
@@ -150,36 +186,33 @@
     </div>
 
 
+<!-- Filters Section -->
+<section class="filters" style="background-color: rgba(0, 0, 0, 0.1); padding:15px;">
+    <p class="jobtitle">
+        Available Jobs: {{ $jobs->count() }} new hot jobs
+    </p>
+    <form method="GET" action="{{ route('home') }}" class="filters-form">
+        <input class="text-input" type="text" name="search" placeholder="Enter Vacancy Name/Company/Job Reference" value="{{ request('search') }}">
+        <input class="text-input" type="text" name="location" placeholder="Enter your Location" value="{{ request('location') }}">
 
-    <!-- Filters Section -->
-    <section class="filters"  style="background-color: rgba(0, 0, 0, 0.1); padding:15px">
-        <p class="jobtitle">
-            Available Jobs: {{ $jobs->count() }} new hot jobs
-        </p>
-        <form method="GET" action="{{ route('home') }}">
-            <input class="text-input" type="text" name="search"
-                placeholder="Enter Vacancy Name/Company/Job Reference" value="{{ request('search') }}">
-            <input class="text-input" type="text" name="location" placeholder="Enter your Location"
-                value="{{ request('location') }}">
+        <select name="country" class="dropdown">
+            <option value="">Select Country</option>
+            @foreach ($countries as $country)
+            <option value="{{ $country->country }}" {{ request('country') == $country->country ? 'selected' : '' }}>
+                {{ $country->country }}
+            </option>
+            @endforeach
+        </select>
 
-            <select name="country" class="dropdown">
-                <option value="">Select Country</option>
-                @foreach ($countries as $country)
-                <option value="{{ $country->country }}" style="color:black"
-                    {{ request('country') == $country->country ? 'selected' : '' }}>
-                    {{ $country->country }}
-                </option>
-                @endforeach
-            </select>
+        <button class="view-btn" type="submit">
+            <i class="fa fa-search"></i> <!-- This is the search icon -->
+        </button>
+    </form>
+    <hr>
+</section>
 
 
-            <button class="view-btn" type="submit">
-                <i class="fa fa-search"></i> <!-- This is the search icon -->
-
-            </button>
-        </form>
-        <hr>
-    </section>
+   
 
     <!-- Job Listings Section -->
     <section id="job-listings" class="job-listings-container" >
@@ -189,8 +222,8 @@
             <p>No jobs found matching your criteria.</p>
             @else
             @foreach ($jobs as $job)
-            <div class="job-card">
-                <a href="{{ route('job.details', $job->id) }}" class="job-title" style="font-size:20px; margin-bottom: 0px;">
+            <div class="job-card" style="min-height:100px;height:auto">
+                <a href="{{ route('job.details', $job->id) }}" class="job-title" style="font-size:17px; margin-bottom: 0px;">
                     {{ $job->title }}
                 </a>
                 <p class="company-name" style="font-size: 15px;  margin-top: 2px; margin-bottom: 0px; font-weight:600">{{ $job->employer->company_name }}</p>

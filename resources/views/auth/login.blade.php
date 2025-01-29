@@ -1,9 +1,6 @@
 @extends('layouts.authentication.master')
 @section('title', 'Job Seeker Login')
 
-@section('css')
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-@endsection
 
 @section('content')
     <div class="container-fluid p-0">

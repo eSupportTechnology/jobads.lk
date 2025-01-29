@@ -18,6 +18,7 @@
             border-bottom: 3px solid #cccbcb;
             position: sticky;
             top: 0;
+            height:45px;
             z-index: 1000;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
@@ -132,7 +133,7 @@
         <button class="menu-toggle" aria-label="Toggle Navigation">
             ☰
         </button>
-        <nav class="nav-links unique-nav-links" style="margin-left:45px;margin-top:15px">
+        <nav class="nav-links unique-nav-links" style="margin-left:45px;margin-top:11px">
             <!-- "Post Your Vacancy" as a button -->
             <a href="{{ route('user.postvacancy') }}" 
             style="background: linear-gradient(to bottom, #28adce, #18799c); color: white;transition: color 0.3s ease, 

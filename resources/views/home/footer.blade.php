@@ -1,5 +1,5 @@
 <footer class="main-footer">
-    <div class="footer-content" style="display: flex; justify-content: space-between; gap: 30px; max-width: 1200px; margin: 0 auto;">
+    <div class="footer-content" style="display: flex; justify-content: space-between; gap: 30px; max-width: 1200px;  margin: 0 auto;">
         <div class="footer-section" style="flex: 1;">
             <h3 style="font-size: 22px; font-weight: bold; ">About Us</h3>
             <p style="font-size: 17px; line-height: 1.6;">
@@ -25,15 +25,15 @@
             <ul style="font-size: 17px; line-height: 1.6; list-style-type: none; padding-left: 0; text-align: center;">
                 <li style="display: flex; align-items: center; margin-bottom: 10px; justify-content: center;">
                     <i class="fa fa-phone" style="margin-right: 10px;"></i>
-                    <a href="tel:{{ $contact->phone }}" style="text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#0897ba'">Phone: {{ $contact->phone }}</a>
+                    <a href="tel:{{ $contact->phone }}" style="text-decoration: none; transition: color 0.3s;" >Phone: {{ $contact->phone }}</a>
                 </li>
                 <li style="display: flex; align-items: center; margin-bottom: 10px; justify-content: center;">
                     <i class="fa fa-envelope" style="margin-right: 10px;"></i>
-                    <a href="mailto:{{ $contact->email }}" style="text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#0897ba'">Email: {{ $contact->email }}</a>
+                    <a href="mailto:{{ $contact->email }}" style="text-decoration: none; transition: color 0.3s;">Email: {{ $contact->email }}</a>
                 </li>
                 <li style="display: flex; align-items: center; margin-bottom: 10px; justify-content: center;">
                     <i class="fa fa-map-marker" style="margin-right: 10px;"></i>
-                    <a href="https://www.google.com/maps/place/{{ $contact->address }}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#0897ba'">Address: {{ $contact->address }}</a>
+                    <a href="https://www.google.com/maps/place/{{ $contact->address }}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; transition: color 0.3s;" >Address: {{ $contact->address }}</a>
                 </li>
             </ul>
         </div>
@@ -41,9 +41,10 @@
 
     </div>
 
-    <div class="footer-bottom" >
-        <p style="font-size: 16px; color: #fff;">&copy; 2024 Job Portal. All Rights Reserved.</p>
+    <div class="footer-bottom" style="height: 15px; display: flex; justify-content: center; align-items: center; ">
+        <p style="font-size: 16px; color: #fff; margin: 0;">&copy; 2024 Job Portal. All Rights Reserved.</p>
     </div>
+
 </footer>
 
 <script>

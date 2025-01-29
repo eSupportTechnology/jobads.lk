@@ -1,15 +1,7 @@
 @extends('layouts.authentication.master')
 @section('title', 'Employer Register')
 
-@section('css')
-    <!-- Add custom CSS links if needed -->
-@endsection
 
-@section('style')
-    <style>
-        /* Add any custom styles if needed */
-    </style>
-@endsection
 
 @section('content')
     <div class="container-fluid p-0">
