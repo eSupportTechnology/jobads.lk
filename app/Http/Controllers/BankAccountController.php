@@ -20,7 +20,7 @@ class BankAccountController extends Controller
 
     public function create()
     {
-        return view('Admin.bank.create');
+        return view('Admin.Bank.create');
     }
 
     public function store(Request $request)
