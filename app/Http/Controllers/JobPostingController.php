@@ -40,7 +40,7 @@ class JobPostingController extends Controller
             ->where('is_active', true)
             ->paginate(10); // Rejected jobs are displayed regardless of closing date
 
-        return view('admin.jobview', compact('jobPostings', 'pendingJobs', 'rejectedJobs'));
+        return view('Admin.jobview', compact('jobPostings', 'pendingJobs', 'rejectedJobs'));
     }
 
     public function topEmployers()
@@ -264,6 +264,7 @@ class JobPostingController extends Controller
         // Fetch banners where status is 'published' and duration is valid
         $banners = Banner::join('banner_packages', 'banners.package_id', '=', 'banner_packages.id')
         ->where('banners.status', 'published')
+        ->where('category_id',null)
         ->whereRaw('DATE_ADD(banners.updated_at, INTERVAL banner_packages.duration DAY) >= ?', [$now])
         ->select('banners.*', 'banner_packages.duration')
         ->get();
@@ -289,7 +290,7 @@ class JobPostingController extends Controller
     public function show($id)
     {
         $job = JobPosting::with(['category', 'employer'])->findOrFail($id);
-        return view('admin.showonejob', compact('job'
+        return view('Admin.showonejob', compact('job'
         ));
     }
     public function showjob($id)
@@ -300,7 +301,16 @@ class JobPostingController extends Controller
         $job = JobPosting::with(['category', 'employer'])->findOrFail($id);
         $job->increment('view_count');
 
-        return view('home.jobs.show', compact('job', 'contacts'));
+        $now = Carbon::now();
+
+        $banners = Banner::join('banner_packages', 'banners.package_id', '=', 'banner_packages.id')
+        ->where('banners.status', 'published')
+        ->where('category_id',$job->category_id)
+        ->whereRaw('DATE_ADD(banners.updated_at, INTERVAL banner_packages.duration DAY) >= ?', [$now])
+        ->select('banners.*', 'banner_packages.duration')
+        ->get();
+
+        return view('home.jobs.show', compact('job', 'contacts','banners'));
     }
 
     public function updateStatus(Request $request, $id)
@@ -516,7 +526,7 @@ class JobPostingController extends Controller
                 ];
             });
 
-        return view('admin.report.application', compact(
+        return view('Admin.report.application', compact(
             'dailyApplications',
             'dailyUsers',
             'dailyApplicationsData',
@@ -681,17 +691,17 @@ class JobPostingController extends Controller
             return redirect()->back()->withErrors(['job_postings' => 'No job postings provided.']);
         }
 
-        // Check package limitations
-        $package = Package::find($packageId);
-        $existingJobCount = JobPosting::where('creator_id', $adminId)
-            ->where('package_id', $packageId)
-            ->count();
+        // // Check package limitations
+        // $package = Package::find($packageId);
+        // $existingJobCount = JobPosting::where('creator_id', $adminId)
+        //     ->where('package_id', $packageId)
+        //     ->count();
 
-        if ($existingJobCount + count($jobPostings) > $package->package_size) {
-            return redirect()->back()
-                ->withErrors(['package_id' => 'Exceeded maximum allowed job postings for this package.'])
-                ->withInput();
-        }
+        // if ($existingJobCount + count($jobPostings) > $package->package_size) {
+        //     return redirect()->back()
+        //         ->withErrors(['package_id' => 'Exceeded maximum allowed job postings for this package.'])
+        //         ->withInput();
+        // }
 
         // Use transaction to ensure data consistency
         DB::beginTransaction();

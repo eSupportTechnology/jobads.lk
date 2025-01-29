@@ -24,7 +24,7 @@ class BannerPackageController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'duration' => 'required|in:7days,21days',
+            'duration' => 'required|in:7,21',
             'price_lkr' => 'required|numeric|min:0',
             'price_usd' => 'required|numeric|min:0',
         ]);
@@ -49,7 +49,7 @@ class BannerPackageController extends Controller
     public function update(Request $request, BannerPackage $bannerPackage)
     {
         $validated = $request->validate([
-            'duration' => 'required|in:7days,21days',
+            'duration' => 'required|in:7,21',
             'price_lkr' => 'required|numeric|min:0',
             'price_usd' => 'required|numeric|min:0',
         ]);

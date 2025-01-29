@@ -101,117 +101,107 @@
             <div class="card-body">
 
 
-                <h1>Create Job Posting</h1>
-                <form action="{{ route('admin.job_postings.store') }}" method="POST" enctype="multipart/form-data"
-                    id="jobPostingForm">
-                    @csrf
+            <h1>Create Job Posting</h1>
+            <form action="{{ route('admin.job_postings.store') }}" method="POST" enctype="multipart/form-data" id="jobPostingForm">
+                @csrf
+                
+                    <div class="mb-3">
+                        <label for="package_id" class="form-label">Package</label>
+                        <select name="package_id" id="package_id" class="form-control" required>
+                            <option value="">Select a package</option>
+                            @foreach ($packages as $package)
+                                <option value="{{ $package->id }}" data-max-jobs="{{ $package->package_size }}">
+                                    {{ $package->package_size }} ads - Rs. {{ $package->lkr_price }}/{{ $package->usd_price }} USD ({{ $package->duration_days }} days)
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div id="contacts-container">
-                        <div class="mb-3">
-                            <label for="package_id" class="form-label">Package</label>
-                            <select name="package_id" id="package_id" class="form-control" required>
-                                <option value="">Select a package</option>
-                                @foreach ($packages as $package)
-                                    <option value="{{ $package->id }}">
-                                        {{ $package->package_size }}ads - Rs.
-                                        {{ $package->lkr_price }}/{{ $package->usd_price }}USD
-                                        ({{ $package->duration_days }} days)
-                                    </option>
+                    <div class="contact-item">
+                        <!-- Job Posting Fields (same as original code) -->
+                        <div class="form-group position-relative">
+                            <label for="employer_id_0" class="form-label">Employer</label>
+                            <select name="job_postings[0][employer_id]" id="employer_id_0" class="form-control" required>
+                                <option value="">Select an employer</option>
+                                @foreach ($employers as $employer)
+                                    <option value="{{ $employer->id }}">{{ $employer->company_name }}</option>
                                 @endforeach
                             </select>
                         </div>
 
-                        <div class="contact-item">
-                            <div class="form-group position-relative">
-                                <label for="employer_id_0" class="form-label">Employer</label>
-                                <select name="job_postings[0][employer_id]" id="employer_id_0" class="form-control"
-                                    required>
-                                    <option value="">Select an employer</option>
-                                    @foreach ($employers as $employer)
-                                        <option value="{{ $employer->id }}">{{ $employer->company_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="title_0" class="form-label">Job Title</label>
-                                <input type="text" name="job_postings[0][title]" id="title_0" class="form-control"
-                                    required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="description_0" class="form-label">Description</label>
-                                <textarea name="job_postings[0][description]" id="description_0" class="form-control" rows="4" required></textarea>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="category_id_0" class="form-label">Category</label>
-                                <select name="job_postings[0][category_id]" id="category_id_0"
-                                    class="form-control category-select" required>
-                                    <option value="">Select a category</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="subcategory_id_0" class="form-label">Subcategory</label>
-                                <select name="job_postings[0][subcategory_id]" id="subcategory_id_0" class="form-control"
-                                    required>
-                                    <option value="">Select a subcategory</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="location_0" class="form-label">Location</label>
-                                <input type="text" name="job_postings[0][location]" id="location_0" class="form-control"
-                                    required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="country_0" class="form-label">Country</label>
-                                <select name="job_postings[0][country_id]" id="country_0" class="form-control" required>
-                                    <option value="">Select a country</option>
-                                    @foreach ($countries as $country)
-                                        <option value="{{ $country->id }}">{{ $country->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-
-                            <div class="mb-3">
-                                <label for="salary_range_0" class="form-label">Salary Range</label>
-                                <input type="number" name="job_postings[0][salary_range]" id="salary_range_0"
-                                    class="form-control">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="image_0" class="form-label">Image</label>
-                                <input type="file" name="job_postings[0][image]" id="image_0"
-                                    class="form-control image-input" accept="image/*">
-                                <div class="image-preview-container mt-3">
-                                    <img class="image-preview" src="" alt="Image Preview"
-                                        style="max-width: 100%; display: none;">
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="requirements_0" class="form-label">Requirements</label>
-                                <textarea name="job_postings[0][requirements]" id="requirements_0" class="form-control" rows="4" required></textarea>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="closing_date_0" class="form-label">Closing Date</label>
-                                <input type="date" name="job_postings[0][closing_date]" id="closing_date_0"
-                                    class="form-control" required>
-                            </div>
-
-                            <input type="hidden" name="job_postings[0][status]" value="pending">
+                        <div class="mb-3 mt-3">
+                            <label for="title_0" class="form-label">Job Title</label>
+                            <input type="text" name="job_postings[0][title]" id="title_0" class="form-control" required>
                         </div>
-                    </div>
 
-                    <button type="button" id="addContact" class="btn btn-success ">Add Another Job</button>
-                    <button type="submit" class="btn btn-primary">Create Jobs</button>
-                </form>
+                        <div class="mb-3">
+                            <label for="description_0" class="form-label">Description</label>
+                            <textarea name="job_postings[0][description]" id="description_0" class="form-control" rows="4" required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="category_id_0" class="form-label">Category</label>
+                            <select name="job_postings[0][category_id]" id="category_id_0" class="form-control category-select" required>
+                                <option value="">Select a category</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="subcategory_id_0" class="form-label">Subcategory</label>
+                            <select name="job_postings[0][subcategory_id]" id="subcategory_id_0" class="form-control" required>
+                                <option value="">Select a subcategory</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="location_0" class="form-label">Location</label>
+                            <input type="text" name="job_postings[0][location]" id="location_0" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="country_0" class="form-label">Country</label>
+                            <select name="job_postings[0][country_id]" id="country_0" class="form-control" required>
+                                <option value="">Select a country</option>
+                                @foreach ($countries as $country)
+                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="salary_range_0" class="form-label">Salary Range</label>
+                            <input type="number" name="job_postings[0][salary_range]" id="salary_range_0" class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="image_0" class="form-label">Image</label>
+                            <input type="file" name="job_postings[0][image]" id="image_0" class="form-control image-input" accept="image/*">
+                            <div class="image-preview-container mt-3">
+                                <img class="image-preview" src="" alt="Image Preview" style="max-width: 100%; display: none;">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="requirements_0" class="form-label">Requirements</label>
+                            <textarea name="job_postings[0][requirements]" id="requirements_0" class="form-control" rows="4" required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="closing_date_0" class="form-label">Closing Date</label>
+                            <input type="date" name="job_postings[0][closing_date]" id="closing_date_0" class="form-control" required>
+                        </div>
+
+                        <input type="hidden" name="job_postings[0][status]" value="pending">
+                    </div>
+                </div>
+
+                <button type="button" id="addContact" class="btn btn-success">Add Another Job</button>
+                <button type="submit" class="btn btn-primary">Create Jobs</button>
+            </form>
+
                 <div class="modal fade" id="paymentMethodModal" tabindex="-1" aria-labelledby="paymentMethodModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
@@ -248,119 +238,149 @@
         </div>
     </div>
 
+    
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            let contactIndex = 1;
+    document.addEventListener("DOMContentLoaded", function() {
+        let contactIndex = 1;
+        let maxJobs = 0;
 
-            // Handle category change for initial form
-            setupCategoryListener(document.querySelector('.category-select'));
+        const packageSelect = document.getElementById("package_id");
+        const addJobButton = document.getElementById("addContact");
+        const contactsContainer = document.getElementById("contacts-container");
 
-            // Add new job form
-            document.getElementById('addContact').addEventListener('click', function() {
-                const container = document.getElementById('contacts-container');
-                const newContact = document.createElement('div');
-                newContact.className = 'contact-item';
+        setupCategoryListener(document.querySelector('.category-select'));
+        // Handle package selection change
+        packageSelect.addEventListener("change", function() {
+            const selectedOption = packageSelect.options[packageSelect.selectedIndex];
+            if (selectedOption.value) {
+                maxJobs = parseInt(selectedOption.getAttribute("data-max-jobs"), 10);
+            } else {
+                maxJobs = 0;
+            }
+            validateJobLimit();
+        });
 
-                newContact.innerHTML = `
-            <span class="remove-contact">&times;</span>
-            <div class="form-group position-relative">
-                <label for="employer_id_${contactIndex}" class="form-label">Employer</label>
-                <select name="job_postings[${contactIndex}][employer_id]" id="employer_id_${contactIndex}" class="form-control" required>
-                    <option value="">Select an employer</option>
-                    @foreach ($employers as $employer)
-                        <option value="{{ $employer->id }}">{{ $employer->company_name }}</option>
-                    @endforeach
-                </select>
-            </div>
+        // Add new job form
+        addJobButton.addEventListener("click", function() {
+            if (contactsContainer.children.length >= maxJobs) {
+                alert(`You cannot add more than ${maxJobs} jobs for this package.`);
+                return;
+            }
 
-            <div class="mb-3">
-                <label for="title_${contactIndex}" class="form-label">Job Title</label>
-                <input type="text" name="job_postings[${contactIndex}][title]" id="title_${contactIndex}" class="form-control" required>
-            </div>
+            const container = document.getElementById('contacts-container');
+            const newContact = document.createElement('div');
+            newContact.className = 'contact-item';
 
-            <div class="mb-3">
-                <label for="description_${contactIndex}" class="form-label">Description</label>
-                <textarea name="job_postings[${contactIndex}][description]" id="description_${contactIndex}" class="form-control" rows="4" required></textarea>
-            </div>
-
-            <div class="mb-3">
-                <label for="category_id_${contactIndex}" class="form-label">Category</label>
-                <select name="job_postings[${contactIndex}][category_id]" id="category_id_${contactIndex}" class="form-control category-select" required>
-                    <option value="">Select a category</option>
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label for="subcategory_id_${contactIndex}" class="form-label">Subcategory</label>
-                <select name="job_postings[${contactIndex}][subcategory_id]" id="subcategory_id_${contactIndex}" class="form-control" required>
-                    <option value="">Select a subcategory</option>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label for="location_${contactIndex}" class="form-label">Location</label>
-                <input type="text" name="job_postings[${contactIndex}][location]" id="location_${contactIndex}" class="form-control" required>
-            </div>
-
-
-            <div class="mb-3">
-    <label for="country_0" class="form-label">Country</label>
-    <select name="job_postings[${contactIndex}][country_id]" id="country_${contactIndex}" class="form-control" required>
-        <option value="">Select a country</option>
-        @foreach ($countries as $country)
-            <option value="{{ $country->id }}">{{ $country->name }}</option>
-        @endforeach
-    </select>
-</div>
-
-            <div class="mb-3">
-                <label for="salary_range_${contactIndex}" class="form-label">Salary Range</label>
-                <input type="number" name="job_postings[${contactIndex}][salary_range]" id="salary_range_${contactIndex}" class="form-control">
-            </div>
-
-            <div class="mb-3">
-                <label for="image_${contactIndex}" class="form-label">Image</label>
-                <input type="file" name="job_postings[${contactIndex}][image]" id="image_${contactIndex}" class="form-control image-input" accept="image/*">
-                <div class="image-preview-container mt-3">
-                    <img class="image-preview" src="" alt="Image Preview" style="max-width: 100%; display: none;">
+            newContact.innerHTML = `
+                <span class="remove-contact">&times;</span>
+                <!-- New Job Posting Fields (same as original code) -->
+                <div class="form-group position-relative">
+                    <label for="employer_id_${contactIndex}" class="form-label">Employer</label>
+                    <select name="job_postings[${contactIndex}][employer_id]" id="employer_id_${contactIndex}" class="form-control" required>
+                        <option value="">Select an employer</option>
+                        @foreach ($employers as $employer)
+                            <option value="{{ $employer->id }}">{{ $employer->company_name }}</option>
+                        @endforeach
+                    </select>
                 </div>
-            </div>
 
-            <div class="mb-3">
-                <label for="requirements_${contactIndex}" class="form-label">Requirements</label>
-                <textarea name="job_postings[${contactIndex}][requirements]" id="requirements_${contactIndex}" class="form-control" rows="4" required></textarea>
-            </div>
+                <div class="mb-3 mt-3">
+                    <label for="title_${contactIndex}" class="form-label">Job Title</label>
+                    <input type="text" name="job_postings[${contactIndex}][title]" id="title_${contactIndex}" class="form-control" required>
+                </div>
 
-            <div class="mb-3">
-                <label for="closing_date_${contactIndex}" class="form-label">Closing Date</label>
-                <input type="date" name="job_postings[${contactIndex}][closing_date]" id="closing_date_${contactIndex}" class="form-control" required>
-            </div>
+                <div class="mb-3">
+                    <label for="description_${contactIndex}" class="form-label">Description</label>
+                    <textarea name="job_postings[${contactIndex}][description]" id="description_${contactIndex}" class="form-control" rows="4" required></textarea>
+                </div>
 
-            <input type="hidden" name="job_postings[${contactIndex}][status]" value="pending">
-        `;
+                <div class="mb-3">
+                    <label for="category_id_${contactIndex}" class="form-label">Category</label>
+                    <select name="job_postings[${contactIndex}][category_id]" id="category_id_${contactIndex}" class="form-control category-select" required>
+                        <option value="">Select a category</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
 
-                container.appendChild(newContact);
+                <div class="mb-3">
+                    <label for="subcategory_id_${contactIndex}" class="form-label">Subcategory</label>
+                    <select name="job_postings[${contactIndex}][subcategory_id]" id="subcategory_id_${contactIndex}" class="form-control" required>
+                        <option value="">Select a subcategory</option>
+                    </select>
+                </div>
 
-                // Setup listeners for the new form
-                setupCategoryListener(newContact.querySelector('.category-select'));
+                <div class="mb-3">
+                    <label for="location_${contactIndex}" class="form-label">Location</label>
+                    <input type="text" name="job_postings[${contactIndex}][location]" id="location_${contactIndex}" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="country_${contactIndex}" class="form-label">Country</label>
+                    <select name="job_postings[${contactIndex}][country_id]" id="country_${contactIndex}" class="form-control" required>
+                        <option value="">Select a country</option>
+                        @foreach ($countries as $country)
+                            <option value="{{ $country->id }}">{{ $country->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="salary_range_${contactIndex}" class="form-label">Salary Range</label>
+                    <input type="number" name="job_postings[${contactIndex}][salary_range]" id="salary_range_${contactIndex}" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label for="image_${contactIndex}" class="form-label">Image</label>
+                    <input type="file" name="job_postings[${contactIndex}][image]" id="image_${contactIndex}" class="form-control image-input" accept="image/*">
+                    <div class="image-preview-container mt-3">
+                        <img class="image-preview" src="" alt="Image Preview" style="max-width: 100%; display: none;">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="requirements_${contactIndex}" class="form-label">Requirements</label>
+                    <textarea name="job_postings[${contactIndex}][requirements]" id="requirements_${contactIndex}" class="form-control" rows="4" required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="closing_date_${contactIndex}" class="form-label">Closing Date</label>
+                    <input type="date" name="job_postings[${contactIndex}][closing_date]" id="closing_date_${contactIndex}" class="form-control" required>
+                </div>
+
+                <input type="hidden" name="job_postings[${contactIndex}][status]" value="pending">
+            `;
+
+            container.appendChild(newContact);
+
+            setupCategoryListener(newContact.querySelector('.category-select'));
                 setupImagePreview(newContact.querySelector('.image-input'));
 
-                contactIndex++;
-            });
+            contactIndex++;
+            validateJobLimit();
+        });
 
-            // Remove contact form
-            document.getElementById('contacts-container').addEventListener('click', function(e) {
-                if (e.target.classList.contains('remove-contact')) {
-                    e.target.closest('.contact-item').remove();
-                }
-            });
+        // Remove contact form
+        document.getElementById('contacts-container').addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-contact')) {
+                e.target.closest('.contact-item').remove();
+                validateJobLimit();
+            }
+        });
 
-            // Setup category change listener
-            // Fixed setupCategoryListener function
-            function setupCategoryListener(categorySelect) {
+        // Validate job limit based on selected package
+        function validateJobLimit() {
+            const currentJobs = contactsContainer.children.length;
+            if (currentJobs >= maxJobs) {
+                addJobButton.disabled = true;
+                //alert(`You have reached the maximum job limit (${maxJobs}) for this package.`);
+            } else {
+                addJobButton.disabled = false;
+            }
+        }
+
+        function setupCategoryListener(categorySelect) {
                 categorySelect.addEventListener('change', function() {
                     const categoryId = this.value;
                     const contactItem = this.closest('.contact-item');
@@ -406,45 +426,12 @@
 
             // Setup initial image preview
             document.querySelectorAll('.image-input').forEach(setupImagePreview);
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const packageSelect = document.getElementById("package_id");
-            const addJobButton = document.getElementById("addContact");
-            const contactsContainer = document.getElementById("contacts-container");
-            let maxJobs = 0;
+    });
+</script>
 
-            packageSelect.addEventListener("change", function() {
-                const selectedOption = packageSelect.options[packageSelect.selectedIndex];
-                if (selectedOption.value) {
-                    maxJobs = parseInt(selectedOption.getAttribute("data-max-jobs"), 10);
-                } else {
-                    maxJobs = 0;
-                }
-                validateJobLimit();
-            });
 
-            addJobButton.addEventListener("click", function() {
-                if (contactsContainer.children.length >= maxJobs) {
-                    alert(`You cannot add more than ${maxJobs} jobs for this package.`);
-                    return;
-                }
 
-                // Add job logic here
-            });
-
-            function validateJobLimit() {
-                const currentJobs = contactsContainer.children.length;
-                if (currentJobs >= maxJobs) {
-                    addJobButton.disabled = true;
-                    alert(`You have reached the maximum job limit (${maxJobs}) for this package.`);
-                } else {
-                    addJobButton.disabled = false;
-                }
-            }
-        });
-    </script>
+    
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const form = document.getElementById('jobPostingForm');
@@ -535,7 +522,7 @@
                 return isValid;
             }
         });
-    </script>
+    </script> 
 @endsection
 
 @section('script')

@@ -29,9 +29,9 @@
                                     <label class="form-label">Duration</label>
                                     <select name="duration" class="form-control @error('duration') is-invalid @enderror"
                                         required>
-                                        <option value="7days" {{ $bannerPackage->duration == '7days' ? 'selected' : '' }}>7
+                                        <option value="7" {{ $bannerPackage->duration == '7' ? 'selected' : '' }}>7
                                             Days</option>
-                                        <option value="21days" {{ $bannerPackage->duration == '21days' ? 'selected' : '' }}>
+                                        <option value="21" {{ $bannerPackage->duration == '21' ? 'selected' : '' }}>
                                             21 Days</option>
                                     </select>
                                     @error('duration')
