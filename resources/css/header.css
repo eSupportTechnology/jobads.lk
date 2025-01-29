@@ -20,7 +20,7 @@
 
 /* Unique Navigation Links */
 .unique-nav-links {
-    margin-left: 15px;
+    margin-left: 350px;
     display: flex;
     align-items: center;
     gap: 20px;
@@ -65,6 +65,7 @@
     text-decoration: none;
     color: #1267e7;
     font-weight: bold;
+    font-size: 24px;
 }
 
 /* .unique-nav-links a:hover {
@@ -186,6 +187,7 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    margin-left: -50px;
 }
 
 .popup-content {
@@ -282,6 +284,7 @@
     .unique-nav-links {
         flex-direction: column;
         gap: 10px; /* Adds spacing for stacked links */
+        margin-left: -20px;
     }
 
     .post-vacancy {
@@ -312,16 +315,19 @@
     .profile-dropdown-content {
         right: auto; /* Ensures dropdown is properly aligned on mobile */
         width: 100%; /* Full width for better usability */
+        
     }
 }
 
 @media (max-width: 480px) {
     .unique-header .logo img {
         max-width: 100px; /* Further reduce logo size */
+        margin-left: -150px;
     }
 
     .unique-nav-links {
         gap: 5px;
+
     }
 
     .post-vacancy {
@@ -358,6 +364,7 @@
         padding: 10px 20px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         z-index: 999;
+        
     }
 
     .unique-nav-links.show {

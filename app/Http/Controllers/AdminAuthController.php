@@ -241,13 +241,13 @@ class AdminAuthController extends Controller
                 ];
             });
 
-        return view('admin.dashboard', compact('statistics', 'recentApplications'));
+        return view('Admin.dashboard', compact('statistics', 'recentApplications'));
     }
 
     public function showProfileForm()
     {
         $admin = Auth::guard('admin')->user();
-        return view('admin.profile', compact('admin'));
+        return view('Admin.profile', compact('admin'));
     }
 
     // Handle profile update

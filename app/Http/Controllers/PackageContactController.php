@@ -38,7 +38,7 @@ class PackageContactController extends Controller
     public function create()
     {
 
-        return view('Admin.packages.create');
+        return view('Admin.packages.Create');
     }
     // Update a specific post
     public function update(Request $request, $id)

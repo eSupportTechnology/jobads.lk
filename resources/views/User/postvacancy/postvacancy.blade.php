@@ -42,7 +42,7 @@
     <!-- Component Content Section -->
     <div id="componentContainer" style="padding: 0px 0px 0px 20px">
 
-        @include('user.postvacancy.topads')<br />
+        @include('User.postvacancy.topads')<br />
 
     </div>
     <br />
@@ -60,7 +60,7 @@
     <br />
     <!-- Payment Options Content -->
     <div id="componentContainer-payment">
-        @include('user.postvacancy.paymentmethod.ipg')
+        @include('User.postvacancy.paymentmethod.ipg')
     </div>
 
     <!-- Script for Dynamic Component Loading -->

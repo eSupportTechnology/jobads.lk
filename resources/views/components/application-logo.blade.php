@@ -3,7 +3,7 @@
 @endphp
 
 @if ($contact && $contact->logo_img)
-    <img class="img-fluid" style="width: 200px" src="{{ asset('storage/' . $contact->logo_img) }}" alt="Application Logo">
+    <img src="{{ asset('Jobads.png') }}" alt="Application Logo"  class="img-fluid" style="max-height: 60px;">
 @else
-    <p>No logo available</p>
+    <img src="{{ asset('Jobads.png') }}" alt="Application Logo"  class="img-fluid" style="max-height: 60px;">
 @endif
