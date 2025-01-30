@@ -27,7 +27,7 @@
         </p>,<br />
         <div class="btn-group mb-4">
             <a href="{{ route('profile.edit') }}" class="btn btn-common" id="commonprofile">Common Profile</a>
-            <a href="{{ route('profile.personal') }}" class="btn btn-common" id="personalprofile">Personal Profile</a>
+            <a href="{{ route('profile.personal') }}" class="btn btn-common" id="personalprofile">Update Profile</a>
             <a href="{{ route('user.jobseekerprofile.education') }}" class="btn btn-common" id="education">Education</a>
             <a href="{{ route('experience.show') }}" class="btn btn-common" id="expirience">Experience</a>
         </div>

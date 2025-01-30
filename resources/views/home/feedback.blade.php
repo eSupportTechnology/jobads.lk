@@ -154,7 +154,7 @@
             color: #fff;
         }
     </style>
-    @vite(['resources/css/home.css', 'resources/js/app.js', 'resources/css/header.css', 'resources/css/feedback.css'])
+   
 
 </head>
 

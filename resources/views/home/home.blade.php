@@ -196,10 +196,10 @@
         <input class="text-input" type="text" name="location" placeholder="Enter your Location" value="{{ request('location') }}">
 
         <select name="country" class="dropdown">
-            <option value="">Select Country</option>
+            <option value="">All Countries</option>
             @foreach ($countries as $country)
-            <option value="{{ $country->country }}" {{ request('country') == $country->country ? 'selected' : '' }}>
-                {{ $country->country }}
+            <option value="{{ $country->id}}" {{ request('country') == $country->id ? 'selected' : '' }}>
+                {{ $country->name }}
             </option>
             @endforeach
         </select>

@@ -137,7 +137,7 @@
                             @else
                                 <div class="text-center py-4">
                                     <p class="text-gray-500">You haven't created any job postings yet.</p>
-                                    <a href="{{ route('employer.job_postings.create') }}" class="btn btn-primary mt-3">
+                                    <a href="{{ route('employer.job_postings.post.create') }}" class="btn btn-primary mt-3">
                                         Create Your First Job Posting
                                     </a>
                                 </div>

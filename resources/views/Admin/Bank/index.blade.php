@@ -26,10 +26,9 @@
             font-size: 14px;
             border-radius: 4px;
             text-transform: uppercase;
-            font-weight: bold;
-            width: 100px;
+            width: 60px;
             /* Set a fixed width for uniform size */
-            height: 40px;
+            height: 20px;
             /* Set a fixed height for uniform size */
         }
 
@@ -126,7 +125,7 @@
                                             <td>{{ $account->currency }}</td>
                                             <td>
                                                 <a href="{{ route('admin.bank-accounts.edit', $account->id) }}"
-                                                    class="btn custom-btn custom-btn-warning">
+                                                    class="btn custom-btn custom-btn-warning btn-sm">
                                                     <i class="icon-pencil-alt"></i> Edit
                                                 </a>
                                                 <form action="{{ route('admin.bank-accounts.destroy', $account->id) }}"

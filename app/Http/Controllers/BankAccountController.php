@@ -42,7 +42,7 @@ class BankAccountController extends Controller
 
     public function edit(BankAccount $bankAccount)
     {
-        return view('Admin.bank.edit', compact('bankAccount'));
+        return view('Admin.Bank.edit', compact('bankAccount'));
     }
 
     public function update(Request $request, BankAccount $bankAccount)

@@ -104,7 +104,7 @@
                             @csrf
                             <div id="contacts-container">
                                 <div class="mb-3">
-                                    <label for="package_id" class="form-label">Package</label>
+                                    <label for="package_id" class="form-label">Package *</label>
                                     <select name="package_id" id="package_id" class="form-control" required>
                                         <option value="">Select a package</option>
                                         @foreach ($packages as $package)
@@ -121,18 +121,18 @@
 
 
                                     <div class="mb-3">
-                                        <label for="title_0" class="form-label">Job Title</label>
+                                        <label for="title_0" class="form-label">Job Title *</label>
                                         <input type="text" name="job_postings[0][title]" id="title_0"
                                             class="form-control" required>
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="description_0" class="form-label">Description</label>
-                                        <textarea name="job_postings[0][description]" id="description_0" class="form-control" rows="4" required></textarea>
+                                        <textarea name="job_postings[0][description]" id="description_0" class="form-control" rows="4" ></textarea>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="category_id_0" class="form-label">Category</label>
+                                        <label for="category_id_0" class="form-label">Category *</label>
                                         <select name="job_postings[0][category_id]" id="category_id_0"
                                             class="form-control category-select" required>
                                             <option value="">Select a category</option>
@@ -143,7 +143,7 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="subcategory_id_0" class="form-label">Subcategory</label>
+                                        <label for="subcategory_id_0" class="form-label">Subcategory *</label>
                                         <select name="job_postings[0][subcategory_id]" id="subcategory_id_0"
                                             class="form-control" required>
                                             <option value="">Select a subcategory</option>
@@ -151,12 +151,12 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="location_0" class="form-label">Location</label>
+                                        <label for="location_0" class="form-label">Location *</label>
                                         <input type="text" name="job_postings[0][location]" id="location_0"
                                             class="form-control" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="country_0" class="form-label">Country</label>
+                                        <label for="country_0" class="form-label">Country *</label>
                                         <select name="job_postings[0][country_id]" id="country_0" class="form-control" required>
                                             <option value="">Select a country</option>
                                             @foreach ($countries as $country)
@@ -183,11 +183,11 @@
 
                                     <div class="mb-3">
                                         <label for="requirements_0" class="form-label">Requirements</label>
-                                        <textarea name="job_postings[0][requirements]" id="requirements_0" class="form-control" rows="4" required></textarea>
+                                        <textarea name="job_postings[0][requirements]" id="requirements_0" class="form-control" rows="4" ></textarea>
                                     </div>
 
-                                    <div class="mb-3">
-                                        <label for="closing_date_0" class="form-label">Closing Date</label>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="closing_date_0" class="form-label">Closing Date *</label>
                                         <input type="date" name="job_postings[0][closing_date]" id="closing_date_0"
                                             class="form-control" required>
                                     </div>
@@ -326,17 +326,17 @@
                 
 
                 <div class="mb-3 mt-3">
-                    <label for="title_${contactIndex}" class="form-label">Job Title</label>
+                    <label for="title_${contactIndex}" class="form-label">Job Title *</label>
                     <input type="text" name="job_postings[${contactIndex}][title]" id="title_${contactIndex}" class="form-control" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="description_${contactIndex}" class="form-label">Description</label>
-                    <textarea name="job_postings[${contactIndex}][description]" id="description_${contactIndex}" class="form-control" rows="4" required></textarea>
+                    <textarea name="job_postings[${contactIndex}][description]" id="description_${contactIndex}" class="form-control" rows="4" ></textarea>
                 </div>
 
                 <div class="mb-3">
-                    <label for="category_id_${contactIndex}" class="form-label">Category</label>
+                    <label for="category_id_${contactIndex}" class="form-label">Category *</label>
                     <select name="job_postings[${contactIndex}][category_id]" id="category_id_${contactIndex}" class="form-control category-select" required>
                         <option value="">Select a category</option>
                         @foreach ($categories as $category)
@@ -346,19 +346,19 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="subcategory_id_${contactIndex}" class="form-label">Subcategory</label>
+                    <label for="subcategory_id_${contactIndex}" class="form-label">Subcategory *</label>
                     <select name="job_postings[${contactIndex}][subcategory_id]" id="subcategory_id_${contactIndex}" class="form-control" required>
                         <option value="">Select a subcategory</option>
                     </select>
                 </div>
 
                 <div class="mb-3">
-                    <label for="location_${contactIndex}" class="form-label">Location</label>
+                    <label for="location_${contactIndex}" class="form-label">Location *</label>
                     <input type="text" name="job_postings[${contactIndex}][location]" id="location_${contactIndex}" class="form-control" required>
                 </div>
 
                 <div class="mb-3">
-                    <label for="country_${contactIndex}" class="form-label">Country</label>
+                    <label for="country_${contactIndex}" class="form-label">Country *</label>
                     <select name="job_postings[${contactIndex}][country_id]" id="country_${contactIndex}" class="form-control" required>
                         <option value="">Select a country</option>
                         @foreach ($countries as $country)
@@ -382,11 +382,11 @@
 
                 <div class="mb-3">
                     <label for="requirements_${contactIndex}" class="form-label">Requirements</label>
-                    <textarea name="job_postings[${contactIndex}][requirements]" id="requirements_${contactIndex}" class="form-control" rows="4" required></textarea>
+                    <textarea name="job_postings[${contactIndex}][requirements]" id="requirements_${contactIndex}" class="form-control" rows="4"></textarea>
                 </div>
 
-                <div class="mb-3">
-                    <label for="closing_date_${contactIndex}" class="form-label">Closing Date</label>
+                <div class="mb-3 col-md-6">
+                    <label for="closing_date_${contactIndex}" class="form-label">Closing Date *</label>
                     <input type="date" name="job_postings[${contactIndex}][closing_date]" id="closing_date_${contactIndex}" class="form-control" required>
                 </div>
 

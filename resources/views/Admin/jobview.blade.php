@@ -84,7 +84,7 @@
                                     <th>Title</th>
                                     <th>Category</th>
                                     <th>Employer</th>
-                                    <th>views</th>
+                                    <th>Views</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -99,32 +99,8 @@
                                         <td>{{ $job->view_count }}</td>
                                         <td>{{ $job->status }}</td>
                                         <td>
-                                            <form action="{{ route('job_postings.updateStatus', $job->id) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('PATCH')
-
-                                                <select name="status" class="form-select status-select"
-                                                    data-job-id="{{ $job->id }}">
-                                                    <option value="pending"
-                                                        {{ $job->status == 'pending' ? 'selected' : '' }}>
-                                                        Pending</option>
-                                                    <option value="approved"
-                                                        {{ $job->status == 'approved' ? 'selected' : '' }}>
-                                                        Approved</option>
-                                                    <option value="reject"
-                                                        {{ $job->status == 'reject' ? 'selected' : '' }}>
-                                                        Rejected</option>
-                                                </select>
-
-                                                <!-- Rejection Reason -->
-                                                <div id="rejection-reason-{{ $job->id }}"
-                                                    class="rejection-reason mt-2" style="display: none;">
-                                                    <textarea name="rejection_reason" class="form-control" placeholder="Enter rejection reason"></textarea>
-                                                </div>
-
-                                                <button type="submit" class="btn btn-primary mt-2">Submit</button>
-                                            </form>
+                                            <a href="{{ route('job_postings.show', $job->id) }}"
+                                                class="btn btn-info">View</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -155,32 +131,8 @@
                                         <td>{{ $job->employer->company_name }}</td>
                                         <td>{{ $job->status }}</td>
                                         <td>
-                                            <form action="{{ route('job_postings.updateStatus', $job->id) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('PATCH')
-
-                                                <select name="status" class="form-select status-select"
-                                                    data-job-id="{{ $job->id }}">
-                                                    <option value="pending"
-                                                        {{ $job->status == 'pending' ? 'selected' : '' }}>
-                                                        Pending</option>
-                                                    <option value="approved"
-                                                        {{ $job->status == 'approved' ? 'selected' : '' }}>
-                                                        Approved</option>
-                                                    <option value="reject"
-                                                        {{ $job->status == 'reject' ? 'selected' : '' }}>
-                                                        Rejected</option>
-                                                </select>
-
-                                                <!-- Rejection Reason -->
-                                                <div id="rejection-reason-{{ $job->id }}"
-                                                    class="rejection-reason mt-2" style="display: none;">
-                                                    <textarea name="rejection_reason" class="form-control" placeholder="Enter rejection reason"></textarea>
-                                                </div>
-
-                                                <button type="submit" class="btn btn-primary mt-2">Submit</button>
-                                            </form>
+                                            <a href="{{ route('job_postings.show', $job->id) }}"
+                                                class="btn btn-info">View</a>
                                         </td>
                                     </tr>
                                 @endforeach

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\Banner;
 use App\Models\Employer;
 use App\Models\JobPosting;
 use Illuminate\Http\Request;
@@ -190,7 +191,7 @@ class EmployerAuthController extends Controller
         $totalApplications = Application::whereHas('job', function ($query) use ($employerId) {
             $query->where('employer_id', $employerId);
         })->count();
-
+        $totalBannerPosted = Banner::where('employer_id', $employerId)->count();
         // Get recent applications for the employer (within the last 7 days)
         $recentApplications = Application::where('employer_id', $employerId)
             ->whereDate('created_at', '>=', $currentDate->copy()->subDays(7))
@@ -199,7 +200,7 @@ class EmployerAuthController extends Controller
             ->get();
 
         // Pass these statistics to the view
-        return view('employer.dashboard', compact('totalJobsPosted', 'totalApplications', 'recentApplications'));
+        return view('employer.dashboard', compact('totalBannerPosted','totalJobsPosted', 'totalApplications', 'recentApplications'));
     }
 
     // Show Employer Profile Form

@@ -48,8 +48,7 @@ class JobPostingController extends Controller
         $contacts = ContactUs::all();
         // Fetch top 28 employers based on job postings count and filter those with a logo
         $topEmployers = Employer::withCount('jobPostings') // Assuming 'jobPostings' is the relationship
-            ->whereNotNull('logo') // Filter employers with a non-null logo
-            ->where('logo', '!=', '') // Ensure the logo is not an empty string
+           
             ->orderBy('job_postings_count', 'desc') // Sort by the number of job postings
             ->take(28) // Limit to top 28
             ->get();
@@ -228,7 +227,7 @@ class JobPostingController extends Controller
     {
         $search = $request->input('search');
         $location = $request->input('location');
-        $countryId = $request->input('country_id');
+        $countryId = $request->input('country');
         $categoryId = $request->input('category_id');
 
         $jobs = JobPosting::with(['category', 'subcategory', 'country'])
@@ -390,8 +389,8 @@ class JobPostingController extends Controller
                     ->get()
                     ->map(function ($app) {
                         return [
-                            'user_name' => $app->user->name,
-                            'job_title' => $app->job->title,
+                            'user_name' => optional($app->user)->name ?? 'Unknown User',
+                            'job_title' => optional($app->job)->title ?? 'Unknown Job',
                         ];
                     });
 
@@ -419,7 +418,11 @@ class JobPostingController extends Controller
                     ->limit(5)
                     ->get()
                     ->map(function ($app) {
-                        return "{$app->user->name} applied for {$app->job->title}";
+                        // Check if user and job exist before accessing properties
+                        $userName = optional($app->user)->name ?? 'Unknown User';
+                        $jobTitle = optional($app->job)->title ?? 'Unknown Job';
+        
+                        return "$userName applied for $jobTitle";
                     });
 
                 return [
@@ -446,7 +449,11 @@ class JobPostingController extends Controller
                     ->limit(5)
                     ->get()
                     ->map(function ($app) {
-                        return "{$app->user->name} - {$app->job->title}";
+                        // Check if user and job exist before accessing properties
+                        $userName = optional($app->user)->name ?? 'Unknown User';
+                        $jobTitle = optional($app->job)->title ?? 'Unknown Job';
+        
+                        return "$userName applied for $jobTitle";
                     });
 
                 return [
@@ -585,14 +592,14 @@ class JobPostingController extends Controller
             foreach ($request->job_postings as $index => $posting) {
                 $request->validate([
                     "job_postings.{$index}.title" => 'required|string|max:255',
-                    "job_postings.{$index}.description" => 'required|string',
+                    "job_postings.{$index}.description" => 'nullable|string',
                     "job_postings.{$index}.category_id" => 'required|exists:categories,id',
                     "job_postings.{$index}.subcategory_id" => 'required|exists:subcategories,id',
                     "job_postings.{$index}.location" => 'required|string|max:255',
                     "job_postings.{$index}.country_id" => 'required|exists:countries,id',
                     "job_postings.{$index}.salary_range" => 'nullable|numeric',
                     "job_postings.{$index}.image" => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4048',
-                    "job_postings.{$index}.requirements" => 'required|string',
+                    "job_postings.{$index}.requirements" => 'nullable|string',
                     "job_postings.{$index}.closing_date" => 'required|date',
                     "job_postings.{$index}.status" => 'required|in:pending,reject,approved',
                     "job_postings.{$index}.payment_method" => 'required|in:contact_contributor,online',
@@ -614,7 +621,7 @@ class JobPostingController extends Controller
                         'employer_id' => $employerId,
                         'package_id' => $packageId,
                         'title' => $jobData['title'],
-                        'description' => $jobData['description'],
+                        'description' => $jobData['description'] ?? 'No Description',
                         'category_id' => $jobData['category_id'],
                         'subcategory_id' => $jobData['subcategory_id'],
                         'location' => $jobData['location'],
@@ -669,14 +676,14 @@ class JobPostingController extends Controller
             'package_id' => 'required|exists:packages,id',
             'payment_method' => 'required|in:contact_contributor,online',
             'job_postings.*.title' => 'required|string|max:255',
-            'job_postings.*.description' => 'required|string',
+            'job_postings.*.description' => 'nullable|string',
             'job_postings.*.category_id' => 'required|exists:categories,id',
             'job_postings.*.subcategory_id' => 'required|exists:subcategories,id',
             'job_postings.*.location' => 'required|string|max:255',
             'job_postings.*.country_id' => 'required|exists:countries,id',
             'job_postings.*.salary_range' => 'nullable|numeric',
             'job_postings.*.image' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:4048',
-            'job_postings.*.requirements' => 'required|string',
+            'job_postings.*.requirements' => 'nullable|string',
             'job_postings.*.closing_date' => 'required|date',
             'job_postings.*.status' => 'required|in:pending,reject,approved',
             'job_postings.*.employer_id' => 'required|exists:employers,id',
@@ -721,7 +728,7 @@ class JobPostingController extends Controller
                     'package_id' => $packageId,
                     'employer_id' => $jobData['employer_id'],
                     'title' => $jobData['title'],
-                    'description' => $jobData['description'],
+                    'description' => $jobData['description'] ?? 'No Description',
                     'category_id' => $jobData['category_id'],
                     'subcategory_id' => $jobData['subcategory_id'],
                     'location' => $jobData['location'],

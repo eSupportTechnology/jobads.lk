@@ -101,13 +101,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Top Employers</title>
-    @vite(['resources/css/topemployees.css'])
+    <link rel="stylesheet" href="{{ asset('css/topemployees.css') }}">
 </head>
 
 <body>
     @include('home.header')
     <div class="container">
-        <h1>Jobs by {{ $employer->name }}</h1>
+        <h1>Jobs by {{ $employer->company_name }}</h1>
 
         @if ($jobs->isEmpty())
             <p>No jobs posted by this employer yet.</p>

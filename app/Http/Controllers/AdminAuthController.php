@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Application;
+use App\Models\Banner;
 use App\Models\Employer;
 use App\Models\JobPosting;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -122,6 +124,16 @@ class AdminAuthController extends Controller
             $totalEarnings = 0;
             $recentApplications = 0;
             $totalViews = 0;
+            $totalAdmins = 0;
+            $totalSuperAdmins = 0;
+            $totalJobs = 0;
+            $totalPendingJobs = 0;
+            $totalApprovedJobs = 0;
+            $totalBanners = 0;
+            $totalPendingBanners = 0;
+            $totalApprovedBanners = 0;
+            $totalCurrentBanners = 0;
+            $totalBannerEarnings = 0;
 
             // Get total applications count if table exists
             if (Schema::hasTable('applications')) {
@@ -139,14 +151,66 @@ class AdminAuthController extends Controller
                 $totalViews = JobPosting::sum('view_count');
             }
 
+            if (Schema::hasTable('job_postings')) {
+                $totalJobs = JobPosting::count();
+            }
+
+            if (Schema::hasTable('job_postings')) {
+                $totalPendingJobs = JobPosting::where('status', 'pending')
+                    ->whereDate('closing_date', '>=', $currentDate)
+                    ->count();
+            }
+
+            if (Schema::hasTable('job_postings')) {
+                $totalApprovedJobs = JobPosting::where('status', 'approved')
+                    ->count();
+            }
+
+            if (Schema::hasTable('banners')) {
+                $totalBanners = Banner::count();
+            }
+
+            if (Schema::hasTable('banners')) {
+                $totalApprovedBanners = Banner::where('status', 'published')
+                    ->count();
+            }
+
+            if (Schema::hasTable('banners')) {
+                $totalPendingBanners = Banner::where('status', 'pending')
+                    ->count();
+            }
+            $now = Carbon::now();
+            if (Schema::hasTable('banners')) {
+                $totalCurrentBanners = Banner::join('banner_packages', 'banners.package_id', '=', 'banner_packages.id')
+                ->where('banners.status', 'published')
+                ->whereRaw('DATE_ADD(banners.updated_at, INTERVAL banner_packages.duration DAY) >= ?', [$now])
+                ->select('banners.*', 'banner_packages.duration')
+                ->count();
+            }
+            if (Schema::hasTable('banners')) {
+                $totalBannerEarnings = Banner::join('banner_packages', 'banners.package_id', '=', 'banner_packages.id')
+                ->where('banners.status', 'published')
+                ->sum('banner_packages.price_lkr');
+            }
+
             // Get total active jobseekers
             if (Schema::hasTable('users')) {
-                $totalJobseekers = User::where('is_active', true)->count();
+                $totalJobseekers = User::count();
             }
 
             // Get total active companies
             if (Schema::hasTable('employers')) {
-                $totalCompanies = Employer::where('is_active', true)->count();
+                $totalCompanies = Employer::count();
+            }
+
+            // Get total active jobseekers
+            if (Schema::hasTable('admins')) {
+                $totalAdmins = Admin::count();
+            }
+
+            // Get total active jobseekers
+            if (Schema::hasTable('admins')) {
+                $totalSuperAdmins = Admin::where('role', 'super_admin')->count();
             }
 
             // Get total earnings
@@ -156,7 +220,7 @@ class AdminAuthController extends Controller
                     ->where('job_postings.status', 'approved')
                     ->sum('packages.lkr_price');
             } catch (\Exception $e) {
-                \Log::error('Error calculating total earnings: ' . $e->getMessage());
+                // \Log::error('Error calculating total earnings: ' . $e->getMessage());
                 $totalEarnings = 0;
             }
 
@@ -186,10 +250,20 @@ class AdminAuthController extends Controller
                 'recent_applications' => $recentApplications,
                 'application_growth' => round($applicationGrowth, 2),
                 'total_views' => $totalViews, // Include total views
+                'total_admins' => $totalAdmins,
+                'total_super_admins' => $totalSuperAdmins,
+                'total_jobs'=> $totalJobs, 
+                'total_pending_jobs'=> $totalPendingJobs,
+                'total_approved_jobs'=> $totalApprovedJobs, 
+                'total_banners' => $totalBanners,
+                'total_pending_banners' => $totalPendingBanners,
+                'total_approved_banners' => $totalApprovedBanners,
+                'total_current_banners' => $totalCurrentBanners,
+                'total_banner_earnings' => $totalBannerEarnings,
             ];
 
         } catch (\Exception $e) {
-            \Log::error('Error in getDashboardStatistics: ' . $e->getMessage());
+            // \Log::error('Error in getDashboardStatistics: ' . $e->getMessage());
 
             // Return default values to avoid blade template issues
             return [
@@ -201,6 +275,16 @@ class AdminAuthController extends Controller
                 'recent_applications' => 0,
                 'application_growth' => 0,
                 'total_views' => 0,
+                'total_admins' => 0,
+                'total_super_admins' => 0,
+                'total_jobs'=> 0, 
+                'total_pending_jobs'=> 0,
+                'total_approved_jobs'=> 0,
+                'total_banners'=> 0, 
+                'total_pending_banners' => 0, 
+                'total_approved_banners' => 0, 
+                'total_current_banners' => 0, 
+                'total_banner_earnings' => 0,
             ];
         }
     }
