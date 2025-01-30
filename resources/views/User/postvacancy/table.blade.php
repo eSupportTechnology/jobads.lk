@@ -4,7 +4,7 @@
         <thead>
             <tr>
                 <th>Package Size (Nos Vacancy Posts)</th>
-                <th>Duration</th>
+                <th>Days</th>
                 <th>LKR Price (VAT Inclusive)</th>
                 <th>USD Price</th>
             </tr>

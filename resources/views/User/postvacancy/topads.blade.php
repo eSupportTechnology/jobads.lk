@@ -30,7 +30,7 @@
         </div>
 
         <!-- Contact Information Section -->
-        <div class ="contact-container">
+        <div class ="contact-container" style="margin-top:70px;">
             @foreach ($posts as $post)
                 <div class="contact-info">
                     <div class="contact-header">
