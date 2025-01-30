@@ -155,7 +155,7 @@
             style="text-decoration: none;color: black;font-size: 16px;  transition: color 0.3s ease, transform 0.3s ease;" 
             onmouseover="this.style.color='black'; this.style.transform='translateY(-2px)';" 
             onmouseout="this.style.color='black'; this.style.transform='translateY(0)';">
-            Top Employers
+            Best Employers
             </a>
             <a href="#" id="contact-us-btn" 
             style="text-decoration: none;color: black; font-size: 16px;  transition: color 0.3s ease, transform 0.3s ease;" 

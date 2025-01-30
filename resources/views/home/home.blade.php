@@ -91,6 +91,11 @@
        scrollbar-width: none; 
    }
 
+
+   .job-grid {
+    min-height:50px;
+    height:auto;
+}
     </style>
 </head>
 
@@ -107,15 +112,6 @@
         onmouseover=" this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 24px rgba(0, 0, 0, 0.3)'; this.style.backgroundColor='#6c9dbd';" 
         onmouseout=" this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.2)'; this.style.backgroundColor='#a4d8e6';">
             JOBSEEKER LOGIN
-        </a>
-
-        <a href="{{ route('feedback.home') }}" 
-        class="category-btn" 
-        style="text-decoration: none; padding: 6px 6px; border-radius: 5px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
-        transition: all 0.3s ease;  background-color: #a4d8e6; color: black; font-weight:600"
-        onmouseover=" this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 24px rgba(0, 0, 0, 0.3)'; this.style.backgroundColor='#6c9dbd';" 
-        onmouseout=" this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.2)'; this.style.backgroundColor='#a4d8e6';">
-            Feedback
         </a>
 
         <a href="{{ route('employer.login') }}" 
@@ -143,7 +139,7 @@
             @foreach ($categories as $category)
                 <a href="javascript:void(0);" data-category-id="{{ $category->id }}" class="category-link"
                     style="text-decoration: none; background-color: #f8f9fa; padding: 8px 15px; border-radius: 5px; min-width:222px;width: auto;
-                        font-size: 16px; transition: all 0.3s ease; white-space: nowrap; display: inline-block; "
+                        font-size: 14px; transition: all 0.3s ease; white-space: nowrap; display: inline-block; "
                     onmouseover="this.style.backgroundColor='#1267e7'; this.style.color='white'; this.style.transform='scale(1.05)';"
                     onmouseout="this.style.backgroundColor='#f8f9fa'; this.style.color='black'; this.style.transform='scale(1)';">
                     {{ $category->name }}
@@ -157,6 +153,7 @@
 
         </div>
 
+   
     </section>
     <!-- <div class="ads-banner">
         <img src="{{ asset('assets/images/ads.jpg') }}" alt="">
@@ -187,16 +184,16 @@
 
 
 <!-- Filters Section -->
-<section class="filters" style="background-color: rgba(0, 0, 0, 0.1); padding:15px;">
+<section class="filters" style="background-color: rgba(0, 0, 0, 0.1); padding:4px 25px">
     <p class="jobtitle">
         Available Jobs: {{ $jobs->count() }} new hot jobs
     </p>
     <form method="GET" action="{{ route('home') }}" class="filters-form">
-        <input class="text-input" type="text" name="search" placeholder="Enter Vacancy Name/Company/Job Reference" value="{{ request('search') }}">
-        <input class="text-input" type="text" name="location" placeholder="Enter your Location" value="{{ request('location') }}">
+        <input class="text-input" style="height:15px" type="text" name="search" placeholder="Enter Vacancy Name/Company/Job Reference" value="{{ request('search') }}">
+        <input class="text-input"  style="height:15px" type="text" name="location" placeholder="Enter your Location" value="{{ request('location') }}">
 
-        <select name="country" class="dropdown">
-            <option value="">All Countries</option>
+        <select name="country" class="dropdown" style="height: 40px;">
+            <option value=""  >Select Country</option>
             @foreach ($countries as $country)
             <option value="{{ $country->id}}" {{ request('country') == $country->id ? 'selected' : '' }}>
                 {{ $country->name }}
@@ -222,13 +219,13 @@
             <p>No jobs found matching your criteria.</p>
             @else
             @foreach ($jobs as $job)
-            <div class="job-card" style="min-height:100px;height:auto">
-                <a href="{{ route('job.details', $job->id) }}" class="job-title" style="font-size:17px; margin-bottom: 0px;">
+            <div class="job-card" style="min-height:50px;height:auto;">
+                <a href="{{ route('job.details', $job->id) }}" class="job-title" style="font-size:15px; margin-bottom: 0px;">
                     {{ $job->title }}
                 </a>
-                <p class="company-name" style="font-size: 15px;  margin-top: 2px; margin-bottom: 0px; font-weight:600">{{ $job->employer->company_name }}</p>
-                <p class="location" style="font-size: 15px;margin-bottom: 0px; ">{{ $job->location }}</p>
-                <p style="font-size: 14px; color:red; margin-top: 3px; line-height: 1.2;">{{ $job->closing_date }}</p>
+                <p class="company-name" style="font-size: 14px;  margin-top: 2px; margin-bottom: 0px; font-weight:600;line-height:1">{{ $job->employer->company_name }}</p>
+                <p class="location" style="font-size: 15px;margin-bottom: 0px;line-height:1">{{ $job->location }}</p>
+                <p style="font-size: 14px; color:red; margin-top: 3px; margin-bottom: 0px;line-height: 1.2;">{{ $job->closing_date }}</p>
             </div>
 
             @endforeach
@@ -339,39 +336,37 @@
     </script>
 
 <script>
-    const categoriesList = document.getElementById('categoriesList'); // The list container
-    let isMouseDown = false;
-    let startX;
-    let scrollLeft;
+    document.addEventListener("DOMContentLoaded", function () {
+        const scrollContainer = document.getElementById("categoriesList");
+        const scrollLeftBtn = document.getElementById("scrollLeft");
+        const scrollRightBtn = document.getElementById("scrollRight");
 
-    // Mouse down event
-    categoriesList.addEventListener('mousedown', (e) => {
-        isMouseDown = true;
-        startX = e.pageX - categoriesList.offsetLeft;
-        scrollLeft = categoriesList.scrollLeft;
-        categoriesList.style.cursor = 'grabbing'; // Change cursor on drag
-    });
+        function scrollCategories(direction) {
+            const categoryCards = document.querySelectorAll(".category-link");
+            if (categoryCards.length === 0) return;
 
-    // Mouse leave and up events
-    categoriesList.addEventListener('mouseleave', () => {
-        isMouseDown = false;
-        categoriesList.style.cursor = 'grab'; // Revert cursor back
-    });
+            // Get width of a single category card
+            const cardWidth = categoryCards[0].offsetWidth + 10; // Including gap
 
-    categoriesList.addEventListener('mouseup', () => {
-        isMouseDown = false;
-        categoriesList.style.cursor = 'grab'; // Revert cursor back
-    });
+            // Scroll by 6 category cards at a time
+            const scrollAmount = cardWidth * 6;
 
-    // Mouse move event for dragging
-    categoriesList.addEventListener('mousemove', (e) => {
-        if (!isMouseDown) return;  // Do nothing if mouse button is not pressed
-        e.preventDefault();  // Prevent text selection or other default actions
-        const x = e.pageX - categoriesList.offsetLeft; // Get current mouse position
-        const walk = (x - startX) * 2; // Calculate scroll amount, adjust multiplier for speed
-        categoriesList.scrollLeft = scrollLeft - walk; // Update scroll position of the container
+            scrollContainer.scrollBy({
+                left: direction === "right" ? scrollAmount : -scrollAmount,
+                behavior: "smooth"
+            });
+        }
+
+        scrollLeftBtn.addEventListener("click", function () {
+            scrollCategories("left");
+        });
+
+        scrollRightBtn.addEventListener("click", function () {
+            scrollCategories("right");
+        });
     });
 </script>
+
 
 
 </body>

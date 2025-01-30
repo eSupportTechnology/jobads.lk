@@ -85,8 +85,8 @@ body {
 }
 
 .text-input {
-    flex: none; /* Remove flexibility for width */
-    width: 500px; /* Set a smaller fixed width */
+    flex: none; 
+    width: 500px; 
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -94,20 +94,20 @@ body {
 }
 
 .filters input {
-    padding: 10px 10px; /* Keep height the same */
-    margin: 0 5px;
+    padding: 10px 10px; 
+    margin: 0 ;
     border: 1px solid #ddd;
     border-radius: 3px;
     font-size: 12px;
-    width: 400px; /* Adjust width automatically if needed */
+    width: 400px; 
 }
 .filters select {
-    padding: 5px 10px; /* Keep height the same */
-    margin: 0 5px;
+    padding: 5px 10px; 
+    margin: 0 ;
     border: 1px solid #ddd;
     border-radius: 3px;
     font-size: 12px;
-    width: 200px; /* Adjust width automatically if needed */
+    width: 200px;
 }
 
 .view-btn  {
@@ -161,8 +161,6 @@ body {
 .job-card {
     padding: 10px;
     font-size: 14px;
-    /* Slightly reduce width (adjust as needed) */
-
     border-bottom: 1px dotted #000;
     cursor: pointer; /* Show pointer cursor on hover */
 }
@@ -286,7 +284,7 @@ body {
 
 .job-grid {
     display: grid;
-    grid-template-columns: repeat(6, 1fr); /* Four equal columns */
+    grid-template-columns: repeat(7, 1fr); /* Four equal columns */
     grid-auto-rows: 1fr; /* Ensure rows automatically adjust to fill available space */
     padding: 0; /* Remove padding around the grid if not needed */
     margin: 0; /* Remove margin for tight alignment */
@@ -327,6 +325,7 @@ body {
     /* Adjust job card size for smaller screens */
     .job-card {
         height: auto; /* Allow height to adjust based on content */
+        min-height:90px;
         width: 100px;
         border-bottom: 1px dotted #ccc; /* Same color */
         width: 60%; /* Reduce width for mobile screens */
@@ -547,7 +546,7 @@ body {
 
     .job-card {
         width: 100%; /* Full width on smaller screens */
-        margin-bottom: 20px; /* Add spacing between cards */
+        margin-bottom: 0px; /* Add spacing between cards */
     }
 
     .filters {

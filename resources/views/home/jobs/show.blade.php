@@ -157,8 +157,7 @@
         /* Button Styling */
 
         .back-button {
-            position: fixed;
-
+            position: relative; 
             background-color: white;
             width: 40px;
             height: 40px;
@@ -170,7 +169,7 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-            z-index: 1000;
+            z-index: 999;
             color: white;
             background-color: blue;
         }
@@ -706,9 +705,10 @@
             <!-- Job Details Section -->
             <div class="showcontainer">
                 <div class="job-cardn">
-                    <button class="back-button" onclick="window.history.back()">
-                        <i class="fas fa-arrow-left"></i>
-                    </button>
+                <button class="back-button" onclick="window.history.back()" style="display: inline-block;">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+
 
                     <!-- Header Section -->
                     <div class="header">

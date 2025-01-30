@@ -30,7 +30,7 @@
         </div>
 
         <!-- Contact Information Section -->
-        <div class ="contact-container">
+        <div class ="contact-container" style="margin-top:70px;">
             @foreach ($posts as $post)
                 <div class="contact-info">
                     <div class="contact-header">
@@ -76,8 +76,30 @@
 
             </div>
         </div>
-        <!---table---->
-        @include('user.postvacancy.table')
+
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Package Size (Nos Vacancy Posts)</th>
+                <th>Days</th>
+                <th>LKR Price (VAT Inclusive)</th>
+                <th>USD Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($packages as $package)
+                <tr>
+                    <td>{{ $package->package_size }}</td>
+                    <td>{{ $package->duration_days }}</td>
+                    <td>{{ number_format($package->lkr_price, 2) }}</td>
+                    <td>{{ number_format($package->usd_price, 2) }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 
 
 
