@@ -251,17 +251,20 @@ strong {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    
 }
 
+
 /* Table Styling */
-table {
-    width: 90%;
-    max-width: 600px;
+.table-container table {
+    width: 100%;
+    max-width: 640px;
     border-collapse: collapse;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
-    margin-left: -850px;
-    margin-top: -350px;
+    margin-left: -790px;
+    margin-top: -650px; 
 }
 
 th,
@@ -410,7 +413,7 @@ td {
 
     table {
         width: 100%;
-        margin: 0;
+        margin:0;
     }
 
     th,
