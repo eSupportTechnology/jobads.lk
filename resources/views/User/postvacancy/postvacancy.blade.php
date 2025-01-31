@@ -7,14 +7,13 @@
     <title>Job Posting Platform</title>
 
     <link rel="stylesheet" href="{{ asset('css/postjob.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/header.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bannerposting.css') }}">
     <link rel="stylesheet" href="{{ asset('css/topads.css') }}">
-  
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
+<style>
 
-<body>
+</style>
+</head>
+    <body>
     @include('home.header')
     <div class="postcontainer">
         <div class="postheader">
@@ -41,7 +40,95 @@
     <!-- Component Content Section -->
     <div id="componentContainer" style="padding: 0px 0px 0px 20px">
 
-        @include('User.postvacancy.topads')<br />
+    <div class="unique-container">
+        <!-- Top Ads Content -->
+        <div class="topads-container">
+            <div class="topads-header">
+                Top Ads Pricing Details
+            </div>
+            @foreach ($posts as $post)
+                <div class="topads-content">
+                    <ul>
+
+                        {!! $post->description_two !!}
+
+                    </ul>
+                </div>
+            @endforeach
+        </div>
+
+        <!-- Contact Information Section -->
+        <div class ="contact-container" style="margin-top:70px;">
+            @foreach ($posts as $post)
+                <div class="contact-info">
+                    <div class="contact-header">
+                        Send the vacancy to: Email / Call
+                    </div>
+                    <p>Email: <a href="{{ $post->email }}">{{ $post->email }}</a></p>
+                    <p>Phone: {{ $post->contact }}</p>
+                    @foreach ($contactsLists as $contactList)
+                        <ul>
+                            <li><strong>{{ $contactList->name }}:</strong> {{ $contactList->phone }}</li>
+                        </ul>
+                    @endforeach
+
+
+
+                    <p><strong>International:</strong> Prefix the number with '+94' e.g. <strong>+94 76 910
+                            8691</strong>
+                    </p>
+
+                </div>
+            @endforeach
+        </div>
+
+        <!--how to post your vacancy-->
+        <div class ="post-container">
+            <div class="post-info">
+                <div class="post-header">
+                    How To Post Your Vacancy
+                </div>
+                <p>Email confirmations will be sent on job opening and prior to job closing with statistics on how many
+                    jobseekers have seen your vacancy.</p>
+
+            </div>
+        </div>
+        <!--Payment method-->
+        <div class ="post-container">
+            <div class="payment-info">
+                <div class="payment-header">
+                    Payment Methods
+                </div>
+                <p>We accept cash/cheque deposits, bank transfer, credit card payment (visa/mastercard) and other
+                    convenient methods</p>
+
+            </div>
+        </div>
+
+        <div class="table-container">
+    <table style="width: 80%;">
+        <thead>
+            <tr style="background-color: #f4f4f4; color: #333;">
+                <th style="">Package Size (Nos Vacancy Posts)</th>
+                <th style="">Days</th>
+                <th style="">LKR Price (VAT Inclusive)</th>
+                <th style="">USD Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($packages as $package)
+                <tr style="border: 1px solid #ddd;">
+                    <td style="">{{ $package->package_size }}</td>
+                    <td style="">{{ $package->duration_days }}</td>
+                    <td style="">{{ number_format($package->lkr_price, 2) }}</td>
+                    <td style="">{{ number_format($package->usd_price, 2) }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+
+<br />
 
     </div>
     <br />

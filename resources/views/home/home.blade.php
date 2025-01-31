@@ -96,6 +96,8 @@
     min-height:50px;
     height:auto;
 }
+
+
     </style>
 </head>
 
@@ -189,10 +191,10 @@
         Available Jobs: {{ $jobs->count() }} new hot jobs
     </p>
     <form method="GET" action="{{ route('home') }}" class="filters-form">
-        <input class="text-input" style="height:15px" type="text" name="search" placeholder="Enter Vacancy Name/Company/Job Reference" value="{{ request('search') }}">
-        <input class="text-input"  style="height:15px" type="text" name="location" placeholder="Enter your Location" value="{{ request('location') }}">
+        <input class="text-input" style="height:17px" type="text" name="search" placeholder="Enter Vacancy Name/Company/Job Reference" value="{{ request('search') }}">
+        <input class="text-input"  style="height:17px;" type="text" name="location" placeholder="Enter your Location" value="{{ request('location') }}">
 
-        <select name="country" class="dropdown" style="height: 40px;">
+        <select name="country" class="dropdown" style="height: 43px; color: #777777">
             <option value=""  >Select Country</option>
             @foreach ($countries as $country)
             <option value="{{ $country->id}}" {{ request('country') == $country->id ? 'selected' : '' }}>
@@ -202,7 +204,7 @@
         </select>
 
         <button class="view-btn" type="submit">
-            <i class="fa fa-search"></i> <!-- This is the search icon -->
+            <i class="fa fa-search"></i> 
         </button>
     </form>
     <hr>

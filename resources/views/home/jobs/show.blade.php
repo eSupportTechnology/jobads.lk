@@ -157,7 +157,7 @@
         /* Button Styling */
 
         .back-button {
-            position: relative; 
+            position: relative;
             background-color: white;
             width: 40px;
             height: 40px;
@@ -705,11 +705,7 @@
             <!-- Job Details Section -->
             <div class="showcontainer">
                 <div class="job-cardn">
-                <button class="back-button" onclick="window.history.back()" style="display: inline-block;">
-                    <i class="fas fa-arrow-left"></i>
-                </button>
-
-
+                   
                     <!-- Header Section -->
                     <div class="header">
                         @if (!empty($job->image))
