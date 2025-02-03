@@ -381,30 +381,37 @@
         }
 
         function setupCategoryListener(categorySelect) {
-                categorySelect.addEventListener('change', function() {
-                    const categoryId = this.value;
-                    const contactItem = this.closest('.contact-item');
-                    // Fixed selector to match the correct name format with job_postings array
-                    const subcategorySelect = contactItem.querySelector('select[id^="subcategory_id_"]');
+            $(categorySelect).on('change', function() {
+                const categoryId = $(this).val();
+                const contactItem = $(this).closest('.contact-item');
+                const subcategorySelect = contactItem.find('select[id^="subcategory_id_"]');
 
-                    // Clear existing options
-                    subcategorySelect.innerHTML = '<option value="">Select a subcategory</option>';
+                // Clear existing options
+                subcategorySelect.html('<option value="">Select a subcategory</option>');
 
-                    if (categoryId) {
-                        fetch(`/subcategories/${categoryId}`)
-                            .then(response => response.json())
-                            .then(data => {
-                                data.forEach(subcategory => {
-                                    const option = document.createElement('option');
-                                    option.value = subcategory.id;
-                                    option.textContent = subcategory.name;
-                                    subcategorySelect.appendChild(option);
-                                });
-                            })
-                            .catch(error => console.error('Error fetching subcategories:', error));
-                    }
-                });
-            }
+                if (categoryId) {
+                    $.ajax({
+                        url: `/subcategories/${categoryId}`,
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $.each(data, function(index, subcategory) {
+                                subcategorySelect.append(
+                                    $('<option>', {
+                                        value: subcategory.id,
+                                        text: subcategory.name
+                                    })
+                                );
+                            });
+                        },
+                        error: function(error) {
+                            console.error('Error fetching subcategories:', error);
+                        }
+                    });
+                }
+            });
+        }
+
             // Setup image preview
             function setupImagePreview(input) {
                 input.addEventListener('change', function(event) {

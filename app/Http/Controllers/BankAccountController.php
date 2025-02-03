@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BankAccount;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BankAccountController extends Controller
 {
@@ -12,6 +13,7 @@ class BankAccountController extends Controller
         $banks = BankAccount::all();
         return view('User.postvacancy.paymentmethod.onlinefundtransfer', compact('banks'));
     }
+
     public function indexadmin()
     {
         $bankAccounts = BankAccount::all();
@@ -31,10 +33,18 @@ class BankAccountController extends Controller
             'account_no' => 'required',
             'bank_code' => 'required',
             'branch_code' => 'required',
-            'branch_name' => 'required', // Add this line
+            'branch_name' => 'required',
             'swift_code' => 'nullable',
             'currency' => 'required',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'localorforeign' => 'required',
         ]);
+
+        // Handle logo upload
+        if ($request->hasFile('logo')) {
+            $path = $request->file('logo')->store('bank-logos');
+            $validated['logo'] = str_replace('public/', '', $path);
+        }
 
         BankAccount::create($validated);
         return redirect()->route('admin.bank-accounts.index')->with('success', 'Bank account created successfully');
@@ -53,10 +63,26 @@ class BankAccountController extends Controller
             'account_no' => 'required',
             'bank_code' => 'required',
             'branch_code' => 'required',
-            'branch_name' => 'required', // Add this line
+            'branch_name' => 'required',
             'swift_code' => 'nullable',
             'currency' => 'required',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'localorforeign' => 'required',
         ]);
+
+        // Handle logo update
+        if ($request->hasFile('logo')) {
+            // Delete old logo
+            if ($bankAccount->logo) {
+                Storage::delete('public/' . $bankAccount->logo);
+            }
+
+            $path = $request->file('logo')->store('bank-logos');
+            $validated['logo'] = str_replace('public/', '', $path);
+        } else {
+            // Keep existing logo if not updated
+            unset($validated['logo']);
+        }
 
         $bankAccount->update($validated);
         return redirect()->route('admin.bank-accounts.index')->with('success', 'Bank account updated successfully');
@@ -64,6 +90,11 @@ class BankAccountController extends Controller
 
     public function destroy(BankAccount $bankAccount)
     {
+        // Delete logo file if exists
+        if ($bankAccount->logo) {
+            Storage::delete('public/' . $bankAccount->logo);
+        }
+
         $bankAccount->delete();
         return redirect()->route('admin.bank-accounts.index')->with('success', 'Bank account deleted successfully');
     }

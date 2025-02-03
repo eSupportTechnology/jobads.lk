@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banner;
+use App\Models\BannerDetail;
 use App\Models\BannerPackage;
 use App\Models\Category;
 use App\Models\Employer;
@@ -111,7 +112,8 @@ class EmpBannerController extends Controller
     {
         $categories = Category::all();
         $packages = BannerPackage::all();
-        return view('employer.banner.create', compact('categories', 'packages'));
+        $packageDetailsBanners = BannerDetail::first();
+        return view('employer.banner.create', compact('categories', 'packages','packageDetailsBanners'));
     }
 
     /**
@@ -125,7 +127,8 @@ class EmpBannerController extends Controller
     {
         $categories = Category::all();
         $packages = BannerPackage::all();
-        return view('employer.banner.edit', compact('banner', 'categories', 'packages'));
+        $packageDetailsBanners = BannerDetail::first();
+        return view('employer.banner.edit', compact('banner','packageDetailsBanners', 'categories', 'packages'));
     }
 
     /**

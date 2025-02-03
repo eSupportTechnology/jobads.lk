@@ -30,9 +30,12 @@
                             </div>
                         @endif
 
-                        <form method="POST" action="{{ route('admin.bank-accounts.store') }}" class="needs-validation">
+                        <form method="POST" action="{{ route('admin.bank-accounts.store') }}" class="needs-validation"
+                            enctype="multipart/form-data">
                             @csrf
                             <div class="row g-3">
+                                
+                                <!-- Existing Fields -->
                                 <div class="col-md-6">
                                     <label for="bank_name" class="form-label">Bank Name</label>
                                     <input type="text" class="form-control" id="bank_name" name="bank_name" required>
@@ -73,6 +76,32 @@
                                     <label for="currency" class="form-label">Currency</label>
                                     <input type="text" class="form-control" id="currency" name="currency" required>
                                 </div>
+
+                                <!-- Add Logo Upload Field -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="logo">Bank Logo</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="form-control" id="logo" name="logo"
+                                                accept="image/*" onchange="previewImage(event)">
+                                            @error('logo')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="image-preview mt-2">
+                                            <img id="logoPreview" src="#" alt="Logo Preview"
+                                                style="max-width: 200px; display: none;" class="img-thumbnail">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="localorforeign" class="form-label">Local or Foreign</label>
+                                    <select class="form-control" name="localorforeign" required>
+                                        <option value="local">Local</option>
+                                        <option value="foreign">Foreign</option>
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="mt-3">
@@ -85,4 +114,24 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function previewImage(event) {
+            const preview = document.getElementById('logoPreview');
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                preview.style.display = 'block';
+                preview.src = e.target.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.style.display = 'none';
+                preview.src = '#';
+            }
+        }
+    </script>
 @endsection

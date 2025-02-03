@@ -16,6 +16,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\BannerDetailsController;
 use App\Http\Controllers\BannerPackageController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactListController;
@@ -834,6 +835,8 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::put('/banner-packages/{bannerPackage}', [BannerPackageController::class, 'update'])->name('banner_packages.update');
     Route::delete('/banner-packages/{bannerPackage}', [BannerPackageController::class, 'destroy'])->name('banner_packages.destroy');
 
+    Route::get('/banner-details/create', [BannerDetailsController::class, 'create'])->name('bannerdetails.create');
+    Route::post('/banner-details/store', [BannerDetailsController::class, 'store'])->name('bannerdetails.store');
 });
 
 Route::prefix('admin')->middleware(['admin'])->group(function () {

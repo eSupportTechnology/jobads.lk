@@ -86,23 +86,13 @@
                                 <input type="text" class="form-control" id="title" name="title" value="{{ $banner->title }}" required>
                             </div>
 
-                            <div class="mb-3">
-                                <label for="image" class="form-label">Banner Image</label>
-                                <input type="file" class="form-control" id="image" name="image" accept="image/*">
-                                <div class="image-preview-container mt-2">
-                                    @if ($banner->image)
-                                        <img id="imagePreview" src="{{ asset('storage/' . $banner->image) }}" alt="Preview">
-                                    @else
-                                        <img id="imagePreview" src="" alt="Preview" style="display: none; max-width: 100%;">
-                                    @endif
-                                </div>
-                            </div>
+                            
 
                             <div class="mb-3">
                                 <label for="placement" class="form-label">Banner Placement</label>
                                 <select name="placement" id="placement" class="form-control" required>
-                                    <option value="banner" {{ $banner->placement == 'banner' ? 'selected' : '' }}>Main Banner</option>
-                                    <option value="category_page" {{ $banner->placement == 'category_page' ? 'selected' : '' }}>Category Page</option>
+                                    <option value="banner" {{ $banner->placement == 'banner' ? 'selected' : '' }}>Main Banner (Image size: {{$packageDetailsBanners->mbsize}})</option>
+                                    <option value="category_page" {{ $banner->placement == 'category_page' ? 'selected' : '' }}>Category Pag (Image size: {{$packageDetailsBanners->cbsize}})e</option>
                                 </select>
                             </div>
 
@@ -114,6 +104,18 @@
                                         <option value="{{ $category->id }}" {{ $banner->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="image" class="form-label">Banner Image</label>
+                                <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                                <div class="image-preview-container mt-2">
+                                    @if ($banner->image)
+                                        <img id="imagePreview" src="{{ asset('storage/' . $banner->image) }}" alt="Preview">
+                                    @else
+                                        <img id="imagePreview" src="" alt="Preview" style="display: none; max-width: 100%;">
+                                    @endif
+                                </div>
                             </div>
 
                             <button type="submit" class="btn btn-primary">Update Banner</button>

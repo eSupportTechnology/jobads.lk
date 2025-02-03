@@ -26,9 +26,10 @@
             font-size: 14px;
             border-radius: 4px;
             text-transform: uppercase;
-            width: 60px;
+            font-weight: bold;
+            width: 100px;
             /* Set a fixed width for uniform size */
-            height: 20px;
+            height: 40px;
             /* Set a fixed height for uniform size */
         }
 
@@ -100,6 +101,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>Logo</th>
                                         <th>Bank Name</th>
                                         <th>Account Name</th>
                                         <th>Account No</th>
@@ -108,13 +110,22 @@
                                         <th>Branch Name</th>
                                         <th>SWIFT Code</th>
                                         <th>Currency</th>
-                                        <th>Actions</th>
+                                        <th>Local or Foreign</th>
+                                        <th class="actions-column">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($bankAccounts as $account)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>
+                                                @if ($account->logo)
+                                                    <img src="{{ asset('storage/' . $account->logo) }}" style="height:40px; width:90px;"
+                                                        alt="{{ $account->bank_name }} Logo" class="logo-thumbnail">
+                                                @else
+                                                    <span class="text-muted">No</span>
+                                                @endif
+                                            </td>
                                             <td>{{ $account->bank_name }}</td>
                                             <td>{{ $account->account_name }}</td>
                                             <td>{{ $account->account_no }}</td>
@@ -123,20 +134,23 @@
                                             <td>{{ $account->branch_name }}</td>
                                             <td>{{ $account->swift_code }}</td>
                                             <td>{{ $account->currency }}</td>
+                                            <td>{{ $account->localorforeign}}</td>
                                             <td>
-                                                <a href="{{ route('admin.bank-accounts.edit', $account->id) }}"
-                                                    class="btn custom-btn custom-btn-warning btn-sm">
-                                                    <i class="icon-pencil-alt"></i> Edit
-                                                </a>
-                                                <form action="{{ route('admin.bank-accounts.destroy', $account->id) }}"
-                                                    method="POST" style="display: inline-block;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn custom-btn custom-btn-danger"
-                                                        onclick="return confirm('Are you sure you want to delete this bank account?')">
-                                                        <i class="icon-trash"></i> Delete
-                                                    </button>
-                                                </form>
+                                                <div class="d-flex gap-2">
+                                                    <a href="{{ route('admin.bank-accounts.edit', $account->id) }}"
+                                                        class="btn custom-btn custom-btn-warning">
+                                                        <i class="icon-pencil-alt"></i> Edit
+                                                    </a>
+                                                    <form action="{{ route('admin.bank-accounts.destroy', $account->id) }}"
+                                                        method="POST" style="display: inline-block;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn custom-btn custom-btn-danger"
+                                                            onclick="return confirm('Are you sure you want to delete this bank account?')">
+                                                            <i class="icon-trash"></i> Delete
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

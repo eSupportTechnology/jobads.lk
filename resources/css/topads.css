@@ -125,7 +125,6 @@ strong {
     border-radius: 5px;
     background-color: #f9f9f9;
     max-width: 600px;
-    margin-left: 670px;
 }
 .post-header {
     background-color: #e0f0ff; /* Light blue background */
@@ -144,7 +143,6 @@ strong {
     border-radius: 5px;
     background-color: #f9f9f9;
     max-width: 600px;
-    margin-left: 670px;
 }
 .payment-header {
     background-color: #e0f0ff; /* Light blue background */
@@ -255,13 +253,9 @@ strong {
 
 /* Table Styling */
 table {
-    width: 90%;
-    max-width: 600px;
     border-collapse: collapse;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
-    margin-left: -850px;
-    margin-top: -350px;
 }
 
 th,

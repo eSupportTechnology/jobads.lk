@@ -14,8 +14,10 @@ class BankAccount extends Model
         'account_no',
         'bank_code',
         'branch_code',
-        'branch_name', // Add this line
+        'branch_name',
         'swift_code',
         'currency',
+        'logo',
+        'localorforeign',
     ];
 }

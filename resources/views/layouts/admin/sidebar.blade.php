@@ -64,6 +64,7 @@
                             <li><a href="{{ route('admin.list') }}">Admin </a></li>
                             <li><a href="{{ route('employer.list') }}">Employer</a></li>
                             <li><a href="{{ route('user.list') }}">Jobseeker</a></li>
+                            <li><a href="{{ route('register.adminemployer') }}">Employer Create</a></li>
                         </ul>
                     </li>
                     <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a
@@ -88,8 +89,6 @@
                         <ul class="sidebar-submenu">
                             <li><a href="{{ route('job_postings.index') }}">View Jobs </a></li>
                             <li><a href="{{ route('admin.job_postings.create') }}">Post Job</a></li>
-
-
                         </ul>
                     </li>
                     <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title"
@@ -103,19 +102,17 @@
                         <ul class="sidebar-submenu">
                             <li><a href="{{ route('banners.index') }}">View Banner </a></li>
                             <li><a href="{{ route('banners.create') }}">Post Banner</a></li>
-
-
                         </ul>
                     </li>
 
-                    <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a
+                    <!-- <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a
                             class="sidebar-link sidebar-title link-nav" href="{{ route('register.adminemployer') }}">
                             <svg class="stroke-icon">
                                 <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-contact') }}"></use>
                             </svg>
                             <svg class="fill-icon">
                                 <use href="{{ asset('assets/svg/icon-sprite.svg#fill-contact') }}"> </use>
-                            </svg><span>Employer create</span></a></li>
+                            </svg><span>Employer create</span></a></li> -->
                     <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a
                             class="sidebar-link sidebar-title link-nav" href="{{ route('admin.feedback.manage') }}">
                             <svg class="stroke-icon">
@@ -124,7 +121,7 @@
                             <svg class="fill-icon">
                                 <use href="{{ asset('assets/svg/icon-sprite.svg#star') }}"> </use>
                             </svg><span>FeedBack</span></a></li>
-                            <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a
+                    <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a
                             class="sidebar-link sidebar-title link-nav" href="{{ route('countries.index') }}">
                             <svg class="stroke-icon">
                                 <use href="{{ asset('assets/svg/icon-sprite.svg#tag') }}"></use>
@@ -134,34 +131,34 @@
                             </svg><span>Countries</span></a></li>
 
 
-
-                    <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a
-                            class="sidebar-link sidebar-title link-nav"
-                            href="{{ route('package-contacts.create') }}">
+                    <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title"
+                            href="#">
                             <svg class="stroke-icon">
-                                <use href="{{ asset('assets/svg/icon-sprite.svg#pencil') }}"></use>
+                                <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-form') }}"></use>
                             </svg>
                             <svg class="fill-icon">
-                                <use href="{{ asset('assets/svg/icon-sprite.svg#pencil') }}"> </use>
-                            </svg><span>Package Contact</span></a></li>
+                                <use href="{{ asset('assets/svg/icon-sprite.svg#fill-form') }}"></use>
+                            </svg><span>Job Packages</span></a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="{{ route('package-contacts.create') }}">Package Details</a></li>
+                            <li><a href="{{ route('admin.packages.index') }}">Package Prices</a></li>
+                        </ul>
+                    </li>
 
-
-                    <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a
-                            class="sidebar-link sidebar-title link-nav" href="{{ route('admin.packages.index') }}">
+                    <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title"
+                            href="#">
                             <svg class="stroke-icon">
-                                <use href="{{ asset('assets/svg/icon-sprite.svg#fill-task') }}"></use>
+                                <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-form') }}"></use>
                             </svg>
                             <svg class="fill-icon">
-                                <use href="{{ asset('assets/svg/icon-sprite.svg#fill-task') }}"> </use>
-                            </svg><span>Package Details</span></a></li>
-                    <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a
-                            class="sidebar-link sidebar-title link-nav" href="{{ route('banner_packages.index') }}">
-                            <svg class="stroke-icon">
-                                <use href="{{ asset('assets/svg/icon-sprite.svg#fill-task') }}"></use>
-                            </svg>
-                            <svg class="fill-icon">
-                                <use href="{{ asset('assets/svg/icon-sprite.svg#fill-task') }}"> </use>
-                            </svg><span>Banner Packages </span></a></li>
+                                <use href="{{ asset('assets/svg/icon-sprite.svg#fill-form') }}"></use>
+                            </svg><span>Banner Packages</span></a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="{{ route('bannerdetails.create') }}">Package Details</a></li>
+                            <li><a href="{{ route('banner_packages.index') }}">Package Prices</a></li>
+                        </ul>
+                    </li>
+
                     <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a
                             class="sidebar-link sidebar-title link-nav"
                             href="{{ route('admin.bank-accounts.index') }}">
@@ -213,14 +210,10 @@
 
                         </ul>
                     </li>
-                    <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a
-                            class="sidebar-link sidebar-title link-nav" href="{{ route('admin.feedback.manage') }}">
-                            <svg class="stroke-icon">
-                                <use href="{{ asset('assets/svg/icon-sprite.svg#rate') }}"></use>
-                            </svg>
-                            <svg class="fill-icon">
-                                <use href="{{ asset('assets/svg/icon-sprite.svg#rate') }}"> </use>
-                            </svg><span>FeedBack</span></a></li>
+                    <li class="sidebar-list"><i class="fa fa-thumb-tack"></i>
+                          </li>
+                          <li class="sidebar-list"><i class="fa fa-thumb-tack"></i>
+                          </li>
 
 
                 </ul>

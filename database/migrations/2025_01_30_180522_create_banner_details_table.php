@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('package_contacts', function (Blueprint $table) {
+        Schema::create('banner_details', function (Blueprint $table) {
             $table->id();
             $table->string('email');
             $table->date('effective_date');
+            $table->string('mbsize');
+            $table->string('cbsize');
             $table->text('description_one');
             $table->text('description_two');
             $table->text('description_three');
@@ -25,8 +27,9 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down()
+
+    public function down(): void
     {
-        Schema::dropIfExists('package_contacts');
+        Schema::dropIfExists('banner_details');
     }
 };

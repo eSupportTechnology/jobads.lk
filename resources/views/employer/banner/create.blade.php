@@ -111,23 +111,17 @@
                                 <input type="text" class="form-control" id="title" name="title" required>
                             </div>
 
-                            <div class="mb-3">
-                                <label for="image" class="form-label">Banner Image</label>
-                                <input type="file" class="form-control" id="image" name="image" accept="image/*"
-                                    required>
-                                <div class="image-preview-container mt-2">
-                                    <img id="imagePreview" src="" alt="Preview"
-                                        style="display: none; max-width: 100%;">
-                                </div>
-                            </div>
+                            
 
                             <div class="mb-3">
                                 <label for="placement" class="form-label">Banner Placement</label>
                                 <select name="placement" id="placement" class="form-control" required>
-                                    <option value="banner">Main Banner</option>
-                                    <option value="category_page">Category Page</option>
+                                <option value="banner">Main Banner (Image size: {{$packageDetailsBanners->mbsize}})</option>
+                                <option value="category_page">Category Page (Image size: {{$packageDetailsBanners->cbsize}})</option>
                                 </select>
                             </div>
+
+                            
 
                             <div class="mb-3" id="categorySection" style="display: none;">
                                 <label for="category_id" class="form-label">Category</label>
@@ -137,6 +131,16 @@
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="image" class="form-label">Banner Image</label>
+                                <input type="file" class="form-control" id="image" name="image" accept="image/*"
+                                    required>
+                                <div class="image-preview-container mt-2">
+                                    <img id="imagePreview" src="" alt="Preview"
+                                        style="display: none; max-width: 100%;">
+                                </div>
                             </div>
 
 

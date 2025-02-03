@@ -1,6 +1,6 @@
 @extends('layouts.admin.master')
 
-@section('title', 'Create Package Details')
+@section('title', 'Create Banner Details')
 
 <head>
     <!-- Bootstrap 5 CSS -->
@@ -22,10 +22,10 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>Create Package Details</h5>
+                    <h5>Create Banner Details</h5>
                 </div>
                 <div class="card-body">
-                    <form class="form" id="form" action="{{ route('package-contacts.store') }}" method="POST">
+                    <form action="{{ route('bannerdetails.store') }}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="form-group mb-3 col-md-6">
@@ -36,6 +36,16 @@
                             <div class="form-group mb-3 col-md-6">
                                 <label for="effective_date">Effective Date</label>
                                 <input type="date" name="effective_date" class="form-control" value="{{ old('effective_date', $post->effective_date ?? '') }}" required>
+                            </div>
+
+                            <div class="form-group mb-3 col-md-6">
+                                <label for="mbsize">Main Banner Size</label>
+                                <input type="text" name="mbsize" class="form-control" value="{{ old('mbsize', $post->mbsize ?? '') }}" required>
+                            </div>
+
+                            <div class="form-group mb-3 col-md-6">
+                                <label for="cbsize">Category Banner Size</label>
+                                <input type="text" name="cbsize" class="form-control" value="{{ old('cbsize', $post->cbsize ?? '') }}" required>
                             </div>
 
                             <div class="form-group mb-3 col-md-12">
@@ -55,8 +65,6 @@
                                 <div id="editor-three" style="height: 200px;"></div>
                                 <input type="hidden" id="hidden-input-three" name="description_three" value="{{ old('description_three', $post->description_three ?? '') }}">
                             </div>
-
-
                         </div>
 
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -80,44 +88,82 @@
 
 <script>
     $(document).ready(function() {
-  
 
-    var toolbarOptions = [
-        [{ 'font': [] }], 
-        [{ 'size': ['small', false, 'large', 'huge'] }],  
-        ['bold', 'italic', 'underline', 'strike'],  
-        [{ 'color': [] }, { 'background': [] }],  
-        [{ 'script': 'sub' }, { 'script': 'super' }],  
-        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-        [{ 'align': [] }], 
-        ['blockquote', 'code-block'],
-        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-        [{ 'indent': '-1' }, { 'indent': '+1' }],  
-        ['link', 'image', 'video'],  
-        ['clean']  
-    ];
 
-    // Initialize Quill editors
-    var quill1 = new Quill('#editor-one', { theme: 'snow', modules: { toolbar: toolbarOptions } });
-    var quill2 = new Quill('#editor-two', { theme: 'snow', modules: { toolbar: toolbarOptions } });
-    var quill3 = new Quill('#editor-three', { theme: 'snow', modules: { toolbar: toolbarOptions } });
+        var toolbarOptions = [
+            [{
+                'font': []
+            }],
+            [{
+                'size': ['small', false, 'large', 'huge']
+            }],
+            ['bold', 'italic', 'underline', 'strike'],
+            [{
+                'color': []
+            }, {
+                'background': []
+            }],
+            [{
+                'script': 'sub'
+            }, {
+                'script': 'super'
+            }],
+            [{
+                'header': [1, 2, 3, 4, 5, 6, false]
+            }],
+            [{
+                'align': []
+            }],
+            ['blockquote', 'code-block'],
+            [{
+                'list': 'ordered'
+            }, {
+                'list': 'bullet'
+            }],
+            [{
+                'indent': '-1'
+            }, {
+                'indent': '+1'
+            }],
+            ['link', 'image', 'video'],
+            ['clean']
+        ];
 
-    // Load existing data from hidden inputs
-    quill1.root.innerHTML = $("#hidden-input-one").val();
-    quill2.root.innerHTML = $("#hidden-input-two").val();
-    quill3.root.innerHTML = $("#hidden-input-three").val();
+        // Initialize Quill editors
+        var quill1 = new Quill('#editor-one', {
+            theme: 'snow',
+            modules: {
+                toolbar: toolbarOptions
+            }
+        });
+        var quill2 = new Quill('#editor-two', {
+            theme: 'snow',
+            modules: {
+                toolbar: toolbarOptions
+            }
+        });
+        var quill3 = new Quill('#editor-three', {
+            theme: 'snow',
+            modules: {
+                toolbar: toolbarOptions
+            }
+        });
 
-    // Ensure Quill.js content is stored before form submission
-    $("form").on("submit", function(event) {
-       
+        // Load existing data from hidden inputs
+        quill1.root.innerHTML = $("#hidden-input-one").val();
+        quill2.root.innerHTML = $("#hidden-input-two").val();
+        quill3.root.innerHTML = $("#hidden-input-three").val();
 
-        $("#hidden-input-one").val(quill1.root.innerHTML.trim());
-        $("#hidden-input-two").val(quill2.root.innerHTML.trim());
-        $("#hidden-input-three").val(quill3.root.innerHTML.trim());
+        // Ensure Quill.js content is stored before form submission
+        $("form").on("submit", function(event) {
 
-       
+
+            $("#hidden-input-one").val(quill1.root.innerHTML.trim());
+            $("#hidden-input-two").val(quill2.root.innerHTML.trim());
+            $("#hidden-input-three").val(quill3.root.innerHTML.trim());
+
+
+        });
     });
-});
-
 </script>
 @endsection

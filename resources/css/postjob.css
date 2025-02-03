@@ -59,8 +59,8 @@ a:hover {
     color: #0056b3; /* Blue Sinhala text */
 }
 
-   /* Button Group */
-   .btn-group {
+/* Button Group */
+.btn-group {
     display: flex;
     justify-content: center; /* Center-align buttons */
     gap: 15px; /* Spacing between buttons */

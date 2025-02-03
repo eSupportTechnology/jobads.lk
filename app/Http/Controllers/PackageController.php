@@ -31,7 +31,7 @@ class PackageController extends Controller
     {
         $request->validate([
             'package_size' => 'required|integer',
-            'duration_days' => 'required|integer',
+            'duration_days' => 'required',
             'lkr_price' => 'required|numeric',
             'usd_price' => 'required|numeric',
         ]);
