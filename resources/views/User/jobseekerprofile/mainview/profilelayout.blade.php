@@ -13,7 +13,18 @@
     <link rel="stylesheet" href="{{ asset('css/profileview.css') }}">
     <link rel="stylesheet" href="{{ asset('css/education.css') }}">
     <link rel="stylesheet" href="{{ asset('css/myapplication.css') }}">
+    <style>
+        .cvbutton {
+            width: 260px;
+            /* Set exact width to match other buttons */
+            text-align: center;
+        }
 
+        /* Ensure dropdown menu width matches button */
+        .dropdown-menu {
+            min-width: 150px;
+        }
+    </style>
 </head>
 
 <body>
@@ -48,10 +59,10 @@
                 id="myapplication">My Applications</a>
             <a href="{{ route('user.flagged_jobs') }}" class="btn btn-common" id="flagged">Flagged Jobs</a>
             <div class="dropdown">
-                <button class="btn btn-common dropdown-toggle" type="button" id="preferred" data-bs-toggle="dropdown"
-                    aria-expanded="false">
+                <a class="btn btn-common dropdown-toggle cvbutton" type="button" id="preferred"
+                    data-bs-toggle="dropdown" aria-expanded="false">
                     Create CV
-                </button>
+                </a>
                 <ul class="dropdown-menu" aria-labelledby="preferred">
                     <li><a class="dropdown-item" href="{{ route('generate.index') }}">Template 1</a></li>
                     <li><a class="dropdown-item" href="{{ route('generate.index2') }}">Template 2</a></li>
