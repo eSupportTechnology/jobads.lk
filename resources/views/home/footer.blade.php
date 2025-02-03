@@ -131,95 +131,84 @@
     });
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const categoryLinks = document.querySelectorAll('.category-link');
-        const jobListingsContainer = document.getElementById('job-listings');
+    $(document).ready(function() {
+    $('.category-link').on('click', function() {
+        const categoryId = $(this).data('category-id');
+        const jobListingsContainer = $('#job-listings');
 
-        categoryLinks.forEach((link) => {
-            link.addEventListener('click', function() {
-                const categoryId = this.getAttribute('data-category-id');
+        // Show loading message
+        jobListingsContainer.html('<p>Loading jobs...</p>');
 
-                // Show loading message
-                jobListingsContainer.innerHTML = '<p>Loading jobs...</p>';
+        // Fetch jobs for the selected category
+        $.ajax({
+            url: `/jobs/category/${categoryId}`,
+            method: 'GET',
+            dataType: 'json',
+            success: function(jobs) {
+                jobListingsContainer.html(''); // Clear the loading message
 
-                // Fetch jobs for the selected category
-                fetch(`/jobs/category/${categoryId}`)
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then((jobs) => {
-                        // Clear the loading message
-                        jobListingsContainer.innerHTML = '';
+                if (jobs.length > 0) {
+                    // Display the job count above the table
+                    const jobCountTitle = `<h3>Available Jobs (${jobs.length})</h3>`;
 
-                        if (jobs.length > 0) {
-                            // Display the job count above the table
-                            const jobCountTitle =
-                                `<h3>Available Jobs (${jobs.length})</h3>`;
-
-                            // Create a table structure
-                            const table = `
-                <div class="table-container"> <!-- Scrollable container -->
-                    <table class="job-table">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Reference Number</th>
-                                <th>Job Title</th>
-                                <th>Description</th>
-
-                                <th>Location</th>
-                                <th>Posted Date</th>
-                                <th>Closing Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${jobs
-                                .map(
-                                    (job, index) => `
-                                    <tr>
-                                        <td>${index + 1}</td> <!-- Row Number -->
-                                        <td>${job.job_id || 'N/A'}</td> <!-- Reference Number -->
-                                        <td>
-                                            <a href="/jobs/${job.id}" class="job-title">
-                                                ${job.title}
-                                            </a>
-                                            <br>
-                                            <a href="/jobs/${job.id}" class="company-name">
-                                                ${job.employer.company_name}
-                                            </a>
-                                        </td>
-                                        <td>${job.description || 'No description provided'}</td>
-
-                                        <td>${job.location || 'Not specified'}</td>
-                                        <td>
-                                            ${job.created_at
-                                                ? `${new Date(job.created_at).toISOString().split('T')[0]}`
-                                                : 'N/A'}
-                                        </td>
-                                        <td>${job.closing_date || 'N/A'}</td>
-                                    </tr>
-                                `
-                                )
-                                .join('')}
-                        </tbody>
-                    </table>
-                </div>
-            `;
-                            jobListingsContainer.innerHTML = jobCountTitle + table;
-                        } else {
-                            jobListingsContainer.innerHTML =
-                                '<p>No jobs found for this category.</p>';
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching jobs:', error);
-                        jobListingsContainer.innerHTML =
-                            '<p>Failed to load jobs. Please try again later.</p>';
-                    });
-            });
+                    // Create a table structure
+                    const table = `
+                    <div class="table-container"> <!-- Scrollable container -->
+                        <table class="job-table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Reference Number</th>
+                                    <th>Job Title</th>
+                                    <th>Description</th>
+                                    <th>Location</th>
+                                    <th>Posted Date</th>
+                                    <th>Closing Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${jobs
+                                    .map(
+                                        (job, index) => `
+                                        <tr>
+                                            <td>${index + 1}</td> <!-- Row Number -->
+                                            <td>${job.job_id || 'N/A'}</td> <!-- Reference Number -->
+                                            <td>
+                                                <a href="/jobs/${job.id}" class="job-title">
+                                                    ${job.title}
+                                                </a>
+                                                <br>
+                                                <a href="/jobs/${job.id}" class="company-name">
+                                                    ${job.employer.company_name}
+                                                </a>
+                                            </td>
+                                            <td>${job.description || 'No description provided'}</td>
+                                            <td>${job.location || 'Not specified'}</td>
+                                            <td>
+                                                ${job.created_at
+                                                    ? new Date(job.created_at).toISOString().split('T')[0]
+                                                    : 'N/A'}
+                                            </td>
+                                            <td>${job.closing_date || 'N/A'}</td>
+                                        </tr>
+                                    `
+                                    )
+                                    .join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+                    jobListingsContainer.html(jobCountTitle + table);
+                } else {
+                    jobListingsContainer.html('<p>No jobs found for this category.</p>');
+                }
+            },
+            error: function(error) {
+                console.error('Error fetching jobs:', error);
+                jobListingsContainer.html('<p>Failed to load jobs. Please try again later.</p>');
+            }
         });
     });
+});
+
 </script>
