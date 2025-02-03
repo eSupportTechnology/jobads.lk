@@ -96,8 +96,6 @@
     min-height:50px;
     height:auto;
 }
-
-
     </style>
 </head>
 
@@ -107,6 +105,7 @@
     <!-- Categories Section -->
     <section class="categories-container">
     <div class="categories-header" style="background: linear-gradient(to bottom, #28adce, #18799c);justify-content: flex-end; gap: 15px; min-height:40px; height:auto">
+        
         <a href="{{ route('login') }}" 
         class="category-btn" 
         style="text-decoration: none; padding: 6px 6px; border-radius: 5px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; 
@@ -123,6 +122,15 @@
         onmouseover=" this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 24px rgba(0, 0, 0, 0.3)'; this.style.backgroundColor='#6c9dbd';" 
         onmouseout=" this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.2)'; this.style.backgroundColor='#a4d8e6';">
             EMPLOYER LOGIN
+        </a>
+        
+        <a href="{{ route('feedback.home') }}" 
+        class="category-btn" 
+        style="text-decoration: none; padding: 6px 6px; border-radius: 5px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; 
+         background-color: #a4d8e6; color: black; font-weight:600"
+        onmouseover=" this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 24px rgba(0, 0, 0, 0.3)'; this.style.backgroundColor='#6c9dbd';" 
+        onmouseout=" this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.2)'; this.style.backgroundColor='#a4d8e6';">
+            FEEDBACK
         </a>
     </div>
 </section>
@@ -168,7 +176,7 @@
             <div class="swiper-wrapper">
                 @forelse ($banners as $banner)
                 <div class="swiper-slide banner-item">
-                    <img src="{{ asset('storage/' . $banner->image) }}" alt="{{ $banner->title }}">
+                    <img src="{{ asset('storage/app/public/' . $banner->image) }}" alt="{{ $banner->title }}">
                 </div>
                 @empty
                 <div class="swiper-slide">
@@ -191,9 +199,10 @@
         Available Jobs: {{ $jobs->count() }} new hot jobs
     </p>
     <form method="GET" action="{{ route('home') }}" class="filters-form">
-        <input class="text-input" style="height:17px" type="text" name="search" placeholder="Enter Vacancy Name/Company/Job Reference" value="{{ request('search') }}">
-        <input class="text-input"  style="height:17px;" type="text" name="location" placeholder="Enter your Location" value="{{ request('location') }}">
+        <input class="text-input" style="height:15px" type="text" name="search" placeholder="Enter Vacancy Name/Company/Job Reference" value="{{ request('search') }}">
+        <input class="text-input"  style="height:15px" type="text" name="location" placeholder="Enter your Location" value="{{ request('location') }}">
 
+        
         <select name="country" class="dropdown" style="height: 43px; color: #777777">
             <option value=""  >Select Country</option>
             @foreach ($countries as $country)
@@ -204,7 +213,7 @@
         </select>
 
         <button class="view-btn" type="submit">
-            <i class="fa fa-search"></i> 
+            <i class="fa fa-search"></i> <!-- This is the search icon -->
         </button>
     </form>
     <hr>
@@ -262,7 +271,7 @@
             let button = $(this);
 
             $.ajax({
-                url: `/jobs/${jobId}/flag`,
+                url: /jobs/${jobId}/flag,
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
