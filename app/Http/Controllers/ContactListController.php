@@ -37,6 +37,11 @@ class ContactListController extends Controller
 
         return redirect()->route('contacts.index')->with('message', 'Contacts created successfully!');
     }
+    public function edit(Contact $contact)
+    {
+
+        return view('Admin.packages.ContactList.edit', compact('contact'));
+    }
     //create a new contact
     public function create()
     {
@@ -52,10 +57,7 @@ class ContactListController extends Controller
 
         $contact = Contact::create($request->all());
 
-        return response()->json([
-            'message' => 'Contact added successfully',
-            'contact' => $contact,
-        ]);
+        return redirect()->route('contacts.index')->with('success', 'Contact created successfully.');
     }
 
     // Update a contact
@@ -70,10 +72,7 @@ class ContactListController extends Controller
 
         $contact->update($request->all());
 
-        return response()->json([
-            'message' => 'Contact updated successfully',
-            'contact' => $contact,
-        ]);
+        return redirect()->route('contacts.index')->with('success', 'Contact Updated successfully.');
     }
 
     // Delete a contact

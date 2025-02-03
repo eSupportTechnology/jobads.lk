@@ -33,7 +33,7 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('contacts.update', $contact->id) }}" method="POST">
+                        <form action="{{ route('contactslist.update', ['id' => $contact->id]) }}" method="POST">
                             @csrf
                             @method('PUT')
 

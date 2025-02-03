@@ -61,7 +61,7 @@
                                             <td>{{ $contact->name }}</td>
                                             <td>{{ $contact->phone }}</td>
                                             <td>
-                                                <a href="{{ route('contacts.update', $contact->id) }}"
+                                                <a href="{{ route('contactslist.edit', $contact->id) }}"
                                                     class="btn btn-warning btn-sm">Edit</a>
                                                 <form action="{{ route('contacts.destroy', $contact->id) }}" method="POST"
                                                     style="display: inline-block;">

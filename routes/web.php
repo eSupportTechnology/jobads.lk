@@ -806,7 +806,9 @@ Route::get('/contacts/list', [ContactListController::class, 'index'])->name('con
 Route::get('/contacts/create', [ContactListController::class, 'create'])->name('contacts.create')->middleware('auth:admin');
 Route::get('/contacts', [ContactListController::class, 'show'])->name('contacts.show');
 Route::post('/contacts', [ContactListController::class, 'store'])->name('contacts.store')->middleware('auth:admin');
-Route::put('/contacts/{id}', [ContactListController::class, 'update'])->name('contacts.update')->middleware('auth:admin');
+Route::get('/contacts/{contact}/edit', [ContactListController::class, 'edit'])->name('contactslist.edit')->middleware('auth:admin');
+
+Route::put('/contacts/{id}', [ContactListController::class, 'update'])->name('contactslist.update')->middleware('auth:admin');
 Route::delete('/contacts/{id}', [ContactListController::class, 'destroy'])->name('contacts.destroy')->middleware('auth:admin');
 Route::post('contacts/store-multiple', [ContactListController::class, 'storeMultiple'])->name('contacts.store-multiple')->middleware('auth:admin');
 

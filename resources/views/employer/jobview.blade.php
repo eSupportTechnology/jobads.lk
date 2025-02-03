@@ -104,7 +104,7 @@
                                                         </a>
 
                                                         <!-- Delete Button -->
-                                                        {{-- <form
+                                                        <form
                                                             action="{{ route('employer.job_postings.post.destroy', $job->id) }}"
                                                             method="POST" class="d-inline">
                                                             @csrf
@@ -126,7 +126,7 @@
                                                                 title="{{ $job->is_active ? 'Mark as Inactive' : 'Mark as Active' }}">
                                                                 <i class="icon-receipt"></i>
                                                             </button>
-                                                        </form> --}}
+                                                        </form>
                                                     </div>
                                                 </td>
 
@@ -137,7 +137,8 @@
                             @else
                                 <div class="text-center py-4">
                                     <p class="text-gray-500">You haven't created any job postings yet.</p>
-                                    <a href="{{ route('employer.job_postings.post.create') }}" class="btn btn-primary mt-3">
+                                    <a href="{{ route('employer.job_postings.post.create') }}"
+                                        class="btn btn-primary mt-3">
                                         Create Your First Job Posting
                                     </a>
                                 </div>
