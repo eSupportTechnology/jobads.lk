@@ -98,7 +98,7 @@
         }
 
         .rate-table .package {
-            background-color: #d32f2f;
+            background-color: #C00000;
             color: white;
             font-weight: bold;
         }
@@ -128,7 +128,7 @@
         }
 
         .payment-header {
-            background-color: #d32f2f;
+            background-color: #C00000;
             color: white;
             text-align: center;
             font-weight: bold;
@@ -136,7 +136,7 @@
         }
 
         .payment-table .title1 {
-            background-color: #d32f2f;
+            background-color: #C00000;
             color: white;
         }
 
