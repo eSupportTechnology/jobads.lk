@@ -179,8 +179,15 @@
             </div>
 
             <div id="create_cv_section" class="form-group" style="display: none;">
+                <label for="cv_template">Select CV Template:</label>
+                <select id="cv_template" name="cv_template">
+                    <option value="template1">Template 1</option>
+                    <option value="template2">Template 2</option>
+                    <option value="template3">Template 3</option>
+                </select>
                 <button type="button" class="btn btn-clear" id="create_cv_button">Create CV</button>
             </div>
+
             <div class="form-group">
 
                 <label for="send_copy" class="checkbox-label">Send me a copy of my email application</label>
@@ -220,23 +227,34 @@
             });
 
             $('#create_cv_button').on('click', function() {
-                // Get form data to pass to the CV creation page
+                // Get form data
                 var name = $('#name').val();
                 var email = $('#email').val();
                 var contact_number = $('#contact_number').val();
                 var message = $('#message').val();
                 var job_posting_id = $('input[name="job_posting_id"]').val();
                 var employer_id = $('input[name="employer_id"]').val();
+                var selectedTemplate = $('#cv_template').val(); // Get selected template
 
-                // Construct the URL with the form data as query parameters
-                var url = "/profile/cv?name=" + encodeURIComponent(name) +
+                // Determine the correct route based on the selected template
+                var route = '';
+                if (selectedTemplate === 'template1') {
+                    route = "/profile/cv";
+                } else if (selectedTemplate === 'template2') {
+                    route = "/profile/cv2";
+                } else if (selectedTemplate === 'template3') {
+                    route = "/profile/cv3";
+                }
+
+                // Construct the URL with query parameters
+                var url = route + "?name=" + encodeURIComponent(name) +
                     "&email=" + encodeURIComponent(email) +
                     "&contact_number=" + encodeURIComponent(contact_number) +
                     "&message=" + encodeURIComponent(message) +
                     "&job_posting_id=" + job_posting_id +
                     "&employer_id=" + employer_id;
 
-                // Redirect to the CV creation page
+                // Redirect to the appropriate CV generation page
                 window.location.href = url;
             });
         });

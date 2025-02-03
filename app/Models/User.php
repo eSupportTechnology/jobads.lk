@@ -33,6 +33,7 @@ class User extends Authenticatable
         'portfolio_link',
         'social_links',
         'is_active',
+        'profile_image',
     ];
 
     /**

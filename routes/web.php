@@ -166,6 +166,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/profile/cv', [CVController::class, 'generateCV'])->name('generate.cv');
     Route::get('/profile/cv', [CVController::class, 'index'])->name('generate.index');
+    Route::post('/profile/cv2', [CVController::class, 'generateCV2'])->name('generate.cv2');
+    Route::get('/profile/cv2', [CVController::class, 'index2'])->name('generate.index2');
+    Route::post('/profile/cv3', [CVController::class, 'generateCV3'])->name('generate.cv3');
+    Route::get('/profile/cv3', [CVController::class, 'index3'])->name('generate.index3');
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
@@ -288,7 +292,6 @@ Route::middleware('admin')->group(function () {
 
 Route::get('/contactus', [ContactUsController::class, 'index'])->name('contactus.index');
 
-
 Route::middleware('admin')->prefix('admin')->group(function () {
     // List all categories
     Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories.index');
@@ -310,7 +313,6 @@ Route::middleware('admin')->prefix('admin')->group(function () {
 
     // Job Posting admin side route
     Route::get('job_postings', [JobPostingController::class, 'index'])->name('job_postings.index');
-
 
     Route::patch('job_postings/{id}/status', [JobPostingController::class, 'updateStatus'])->name('job_postings.updateStatus');
 
@@ -879,8 +881,8 @@ Route::middleware('auth:employer')->group(function () {
 
     // Update the specified banner in storage
     Route::put('emp/banners/{banner}', [EmpBannerController::class, 'update'])->name('empbanners.update');
-      // Remove the specified banner from storage
-      Route::delete('emp/banners/{banner}', [EmpBannerController::class, 'destroy'])->name('empbanners.destroy');
+    // Remove the specified banner from storage
+    Route::delete('emp/banners/{banner}', [EmpBannerController::class, 'destroy'])->name('empbanners.destroy');
 });
 
 Route::middleware(['admin'])->group(function () {

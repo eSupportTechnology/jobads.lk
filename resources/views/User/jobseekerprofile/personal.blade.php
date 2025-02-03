@@ -9,7 +9,22 @@
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('css/personalprofile.css') }}">
-  
+
+    <style>
+        .profile-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border: 3px solid #ddd;
+        }
+
+        .profile-image-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -26,7 +41,23 @@
                 <input class="personalprofile" type="text" name="name" value="{{ Auth::user()->name }}"
                     id="name" required>
             </div>
+            <div class="profile-image-section">
+                @if (Auth::user()->profile_image)
+                    <img src="{{ asset('storage/profile_images/' . Auth::user()->profile_image) }}" alt="Profile Image"
+                        class="profile-preview">
+                    <p>Current Profile Image</p>
+                @else
+                    <img src="{{ asset('images/default-avatar.png') }}" alt="Default Profile Image"
+                        class="profile-preview">
+                    <p>No Profile Image</p>
+                @endif
+            </div>
 
+            <div>
+                <label for="profile_image">Profile Image</label>
+                <input class="personalprofile" type="file" name="profile_image" id="profile_image">
+                <small>Upload new image to update (Max 2MB, JPG/PNG)</small>
+            </div>
             <div>
                 <label for="email">Email</label>
                 <input class="personalprofile" type="email" name="email" value="{{ Auth::user()->email }}"
@@ -95,7 +126,51 @@
         </form>
     </div>
 
+    <script>
+        // පැතිකඩ රූපයේ පෙරදසුන - වැඩිදියුණු කළ අනුවාදය
+        document.addEventListener('DOMContentLoaded', function() {
+            const profileImageInput = document.getElementById('profile_image');
+            const profileImageSection = document.querySelector('.profile-image-section');
+            let profilePreview = document.getElementById('profile-preview-image');
 
+            // නව රූපය තෝරාගත් විට
+            if (profileImageInput) {
+                profileImageInput.addEventListener('change', function(e) {
+                    const file = this.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            if (!profilePreview) {
+                                profilePreview = document.createElement('img');
+                                profilePreview.id = 'profile-preview-image';
+                                profilePreview.className = 'profile-preview';
+                                profileImageSection.prepend(profilePreview);
+                            }
+                            profilePreview.src = e.target.result;
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+
+            // පිටු පූරණය වූ විට පෙරදසුන යාවත්කාලීන කිරීම
+            @if (Auth::user()->profile_image)
+                const img = new Image();
+                img.src =
+                    "{{ asset('storage/profile_images/' . Auth::user()->profile_image) }}?{{ time() }}";
+                img.onload = function() {
+                    if (profilePreview) {
+                        profilePreview.src = this.src;
+                    }
+                };
+                img.onerror = function() {
+                    if (profilePreview) {
+                        profilePreview.src = "{{ asset('images/default-avatar.png') }}";
+                    }
+                };
+            @endif
+        });
+    </script>
 </body>
 
 </html>

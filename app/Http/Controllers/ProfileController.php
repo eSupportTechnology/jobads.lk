@@ -54,59 +54,41 @@ class ProfileController extends Controller
 
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        // Use $request->user() for consistency and to avoid potential auth issues
         $user = $request->user();
 
         DB::transaction(function () use ($request, $user) {
-            // Update main user profile
+
+            if ($request->hasFile('profile_image')) {
+
+                if ($user->profile_image) {
+                    Storage::delete('profile_images/' . $user->profile_image);
+                }
+
+                $image = $request->file('profile_image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('profile_images', $imageName);
+                $user->profile_image = $imageName;
+            }
+
             $user->update($request->only([
                 'name', 'email', 'phone_number', 'address',
                 'linkedin', 'summary', 'skills',
-                'portfolio_link', 'experience', 'education', 'certifications', 'social_links',
+                'portfolio_link', 'experience', 'education',
+                'certifications', 'social_links',
             ]));
 
-            // Handle Resume Upload
             if ($request->hasFile('resume_file')) {
-                // Delete old resume if exists
                 if ($user->resume_file) {
                     Storage::delete($user->resume_file);
                 }
-
-                // Store new resume
                 $resumePath = $request->file('resume_file')->store('resumes');
                 $user->resume_file = $resumePath;
                 $user->save();
             }
 
-            // Update Experiences
-            // Use deleteMany() for more robust deletion
-            if ($request->has('educations')) {
-                // Delete existing education records
-                $user->jobEducations()->delete();
-
-                // Create new education records
-                foreach ($request->input('educations') as $education) {
-                    // Validate required fields
-                    if (!empty($education['institution_name']) &&
-                        !empty($education['degree']) &&
-                        !empty($education['field_of_study'])) {
-
-                        $user->jobEducations()->create([
-                            'institution_name' => $education['institution_name'],
-                            'degree' => $education['degree'],
-                            'field_of_study' => $education['field_of_study'],
-                            'start_date' => $education['start_date'],
-                            'end_date' => $education['end_date'],
-                        ]);
-                    }
-                }
-            }
-
-            // Update Educations
             $user->jobEducations()->delete();
             if ($request->has('educations')) {
                 foreach ($request->input('educations', []) as $education) {
-                    // Ensure all required fields are present
                     if (!empty($education['institution_name']) && !empty($education['degree'])) {
                         $user->jobEducations()->create($education);
                     }
@@ -178,6 +160,28 @@ class ProfileController extends Controller
             ->with('status', 'resume-removed');
     }
     public function generateCv()
+    {
+        $user = auth()->user();
+        $experiences = $user->experiences;
+        $educations = $user->educations;
+
+        // Generate PDF using the alias
+        $pdf = Pdf::loadView('profile.cv', compact('user', 'experiences', 'educations'));
+
+        return $pdf->download('cv.pdf');
+    }
+    public function generateCv2()
+    {
+        $user = auth()->user();
+        $experiences = $user->experiences;
+        $educations = $user->educations;
+
+        // Generate PDF using the alias
+        $pdf = Pdf::loadView('profile.cv', compact('user', 'experiences', 'educations'));
+
+        return $pdf->download('cv.pdf');
+    }
+    public function generateCv3()
     {
         $user = auth()->user();
         $experiences = $user->experiences;

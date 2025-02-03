@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/header.css') }}">
     <link rel="stylesheet" href="{{ asset('css/profileview.css') }}">
     <link rel="stylesheet" href="{{ asset('css/education.css') }}">
     <link rel="stylesheet" href="{{ asset('css/myapplication.css') }}">
-    
+
 </head>
 
 <body>
@@ -46,7 +47,17 @@
             <a href="{{ route('user.jobseekerprofile.myjobs.application') }}" class="btn btn-common"
                 id="myapplication">My Applications</a>
             <a href="{{ route('user.flagged_jobs') }}" class="btn btn-common" id="flagged">Flagged Jobs</a>
-            <a href="{{ route('generate.index') }}" class="btn btn-common" id="preferred">Create Cv</a>
+            <div class="dropdown">
+                <button class="btn btn-common dropdown-toggle" type="button" id="preferred" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Create CV
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="preferred">
+                    <li><a class="dropdown-item" href="{{ route('generate.index') }}">Template 1</a></li>
+                    <li><a class="dropdown-item" href="{{ route('generate.index2') }}">Template 2</a></li>
+                    <li><a class="dropdown-item" href="{{ route('generate.index3') }}">Template 3</a></li>
+                </ul>
+            </div>
             {{-- <a href="/mainprofileview/recentjob" class="btn btn-common" id="recent">Recent Jobs</a> --}}
         </div>
     </div>
@@ -65,7 +76,8 @@
     </div> --}}
 
 
-
+    <!-- Bootstrap JS (Make Sure This is Included Before Closing </body>) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
