@@ -10,8 +10,13 @@ class BannerPackage extends Model
     use HasFactory;
 
     protected $fillable = [
-        'duration',
+        'duration_id',
         'price_lkr',
         'price_usd',
     ];
+
+    public function duration()
+    {
+        return $this->belongsTo(Duration::class);
+    }
 }

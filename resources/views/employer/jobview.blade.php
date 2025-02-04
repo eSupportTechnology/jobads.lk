@@ -58,8 +58,7 @@
                                         <tr>
                                             <th>Job ID</th>
                                             <th>Title</th>
-                                            <th>Category</th>
-                                            <th>Subcategory</th>
+                                            <th>Added Date</th>
                                             <th>Reviewed By</th>
                                             <th>Status</th>
                                             <th>Reviewed Date</th>
@@ -71,8 +70,7 @@
                                             <tr>
                                                 <td>{{ $job->job_id }}</td>
                                                 <td>{{ $job->title }}</td>
-                                                <td>{{ $job->category->name }}</td>
-                                                <td>{{ $job->subcategory->name }}</td>
+                                                <td>{{ $job->created_at }}</td>
                                                 <td>{{ $job->admin->name ?? 'N/A' }}</td>
                                                 <td>
                                                     <span
@@ -96,14 +94,18 @@
                                                             class="btn-action btn-view" title="View Applications">
                                                             <i class="icon-list"></i>
                                                         </a>
+                                                        @if ($job->status === 'pending')
 
                                                         <!-- Edit Button -->
                                                         <a href="{{ route('employer.job_postings.post.edit', $job->id) }}"
                                                             class="btn-action btn-edit" title="Edit Job">
                                                             <i class="icon-pencil-alt"></i>
                                                         </a>
+                                                        @endif
 
-                                                        <!-- Delete Button -->
+                                                        
+
+                                                        <!-- Delete Button --> 
                                                         {{-- <form
                                                             action="{{ route('employer.job_postings.post.destroy', $job->id) }}"
                                                             method="POST" class="d-inline">

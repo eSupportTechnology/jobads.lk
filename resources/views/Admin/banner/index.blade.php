@@ -212,7 +212,7 @@
                                             <!-- Modal for banner details -->
                                             <div class="modal fade" id="bannerModal-{{ $banner->id }}" tabindex="-1"
                                                 aria-hidden="true">
-                                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                                <div class="modal-dialog modal-xl modal-dialog-centered">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title">Banner Details - {{ $banner->title }}
@@ -230,32 +230,32 @@
                                                                 <div class="col-12">
                                                                     <ul class="banner-details-list">
                                                                         <li>
-                                                                            <span class="banner-details-label">Title</span>
+                                                                            <span class="banner-details-label">Title: </span>
                                                                             <span
                                                                                 class="banner-details-value">{{ $banner->title }}</span>
                                                                         </li>
-                                                                        <li>
+                                                                        <!-- <li>
                                                                             <span
                                                                                 class="banner-details-label">Category</span>
                                                                             <span class="banner-details-value">
-                                                                                {{ $banner->category ? $banner->category->name : 'N/A' }}
+                                                                                {{ $banner->category_id ? $banner->category->name : 'No' }}
                                                                             </span>
-                                                                        </li>
+                                                                        </li> -->
                                                                         <li>
                                                                             <span
-                                                                                class="banner-details-label">Placement</span>
+                                                                                class="banner-details-label">Placement: </span>
                                                                             <span
                                                                                 class="banner-details-value">{{ ucfirst($banner->placement) }}</span>
                                                                         </li>
                                                                         <li>
                                                                             <span
-                                                                                class="banner-details-label">Package</span>
+                                                                                class="banner-details-label">Package Duration: </span>
                                                                             <span
-                                                                                class="banner-details-value">{{ $banner->package->duration }}</span>
+                                                                                class="banner-details-value">{{ $banner->package->duration->duration }}</span>
                                                                         </li>
                                                                         <li>
                                                                             <span class="banner-details-label">Total
-                                                                                Views</span>
+                                                                                Views: </span>
                                                                             <span
                                                                                 class="banner-details-value">{{ number_format($banner->view_count) }}</span>
                                                                         </li>

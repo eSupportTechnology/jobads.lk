@@ -7,6 +7,7 @@ use App\Models\BannerDetail;
 use App\Models\BannerPackage;
 use App\Models\Category;
 use App\Models\Employer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -25,8 +26,13 @@ class BannerController extends Controller
             ->latest()
             ->paginate(10, ['*'], 'pending_page');
 
-        $publishedBanners = Banner::with(['category', 'package'])
-            ->where('status', 'published') // Changed from 'approved'
+        $today = Carbon::today();
+
+        $publishedBanners = Banner::with(['category', 'package.duration']) // Include duration for filtering
+            ->where('status', 'published') // Only published banners
+            ->whereHas('package.duration', function ($query) use ($today) {
+                $query->whereRaw("DATE_ADD(banners.updated_at, INTERVAL duration.duration DAY) >= ?", [$today]);
+            })
             ->latest()
             ->paginate(10, ['*'], 'published_page');
 

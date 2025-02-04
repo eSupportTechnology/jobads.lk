@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Duration;
 use App\Models\Package;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,8 @@ class PackageController extends Controller
      */
     public function create()
     {
-        return view('Admin.packages.Details.create');
+        $durations = Duration::where('type','job')->get();
+        return view('Admin.packages.Details.create',compact('durations'));
     }
 
     /**
@@ -31,7 +33,7 @@ class PackageController extends Controller
     {
         $request->validate([
             'package_size' => 'required|integer',
-            'duration_days' => 'required',
+            'duration_id' => 'required|in:1,2',
             'lkr_price' => 'required|numeric',
             'usd_price' => 'required|numeric',
         ]);
@@ -56,7 +58,8 @@ class PackageController extends Controller
     public function edit($id)
     {
         $package = Package::findOrFail($id);
-        return view('Admin.packages.Details.edit', compact('package'));
+        $durations = Duration::where('type','job')->get();
+        return view('Admin.packages.Details.edit', compact('package','durations'));
     }
 
     /**
@@ -66,7 +69,7 @@ class PackageController extends Controller
     {
         $request->validate([
             'package_size' => 'required|integer',
-            'duration_days' => 'required|integer',
+            'duration_id' => 'required|in:1,2',
             'lkr_price' => 'required|numeric',
             'usd_price' => 'required|numeric',
         ]);

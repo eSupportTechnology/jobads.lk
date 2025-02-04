@@ -15,7 +15,7 @@ class Package extends Model
     // Specify the fillable fields to allow mass assignment
     protected $fillable = [
         'package_size',
-        'duration_days',
+        'duration_id',
         'lkr_price',
         'usd_price',
     ];
@@ -23,5 +23,10 @@ class Package extends Model
     public function jobPostings()
     {
         return $this->hasMany(JobPosting::class);
+    }
+
+    public function duration()
+    {
+        return $this->belongsTo(Duration::class);
     }
 }

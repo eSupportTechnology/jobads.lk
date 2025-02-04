@@ -33,12 +33,14 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Duration</label>
-                                    <select name="duration" class="form-control @error('duration') is-invalid @enderror"
+                                    <select name="duration_id" class="form-control @error('duration_id') is-invalid @enderror"
                                         required>
-                                        <option value="7">7 Days</option>
-                                        <option value="21">21 Days</option>
+                                        <option value="">Select Duration</option>
+                                        @foreach ($durations as $duration)
+                                            <option value="{{ $duration->id }}">{{ $duration->duration }}</option>
+                                        @endforeach
                                     </select>
-                                    @error('duration')
+                                    @error('duration_id')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>

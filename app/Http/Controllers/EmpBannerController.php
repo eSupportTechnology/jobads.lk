@@ -141,7 +141,7 @@ class EmpBannerController extends Controller
         'title' => 'required|string|max:255',
         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         'category_id' => 'nullable|exists:categories,id',
-        'package_id' => 'required|exists:banner_packages,id',
+        
         'placement' => 'required|in:banner,category_page',
     ]);
 

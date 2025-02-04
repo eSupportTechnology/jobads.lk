@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('banner_packages', function (Blueprint $table) {
             $table->id();
-            $table->string('duration')->default('7days'); // Set a default value
+            $table->foreignId('duration_id')->constrained('duration')->onDelete('cascade');
             $table->decimal('price_lkr', 10, 2)->default(0);
             $table->decimal('price_usd', 10, 2)->default(0);
             $table->timestamps();

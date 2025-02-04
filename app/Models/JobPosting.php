@@ -68,5 +68,9 @@ class JobPosting extends Model
     {
         return $this->belongsTo(Country::class);
     }
+    public function package()
+    {
+        return $this->belongsTo(Package::class);
+    }
 
 }

@@ -7,6 +7,7 @@ use App\Models\BannerDetail;
 use App\Models\BannerPackage;
 use App\Models\Contact;
 use App\Models\ContactUs;
+use App\Models\Duration;
 use App\Models\Package;
 use App\Models\PackageContact;
 use Illuminate\Http\Request;
@@ -64,6 +65,8 @@ class PackageContactController extends Controller
         $packageDetailsBanners = BannerDetail::first();
         $packagesBanners = BannerPackage::all();
 
+        $durations = Duration::all();
+
         return view('User.postvacancy.postvacancy', compact(
             'packageDetails',
             'contacts',
@@ -72,7 +75,8 @@ class PackageContactController extends Controller
             'localBanks',
             'foreignBanks',
             'packageDetailsBanners',
-            'packagesBanners'
+            'packagesBanners',
+            'durations'
         ));
     }
     public function create()

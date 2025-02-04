@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('packages', function (Blueprint $table) {
+        Schema::create('duration', function (Blueprint $table) {
             $table->id();
-            $table->integer('package_size'); // Number of posts
-            $table->foreignId('duration_id')->constrained('duration')->onDelete('cascade');
-            $table->decimal('lkr_price', 10, 2); // LKR Price
-            $table->decimal('usd_price', 10, 2); // USD Price
+            $table->string('duration');
+            $table->string('type');
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('packages');
+        Schema::dropIfExists('duration');
     }
 };

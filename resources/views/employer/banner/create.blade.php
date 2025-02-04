@@ -97,9 +97,10 @@
                             <div class="mb-3">
                                 <label for="package_id" class="form-label">Package</label>
                                 <select name="package_id" class="form-control">
+                                    <option value="">Select Package</option>
                                     @foreach ($packages as $package)
                                         <option value="{{ $package->id }}">
-                                            {{ ucfirst($package->duration) }} - LKR {{ $package->price_lkr }} / USD
+                                            {{ ucfirst($package->duration->duration) }} Days - LKR {{ $package->price_lkr }} / USD
                                             {{ $package->price_usd }}
                                         </option>
                                     @endforeach

@@ -1,4 +1,4 @@
-// Edit Blade
+
 @extends('layouts.employer.master')
 
 @section('title', 'Edit Banner')
@@ -72,10 +72,10 @@
 
                             <div class="mb-3">
                                 <label for="package_id" class="form-label">Package</label>
-                                <select name="package_id" class="form-control">
+                                <select name="package_id" class="form-control" disabled>
                                     @foreach ($packages as $package)
                                         <option value="{{ $package->id }}" {{ $banner->package_id == $package->id ? 'selected' : '' }}>
-                                            {{ ucfirst($package->duration) }} - LKR {{ $package->price_lkr }} / USD {{ $package->price_usd }}
+                                            {{ ucfirst($package->duration->duration) }} Days - LKR {{ $package->price_lkr }} / USD {{ $package->price_usd }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -92,11 +92,11 @@
                                 <label for="placement" class="form-label">Banner Placement</label>
                                 <select name="placement" id="placement" class="form-control" required>
                                     <option value="banner" {{ $banner->placement == 'banner' ? 'selected' : '' }}>Main Banner (Image size: {{$packageDetailsBanners->mbsize}})</option>
-                                    <option value="category_page" {{ $banner->placement == 'category_page' ? 'selected' : '' }}>Category Pag (Image size: {{$packageDetailsBanners->cbsize}})e</option>
+                                    <option value="category_page" {{ $banner->placement == 'category_page' ? 'selected' : '' }}>Category Page (Image size: {{$packageDetailsBanners->cbsize}})</option>
                                 </select>
                             </div>
 
-                            <div class="mb-3" id="categorySection" style="display: {{ $banner->placement == 'category_page' ? 'block' : 'none' }};">
+                            <!-- <div class="mb-3" id="categorySection" style="display: {{ $banner->placement == 'category_page' ? 'block' : 'none' }};">
                                 <label for="category_id" class="form-label">Category</label>
                                 <select name="category_id" id="category_id" class="form-control" {{ $banner->placement == 'category_page' ? 'required' : '' }}>
                                     <option value="">Select a category</option>
@@ -104,7 +104,7 @@
                                         <option value="{{ $category->id }}" {{ $banner->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                                     @endforeach
                                 </select>
-                            </div>
+                            </div> -->
 
                             <div class="mb-3">
                                 <label for="image" class="form-label">Banner Image</label>
@@ -137,8 +137,8 @@
             // Function to toggle category field
             function toggleCategoryField() {
                 if (placementSelect.value === 'category_page') {
-                    categorySection.style.display = 'block';
-                    categorySelect.required = true;
+                    // categorySection.style.display = 'block';
+                    // categorySelect.required = true;
                 } else {
                     categorySection.style.display = 'none';
                     categorySelect.required = false;

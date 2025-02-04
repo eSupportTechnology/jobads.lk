@@ -23,6 +23,7 @@ use App\Http\Controllers\ContactListController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CVController;
+use App\Http\Controllers\DurationController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\EmpBannerController;
 use App\Http\Controllers\EmployerAuthController;
@@ -813,6 +814,10 @@ Route::get('/reports/job-ads', [JobPostingController::class, 'generateJobAdsRepo
 // Route for generating the customer report
 Route::get('/reports/customers', [JobPostingController::class, 'generateCustomerReport'])->name('reports.customers')->middleware(['superadmin']);
 Route::get('/admin/employer-stats', [EmployerAuthController::class, 'employerStats'])->name('admin.employer.stats')->middleware(['superadmin']);
+
+Route::get('/admin/durations', [DurationController::class, 'index'])->name('durations.index');
+Route::get('/admin/durations/edit/{duration}', [DurationController::class, 'edit'])->name('durations.edit')->middleware(['superadmin']);
+Route::put('/admin/durations/update/{duration}', [DurationController::class, 'update'])->name('durations.update')->middleware(['superadmin']);
 
 Route::prefix('admin')->group(function () {
     Route::get('/bank-accounts', [BankAccountController::class, 'indexadmin'])->name('admin.bank-accounts.index')->middleware('auth:admin');

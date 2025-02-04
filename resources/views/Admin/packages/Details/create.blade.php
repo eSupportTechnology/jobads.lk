@@ -37,11 +37,12 @@
                             </div>
 
                             <div class="form-group mb-3 col-md-6">
-                                <label for="duration_days">Duration (Days):</label>
-                                <select name="duration_days" id="duration_days" class="form-control" required>
+                                <label for="duration_id">Duration (Days):</label>
+                                <select name="duration_id" id="duration_id" class="form-control" required>
                                     <option value="">Select Duration</option>
-                                    <option value="20">20 Days</option>
-                                    <option value="30">30 Days</option>
+                                    @foreach ($durations as $duration)
+                                        <option value="{{ $duration->id }}">{{ $duration->duration }}</option>
+                                    @endforeach
                                 </select>
                             </div>
 

@@ -182,10 +182,10 @@ class AdminAuthController extends Controller
             $now = Carbon::now();
             if (Schema::hasTable('banners')) {
                 $totalCurrentBanners = Banner::join('banner_packages', 'banners.package_id', '=', 'banner_packages.id')
-                ->where('banners.status', 'published')
-                ->whereRaw('DATE_ADD(banners.updated_at, INTERVAL banner_packages.duration DAY) >= ?', [$now])
-                ->select('banners.*', 'banner_packages.duration')
-                ->count();
+                    ->join('duration', 'banner_packages.duration_id', '=', 'duration.id') // Join duration table
+                    ->where('banners.status', 'published') // Ensure banners are published
+                    ->whereRaw('DATE_ADD(banners.updated_at, INTERVAL duration.duration DAY) >= ?', [$now]) // Ensure within duration
+                    ->count();
             }
             if (Schema::hasTable('banners')) {
                 $totalBannerEarnings = Banner::join('banner_packages', 'banners.package_id', '=', 'banner_packages.id')

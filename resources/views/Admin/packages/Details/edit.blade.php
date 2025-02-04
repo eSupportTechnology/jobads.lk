@@ -40,10 +40,12 @@
                             </div>
 
                             <div class="form-group mb-3 col-md-6">
-                                <label for="duration_days">Duration (Days):</label>
-                                <select name="duration_days" id="duration_days" class="form-control" required>
-                                    <option value="20" {{ old('duration_days', $package->duration_days ?? '') == 20 ? 'selected' : '' }}>20 Days</option>
-                                    <option value="30" {{ old('duration_days', $package->duration_days ?? '') == 30 ? 'selected' : '' }}>30 Days</option>
+                                <label for="duration_id">Duration (Days):</label>
+                                <select name="duration_id" id="duration_id" class="form-control" required>
+                                    @foreach ($durations as $duration)
+                                    <option value="{{ $duration->id }}" {{ (old('duration_id', $package->duration_id ?? '') == $duration->id) ? 'selected' : '' }}>{{ $duration->duration }}</option>
+                                    @endforeach
+
                                 </select>
 
                             </div>

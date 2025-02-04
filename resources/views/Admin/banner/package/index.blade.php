@@ -116,7 +116,7 @@
                                     @foreach ($packages as $package)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $package->duration }}</td>
+                                            <td>{{ $package->duration->duration }}</td>
                                             <td class="price-column">{{ number_format($package->price_lkr, 2) }}</td>
                                             <td class="price-column">{{ number_format($package->price_usd, 2) }}</td>
                                             <td class="actions-column">

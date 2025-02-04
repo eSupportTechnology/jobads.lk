@@ -86,10 +86,15 @@
                                         <p class="mb-0">{{ $job->requirements }}</p>
                                     </div>
 
-                                    <div class="detail-item mb-3">
+                                    <div class="detail-item mb-3 border-bottom pb-2">
                                         <h6 class="text-primary mb-1"><i class="fas fa-calendar-alt me-2"></i>Closing Date
                                         </h6>
                                         <p class="mb-0">{{ $job->closing_date }}</p>
+                                    </div>
+                                    <div class="detail-item mb-3">
+                                        <h6 class="text-primary mb-1"><i class="fas fa-file-alt me-2"></i>Package
+                                        </h6>
+                                        <p class="mb-0">{{ $job->package->package_size }} ads - ({{ $job->package->duration->duration }} days) - Rs. {{ $job->package->lkr_price }}/{{ $job->package->usd_price }} USD </p>
                                     </div>
 
                                     @if ($job->status == 'rejected')

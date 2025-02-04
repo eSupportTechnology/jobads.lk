@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BannerPackage;
+use App\Models\Duration;
 use Illuminate\Http\Request;
 
 class BannerPackageController extends Controller
@@ -17,14 +18,15 @@ class BannerPackageController extends Controller
     // Show the form for creating a new banner package
     public function create()
     {
-        return view('Admin.banner.package.create');
+        $durations = Duration::where('type','banner')->get();
+        return view('Admin.banner.package.create',compact('durations'));
     }
 
     // Store a newly created banner package in the database
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'duration' => 'required|in:7,21',
+            'duration_id' => 'required|in:3,4',
             'price_lkr' => 'required|numeric|min:0',
             'price_usd' => 'required|numeric|min:0',
         ]);
@@ -42,14 +44,15 @@ class BannerPackageController extends Controller
     // Show the form for editing a banner package
     public function edit(BannerPackage $bannerPackage)
     {
-        return view('Admin.banner.package.edit', compact('bannerPackage'));
+        $durations = Duration::where('type','banner')->get();
+        return view('Admin.banner.package.edit', compact('bannerPackage','durations'));
     }
 
     // Update the specified banner package in the database
     public function update(Request $request, BannerPackage $bannerPackage)
     {
         $validated = $request->validate([
-            'duration' => 'required|in:7,21',
+            'duration_id' => 'required|in:3,4',
             'price_lkr' => 'required|numeric|min:0',
             'price_usd' => 'required|numeric|min:0',
         ]);

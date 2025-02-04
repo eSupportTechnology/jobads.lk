@@ -197,15 +197,20 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="col-md-6 col-lg-3">
-                            <div class="card text-white bg-success shadow-sm">
-                                <div class="card-body">
-                                    <i class="fas fa-clock fa-2x"></i>
-                                    <h6>Pending Jobs</h6>
-                                    <h5>{{ number_format($statistics['total_pending_jobs'] ?? 0) }}</h5>
+                            <a href="{{ route('job_postings.index') }}" class="text-decoration-none">
+                                <div class="card text-white bg-success shadow-sm">
+                                    <div class="card-body">
+                                        <i class="fas fa-clock fa-2x"></i>
+                                        <h6>Pending Jobs</h6>
+                                        <h5>{{ number_format($statistics['total_pending_jobs'] ?? 0) }}</h5>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
+
+
                         <div class="col-md-6 col-lg-3">
                             <div class="card text-white bg-success shadow-sm">
                                 <div class="card-body">
@@ -248,13 +253,15 @@
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-3">
-                            <div class="card text-white bg-warning shadow-sm">
-                                <div class="card-body">
-                                    <i class="fas fa-clock fa-2x"></i>
-                                    <h6>Pending Banners</h6>
-                                    <h5>{{ number_format($statistics['total_pending_banners'] ?? 0) }}</h5>
+                            <a href="{{ route('banners.index') }}" class="text-decoration-none">
+                                <div class="card text-white bg-warning shadow-sm">
+                                    <div class="card-body">
+                                        <i class="fas fa-clock fa-2x"></i>
+                                        <h6>Pending Banners</h6>
+                                        <h5>{{ number_format($statistics['total_pending_banners'] ?? 0) }}</h5>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                         <div class="col-md-6 col-lg-3">
                             <div class="card text-white bg-warning shadow-sm">

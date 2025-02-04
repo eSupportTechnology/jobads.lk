@@ -243,8 +243,17 @@
                     <table class="rate-table">
                         <tr>
                             <th class="package">Package size (No of Job Vacancy Posts)</th>
-                            <th class="package" colspan="2">20 Days</th>
-                            <th class="package" colspan="2">30 Days</th>
+                            @php
+                                $duration1 = $durations->firstWhere('id', 1); // Get duration where id = 1
+                                $duration2 = $durations->firstWhere('id', 2); // Get duration where id = 2
+                            @endphp
+
+                            <th class="package" colspan="2">
+                                {{ $duration1 ? $duration1->duration : '0' }} Days
+                            </th>
+                            <th class="package" colspan="2">
+                                {{ $duration2 ? $duration2->duration : '0' }} Days
+                            </th>
                         </tr>
                         <tr>
                             <th class="package"></th>
@@ -262,8 +271,8 @@
                         <tr>
                             <td class="package">{{ $packageSize }}</td>
                             @php
-                            $twentyDays = $packageGroup->firstWhere('duration_days', 20);
-                            $thirtyDays = $packageGroup->firstWhere('duration_days', 30);
+                            $twentyDays = $packageGroup->firstWhere('duration_id', 1);
+                            $thirtyDays = $packageGroup->firstWhere('duration_id', 2);
                             @endphp
                             <td class="lkrprice">{{ isset($twentyDays->lkr_price) ? intval($twentyDays->lkr_price) : 'N/A' }}</td>
                             <td class="usdprice">{{ isset($twentyDays->usd_price) ? intval($twentyDays->usd_price) : 'N/A' }}</td>
@@ -531,8 +540,17 @@
                     <table class="rate-table">
                         <tr>
                             <th class="package">Package size (Banner Posts)</th>
-                            <th class="package" colspan="2">7 Days</th>
-                            <th class="package" colspan="2">21 Days</th>
+                            @php
+                                $duration1 = $durations->firstWhere('id', 3); // Get duration where id = 1
+                                $duration2 = $durations->firstWhere('id', 4); // Get duration where id = 2
+                            @endphp
+
+                            <th class="package" colspan="2">
+                                {{ $duration1 ? $duration1->duration : '0' }} Days
+                            </th>
+                            <th class="package" colspan="2">
+                                {{ $duration2 ? $duration2->duration : '0' }} Days
+                            </th>
                         </tr>
                         <tr>
                             <th class="package"></th>
@@ -544,23 +562,23 @@
 
                         @php
                         // Map prices based on duration
-                        $prices = $packagesBanners->keyBy('duration');
+                        $du_id = $packagesBanners->keyBy('duration_id');
                         @endphp
 
                         <tr>
                             <td class="package">HOME PAGE (Landing Page)</td>
-                            <td class="lkrprice">{{ $prices[7]->price_lkr ?? 'N/A' }}</td>
-                            <td class="usdprice">{{ $prices[7]->price_usd ?? 'N/A' }}</td>
-                            <td class="lkrprice">{{ $prices[21]->price_lkr ?? 'N/A' }}</td>
-                            <td class="usdprice">{{ $prices[21]->price_usd ?? 'N/A' }}</td>
+                            <td class="lkrprice">{{ $du_id[3]->price_lkr ?? 'N/A' }}</td>
+                            <td class="usdprice">{{ $du_id[3]->price_usd ?? 'N/A' }}</td>
+                            <td class="lkrprice">{{ $du_id[4]->price_lkr ?? 'N/A' }}</td>
+                            <td class="usdprice">{{ $du_id[4]->price_usd ?? 'N/A' }}</td>
                         </tr>
 
                         <tr>
                             <td class="package">CATEGORY PAGE (When a user visits a specific job category)</td>
-                            <td class="lkrprice">{{ $prices[7]->price_lkr ?? 'N/A' }}</td>
-                            <td class="usdprice">{{ $prices[7]->price_usd ?? 'N/A' }}</td>
-                            <td class="lkrprice">{{ $prices[21]->price_lkr ?? 'N/A' }}</td>
-                            <td class="usdprice">{{ $prices[21]->price_usd ?? 'N/A' }}</td>
+                            <td class="lkrprice">{{ $du_id[3]->price_lkr ?? 'N/A' }}</td>
+                            <td class="usdprice">{{ $du_id[3]->price_usd ?? 'N/A' }}</td>
+                            <td class="lkrprice">{{ $du_id[4]->price_lkr ?? 'N/A' }}</td>
+                            <td class="usdprice">{{ $du_id[4]->price_usd ?? 'N/A' }}</td>
                         </tr>
 
                     </table>

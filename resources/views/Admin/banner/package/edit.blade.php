@@ -27,12 +27,11 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Duration</label>
-                                    <select name="duration" class="form-control @error('duration') is-invalid @enderror"
+                                    <select name="duration_id" class="form-control @error('duration_id') is-invalid @enderror"
                                         required>
-                                        <option value="7" {{ $bannerPackage->duration == '7' ? 'selected' : '' }}>7
-                                            Days</option>
-                                        <option value="21" {{ $bannerPackage->duration == '21' ? 'selected' : '' }}>
-                                            21 Days</option>
+                                        @foreach ($durations as $duration)
+                                        <option value="{{ $duration->id }}" {{ (old('duration_id', $bannerPackage->package->duration_id ?? '') == $duration->id) ? 'selected' : '' }}>{{ $duration->duration }}</option>
+                                        @endforeach
                                     </select>
                                     @error('duration')
                                         <div class="invalid-feedback">{{ $message }}</div>

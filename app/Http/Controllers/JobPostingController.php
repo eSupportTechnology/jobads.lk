@@ -20,11 +20,14 @@ class JobPostingController extends Controller
 {
     public function index()
     {
+        $today = Carbon::today();
         // Fetch all published jobs
-        $jobPostings = JobPosting::with(['category', 'subcategory', 'employer'])
+        $jobPostings = JobPosting::with(['category', 'subcategory', 'employer', 'package.duration'])
             ->where('status', 'approved')
             ->where('is_active', true)
-            ->whereDate('closing_date', '>=', now()) // Exclude expired jobs
+            ->whereHas('package.duration', function ($query) use ($today) {
+                $query->whereRaw("DATE_ADD(job_postings.approved_date, INTERVAL duration.duration DAY) >= ?", [$today]);
+            })
             ->paginate(10);
 
         // Fetch all pending jobs
@@ -230,10 +233,15 @@ class JobPostingController extends Controller
         $countryId = $request->input('country');
         $categoryId = $request->input('category_id');
 
-        $jobs = JobPosting::with(['category', 'subcategory', 'country'])
+        $today = Carbon::today();
+
+        $jobs = JobPosting::with(['category', 'subcategory', 'country', 'package.duration'])
             ->where('status', 'approved')
             ->where('is_active', true)
             ->whereDate('closing_date', '>=', now())
+            ->whereHas('package.duration', function ($query) use ($today) {
+                $query->whereRaw("DATE_ADD(job_postings.approved_date, INTERVAL duration.duration DAY) >= ?", [$today]);
+            })
             ->when($search, function ($query, $search) {
                 $query->where(function ($query) use ($search) {
                     $query->where('title', 'like', "%{$search}%")
@@ -261,12 +269,15 @@ class JobPostingController extends Controller
         $now = Carbon::now();
 
         // Fetch banners where status is 'published' and duration is valid
+        $now = Carbon::today();
+
         $banners = Banner::join('banner_packages', 'banners.package_id', '=', 'banner_packages.id')
-        ->where('banners.status', 'published')
-        ->where('placement','banner')
-        ->whereRaw('DATE_ADD(banners.updated_at, INTERVAL banner_packages.duration DAY) >= ?', [$now])
-        ->select('banners.*', 'banner_packages.duration')
-        ->get();
+            ->join('duration', 'banner_packages.duration_id', '=', 'duration.id') // Ensure duration is included
+            ->where('banners.status', 'published')
+            ->where('banners.placement', 'banner')
+            ->whereRaw('DATE_ADD(banners.updated_at, INTERVAL duration.duration DAY) >= ?', [$now]) // Ensures active banners
+            ->select('banners.*', 'duration.duration') // Select duration from duration table
+            ->get();
 
         return view('home.home', compact('categories', 'jobs', 'contacts', 'countries','banners'));
     }
@@ -303,11 +314,12 @@ class JobPostingController extends Controller
         $now = Carbon::now();
 
         $banners = Banner::join('banner_packages', 'banners.package_id', '=', 'banner_packages.id')
-        ->where('banners.status', 'published')
-        ->where('banners.placement', 'category_page')
-        ->whereRaw('DATE_ADD(banners.updated_at, INTERVAL banner_packages.duration DAY) >= ?', [$now])
-        ->select('banners.*', 'banner_packages.duration')
-        ->get();
+        ->join('duration', 'banner_packages.duration_id', '=', 'duration.id') // Ensure duration is included
+            ->where('banners.status', 'published')
+            ->where('banners.placement', 'category_page')
+            ->whereRaw('DATE_ADD(banners.updated_at, INTERVAL duration.duration DAY) >= ?', [$now]) // Ensures active banners
+            ->select('banners.*', 'duration.duration') // Select duration from duration table
+            ->get();
 
         return view('home.jobs.show', compact('job', 'contacts','banners'));
     }
@@ -349,12 +361,16 @@ class JobPostingController extends Controller
     }
     public function getJobsByCategory($categoryId)
     {
+        $today = Carbon::today();
         // Fetch jobs belonging to the specified category
         $jobs = JobPosting::where('category_id', $categoryId)
             ->where('status', 'approved')
             ->where('is_active', true)
             ->whereDate('closing_date', '>=', now())
-            ->with('employer') // Load employer relationship if needed
+            ->whereHas('package.duration', function ($query) use ($today) {
+                $query->whereRaw("DATE_ADD(job_postings.approved_date, INTERVAL duration.duration DAY) >= ?", [$today]);
+            })
+            ->with(['employer', 'package.duration'])
             ->get();
 
         return response()->json($jobs);
@@ -562,7 +578,7 @@ class JobPostingController extends Controller
         $employerId = auth('employer')->id();
 
         $jobPostings = JobPosting::where('employer_id', $employerId)
-            ->whereDate('closing_date', '>=', now()) // Exclude expired jobs
+
             ->with(['category', 'subcategory', 'admin'])
             ->paginate(10);
 
@@ -780,8 +796,9 @@ class JobPostingController extends Controller
     public function edit(JobPosting $jobPosting)
     {
         $categories = Category::all(); // Assuming you have a Category model
+        $countries = Country::all();
         $subcategories = Subcategory::where('category_id', $jobPosting->category_id)->get(); // Assuming you have a Subcategory model
-        return view('employer.jobupdate', compact('jobPosting', 'categories', 'subcategories'));
+        return view('employer.jobupdate', compact('countries','jobPosting', 'categories', 'subcategories'));
     }
     public function createForAdmin()
     {
