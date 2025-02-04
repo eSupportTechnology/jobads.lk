@@ -176,7 +176,7 @@
             <div class="swiper-wrapper">
                 @forelse ($banners as $banner)
                 <div class="swiper-slide banner-item">
-                    <img src="{{ asset('storage/app/public/' . $banner->image) }}" alt="{{ $banner->title }}">
+                    <img src="{{ asset('storage/' . $banner->image) }}" alt="{{ $banner->title }}">
                 </div>
                 @empty
                 <div class="swiper-slide">

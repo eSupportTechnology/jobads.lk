@@ -263,7 +263,7 @@ class JobPostingController extends Controller
         // Fetch banners where status is 'published' and duration is valid
         $banners = Banner::join('banner_packages', 'banners.package_id', '=', 'banner_packages.id')
         ->where('banners.status', 'published')
-        ->where('category_id',null)
+        ->where('placement','banner')
         ->whereRaw('DATE_ADD(banners.updated_at, INTERVAL banner_packages.duration DAY) >= ?', [$now])
         ->select('banners.*', 'banner_packages.duration')
         ->get();
@@ -304,7 +304,7 @@ class JobPostingController extends Controller
 
         $banners = Banner::join('banner_packages', 'banners.package_id', '=', 'banner_packages.id')
         ->where('banners.status', 'published')
-        ->where('category_id',$job->category_id)
+        ->where('banners.placement', 'category_page')
         ->whereRaw('DATE_ADD(banners.updated_at, INTERVAL banner_packages.duration DAY) >= ?', [$now])
         ->select('banners.*', 'banner_packages.duration')
         ->get();
@@ -352,6 +352,8 @@ class JobPostingController extends Controller
         // Fetch jobs belonging to the specified category
         $jobs = JobPosting::where('category_id', $categoryId)
             ->where('status', 'approved')
+            ->where('is_active', true)
+            ->whereDate('closing_date', '>=', now())
             ->with('employer') // Load employer relationship if needed
             ->get();
 

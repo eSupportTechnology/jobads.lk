@@ -280,8 +280,8 @@
             // Function to toggle category field
             function toggleCategoryField() {
                 if (placementSelect.value === 'category_page') {
-                    categorySection.style.display = 'block';
-                    categorySelect.required = true;
+                    // categorySection.style.display = 'block';
+                    // categorySelect.required = true;
                 } else {
                     categorySection.style.display = 'none';
                     categorySelect.required = false;
