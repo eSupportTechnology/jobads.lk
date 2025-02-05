@@ -48,7 +48,7 @@ class JobPostingController extends Controller
         $contacts = ContactUs::all();
         // Fetch top 28 employers based on job postings count and filter those with a logo
         $topEmployers = Employer::withCount('jobPostings') // Assuming 'jobPostings' is the relationship
-           
+
             ->orderBy('job_postings_count', 'desc') // Sort by the number of job postings
             ->take(28) // Limit to top 28
             ->get();
@@ -222,14 +222,30 @@ class JobPostingController extends Controller
             'weeklyEarnings'
         ));
     }
-
     public function home(Request $request)
     {
         $search = $request->input('search');
         $location = $request->input('location');
         $countryId = $request->input('country');
-        $categoryId = $request->input('category_id');
+        $categoryId = $request->input('category_id'); // Get the category_id from the request
 
+        // If category_id is provided in the URL, store it in session
+        if ($categoryId) {
+            session(['selected_category_id' => $categoryId]);
+        } else {
+            // If no category_id is provided, use session value if exists
+            $categoryId = session('selected_category_id');
+        }
+
+        // If category filter is cleared, reset the session value
+        if (!$categoryId) {
+            session()->forget('selected_category_id');
+        }
+
+        // Debugging: Log the selected category
+        \Log::debug('Selected Category ID:', ['category_id' => $categoryId]);
+
+        // Get the jobs based on the applied filters
         $jobs = JobPosting::with(['category', 'subcategory', 'country'])
             ->where('status', 'approved')
             ->where('is_active', true)
@@ -254,22 +270,22 @@ class JobPostingController extends Controller
             })
             ->get();
 
+        // Fetch categories, countries, and banners
         $categories = Category::with('subcategories')->get();
         $contacts = ContactUs::all();
         $countries = Country::all();
-
-        $now = Carbon::now();
-
-        // Fetch banners where status is 'published' and duration is valid
         $banners = Banner::join('banner_packages', 'banners.package_id', '=', 'banner_packages.id')
-        ->where('banners.status', 'published')
-        ->where('category_id',null)
-        ->whereRaw('DATE_ADD(banners.updated_at, INTERVAL banner_packages.duration DAY) >= ?', [$now])
-        ->select('banners.*', 'banner_packages.duration')
-        ->get();
+            ->where('banners.status', 'published')
+            ->where('category_id', null)
+            ->whereRaw('DATE_ADD(banners.updated_at, INTERVAL banner_packages.duration DAY) >= ?', [now()])
+            ->select('banners.*', 'banner_packages.duration')
+            ->get();
 
-        return view('home.home', compact('categories', 'jobs', 'contacts', 'countries','banners'));
+        // Return the view with the necessary data
+        return view('home.home', compact('categories', 'jobs', 'contacts', 'countries', 'banners'))
+            ->with('selected_category_id', session('selected_category_id'));
     }
+
     public function toggleActiveStatus($id)
     {
         // Find the job posting by ID and ensure it belongs to the authenticated employer
@@ -303,13 +319,13 @@ class JobPostingController extends Controller
         $now = Carbon::now();
 
         $banners = Banner::join('banner_packages', 'banners.package_id', '=', 'banner_packages.id')
-        ->where('banners.status', 'published')
-        ->where('category_id',$job->category_id)
-        ->whereRaw('DATE_ADD(banners.updated_at, INTERVAL banner_packages.duration DAY) >= ?', [$now])
-        ->select('banners.*', 'banner_packages.duration')
-        ->get();
+            ->where('banners.status', 'published')
+            ->where('category_id', $job->category_id)
+            ->whereRaw('DATE_ADD(banners.updated_at, INTERVAL banner_packages.duration DAY) >= ?', [$now])
+            ->select('banners.*', 'banner_packages.duration')
+            ->get();
 
-        return view('home.jobs.show', compact('job', 'contacts','banners'));
+        return view('home.jobs.show', compact('job', 'contacts', 'banners'));
     }
 
     public function updateStatus(Request $request, $id)
@@ -421,7 +437,7 @@ class JobPostingController extends Controller
                         // Check if user and job exist before accessing properties
                         $userName = optional($app->user)->name ?? 'Unknown User';
                         $jobTitle = optional($app->job)->title ?? 'Unknown Job';
-        
+
                         return "$userName applied for $jobTitle";
                     });
 
@@ -452,7 +468,7 @@ class JobPostingController extends Controller
                         // Check if user and job exist before accessing properties
                         $userName = optional($app->user)->name ?? 'Unknown User';
                         $jobTitle = optional($app->job)->title ?? 'Unknown Job';
-        
+
                         return "$userName applied for $jobTitle";
                     });
 

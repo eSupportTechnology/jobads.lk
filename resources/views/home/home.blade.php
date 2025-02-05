@@ -190,18 +190,21 @@
     <section class="filters" style="background-color: rgba(0, 0, 0, 0.1); padding:4px 25px">
         <p class="jobtitle">
             Available Jobs: {{ $jobs->count() }} new hot jobs
-            @if (isset($selectedCategory))
+            @if (session('selected_category_id'))
+                @php
+                    $selectedCategory = \App\Models\Category::find(session('selected_category_id'));
+                @endphp
                 in {{ $selectedCategory->name }}
             @endif
         </p>
-        <form method="GET" action="{{ route('home') }}" class="filters-form">
-            <!-- Add hidden input for category -->
-            <!-- Hidden input to store selected category -->
-            <input type="hidden" name="category_id" id="categoryInput" value="{{ session('selected_category_id') }}">
-
+        <form method="GET" action="{{ route('home') }}" class="filters-form" id="searchForm">
+            <!-- Category Filter -->
+            <input type="hidden" name="category_id" id="categoryInput"
+                value="{{ request('category_id') ?? session('selected_category_id') }}">
 
             <input class="text-input" style="height:17px" type="text" name="search"
                 placeholder="Enter Vacancy Name/Company/Job Reference" value="{{ request('search') }}">
+
             <input class="text-input" style="height:17px;" type="text" name="location"
                 placeholder="Enter your Location" value="{{ request('location') }}">
 
@@ -219,44 +222,87 @@
             </button>
         </form>
 
-        @if (session('selected_category_id'))
-            <a href="{{ route('home') }}" class="clear-filter"
-                style="display: inline-block; margin-top: 10px; color: #1267e7; text-decoration: none;">
-                Clear Category Filter
-            </a>
-        @endif
+
         <hr>
     </section>
 
 
 
 
+
+    <!-- Job Listings Section -->
     <!-- Job Listings Section -->
     <section id="job-listings" class="job-listings-container">
         <h3 class="job-listings-title">Available Jobs</h3>
-        <div class="job-grid">
-            @if ($jobs->isEmpty())
-                <p>No jobs found matching your criteria.</p>
-            @else
-                @foreach ($jobs as $job)
-                    <div class="job-card" style="min-height:50px;height:auto;">
-                        <a href="{{ route('job.details', $job->id) }}" class="job-title"
-                            style="font-size:15px; margin-bottom: 0px;">
-                            {{ $job->title }}
-                        </a>
-                        <p class="company-name"
-                            style="font-size: 14px;  margin-top: 2px; margin-bottom: 0px; font-weight:600;line-height:1">
-                            {{ $job->employer->company_name }}</p>
-                        <p class="location" style="font-size: 15px;margin-bottom: 0px;line-height:1">
-                            {{ $job->location }}</p>
-                        <p style="font-size: 14px; color:red; margin-top: 3px; margin-bottom: 0px;line-height: 1.2;">
-                            {{ $job->closing_date }}</p>
-                    </div>
-                @endforeach
-            @endif
-        </div>
 
+        @if ($jobs->isEmpty())
+            <p>No jobs found matching your criteria.</p>
+        @else
+            @if (request()->has('category_id') && request()->category_id != null)
+                <!-- Display as Table if Category is Selected -->
+                <div class="table-container">
+                    <table class="job-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Reference Number</th>
+                                <th>Job Title</th>
+                                <th>Description</th>
+                                <th>Location</th>
+                                <th>Posted Date</th>
+                                <th>Closing Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($jobs as $index => $job)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $job->job_id ?? 'N/A' }}</td>
+                                    <td>
+                                        <a href="{{ route('job.details', $job->id) }}" class="job-title">
+                                            {{ $job->title }}
+                                        </a>
+                                        <br>
+                                        <a href="{{ route('job.details', $job->id) }}" class="company-name">
+                                            {{ $job->employer->company_name }}
+                                        </a>
+                                    </td>
+                                    <td>{{ $job->description ?? 'No description provided' }}</td>
+                                    <td>{{ $job->location ?? 'Not specified' }}</td>
+                                    <td>{{ $job->created_at ? $job->created_at->format('Y-m-d') : 'N/A' }}</td>
+                                    <td>{{ $job->closing_date ?? 'N/A' }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @else
+                <!-- Display as Cards if No Category is Selected -->
+                <div class="job-grid">
+                    @foreach ($jobs as $job)
+                        <div class="job-card" style="min-height:50px;height:auto;">
+                            <a href="{{ route('job.details', $job->id) }}" class="job-title"
+                                style="font-size:15px; margin-bottom: 0px;">
+                                {{ $job->title }}
+                            </a>
+                            <p class="company-name"
+                                style="font-size: 14px; margin-top: 2px; margin-bottom: 0px; font-weight:600; line-height:1;">
+                                {{ $job->employer->company_name }}
+                            </p>
+                            <p class="location" style="font-size: 15px; margin-bottom: 0px; line-height:1;">
+                                {{ $job->location }}
+                            </p>
+                            <p
+                                style="font-size: 14px; color:red; margin-top: 3px; margin-bottom: 0px; line-height: 1.2;">
+                                {{ $job->closing_date }}
+                            </p>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+        @endif
     </section>
+
 
 
 
@@ -265,6 +311,7 @@
     </main><br /><br /><br /><br />
 
     @include('home.footer')
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const categoryLinks = document.querySelectorAll('.category-link');
