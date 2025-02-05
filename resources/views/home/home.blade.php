@@ -452,13 +452,13 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Check if this is a page reload (not navigation from another page)
-            if (performance.navigation.type === 1) {
-                // Clear all filters and redirect to home
+            // If the page is reloaded (e.g. via the browser's refresh button)
+            if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+                // Redirect to the home route without query parameters.
                 window.location.href = "{{ route('home') }}";
             }
 
-            // Clear filters when clicking home link
+            // Clear filters when clicking a home link (if you have any that should clear the filters)
             document.querySelectorAll('a[href="{{ route('home') }}"]').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -467,22 +467,23 @@
             });
 
             function clearFilters() {
-                // Clear form inputs
+                // Clear form inputs (assuming these IDs exist)
                 document.getElementById('searchInput').value = '';
                 document.getElementById('locationInput').value = '';
                 document.getElementById('countrySelect').value = '';
                 document.getElementById('categoryInput').value = '';
-
-                // Redirect to home route
+                // Redirect to the home route without any query parameters.
                 window.location.href = "{{ route('home') }}";
             }
 
-            // Handle category selection
+            // Handle category selection if you're using clickable category links
             const categoryLinks = document.querySelectorAll('.category-link');
             categoryLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
+                    // Update the hidden input with the selected category ID
                     document.getElementById('categoryInput').value = this.dataset.categoryId;
+                    // Submit the form so that the URL updates accordingly
                     document.getElementById('searchForm').submit();
                 });
             });

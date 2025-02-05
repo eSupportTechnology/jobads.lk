@@ -224,28 +224,31 @@ class JobPostingController extends Controller
     }
     public function home(Request $request)
     {
-        $search = $request->input('search');
-        $location = $request->input('location');
-        $countryId = $request->input('country');
-        $categoryId = $request->input('category_id'); // Get the category_id from the request
-
-        // If category_id is provided in the URL, store it in session
-        if ($categoryId) {
-            session(['selected_category_id' => $categoryId]);
-        } else {
-            // If no category_id is provided, use session value if exists
-            $categoryId = session('selected_category_id');
-        }
-
-        // If category filter is cleared, reset the session value
-        if (!$categoryId) {
+        // Check if none of the filters are set in the URL.
+        if (
+            !$request->has('search') &&
+            !$request->has('location') &&
+            !$request->has('country') &&
+            (!$request->has('category_id') || $request->input('category_id') === '')
+        ) {
             session()->forget('selected_category_id');
         }
 
-        // Debugging: Log the selected category
+        $search = $request->input('search');
+        $location = $request->input('location');
+        $countryId = $request->input('country');
+        $categoryId = $request->input('category_id');
+
+        if ($categoryId) {
+            session(['selected_category_id' => $categoryId]);
+        } else {
+            $categoryId = session('selected_category_id');
+        }
+
+        // Log for debugging
         \Log::debug('Selected Category ID:', ['category_id' => $categoryId]);
 
-        // Get the jobs based on the applied filters
+        // Build the query as before…
         $jobs = JobPosting::with(['category', 'subcategory', 'country'])
             ->where('status', 'approved')
             ->where('is_active', true)
@@ -270,18 +273,19 @@ class JobPostingController extends Controller
             })
             ->get();
 
-        // Fetch categories, countries, and banners
+        // (Fetching categories, contacts, countries, banners as before...)
+
         $categories = Category::with('subcategories')->get();
         $contacts = ContactUs::all();
         $countries = Country::all();
+        $now = Carbon::now();
         $banners = Banner::join('banner_packages', 'banners.package_id', '=', 'banner_packages.id')
             ->where('banners.status', 'published')
             ->where('category_id', null)
-            ->whereRaw('DATE_ADD(banners.updated_at, INTERVAL banner_packages.duration DAY) >= ?', [now()])
+            ->whereRaw('DATE_ADD(banners.updated_at, INTERVAL banner_packages.duration DAY) >= ?', [$now])
             ->select('banners.*', 'banner_packages.duration')
             ->get();
 
-        // Return the view with the necessary data
         return view('home.home', compact('categories', 'jobs', 'contacts', 'countries', 'banners'))
             ->with('selected_category_id', session('selected_category_id'));
     }
