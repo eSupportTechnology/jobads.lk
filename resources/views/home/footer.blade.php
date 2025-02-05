@@ -1,42 +1,56 @@
 <footer class="main-footer">
-    <div class="footer-content" style="display: flex; justify-content: space-between; gap: 30px; max-width: 1200px;  margin: 0 auto;">
+    <div class="footer-content"
+        style="display: flex; justify-content: space-between; gap: 30px; max-width: 1200px;  margin: 0 auto;">
         <div class="footer-section" style="flex: 1;">
             <h3 style="font-size: 22px; font-weight: bold; ">About Us</h3>
             <p style="font-size: 17px; line-height: 1.6;">
-                We are a leading job portal connecting talented individuals with top employers worldwide. Your career journey starts here.
+                We are a leading job portal connecting talented individuals with top employers worldwide. Your career
+                journey starts here.
             </p>
         </div>
 
         <div class="footer-section" style="flex: 1;">
             <h3 style="font-size: 22px; font-weight: bold; ">Quick Links</h3>
             <ul style="padding-left: 20px; font-size: 17px; line-height: 1.6;">
-                <li><a href="/" style=" text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='white'">Home</a></li>
-                <li><a href="{{ route('faqs.home') }}" style=" text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='white'" >FAQ</a></li>
-                <li><a href="privacy" style=" text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='white'" >Privacy policy</a></li>
-                <li><a href="{{ route('terms.index') }}" style=" text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='white'">T & C</a></li>
-                <li><a href="feedback" style=" text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='white'">Add Feedback</a></li>
-                <li><a href="{{ route('about-us.index') }}" style=" text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='white'">About Us</a></li>
+                <li><a href="/" style=" text-decoration: none; transition: color 0.3s;"
+                        onmouseover="this.style.color='white'">Home</a></li>
+                <li><a href="{{ route('faqs.home') }}" style=" text-decoration: none; transition: color 0.3s;"
+                        onmouseover="this.style.color='white'">FAQ</a></li>
+                <li><a href="privacy" style=" text-decoration: none; transition: color 0.3s;"
+                        onmouseover="this.style.color='white'">Privacy policy</a></li>
+                <li><a href="{{ route('terms.index') }}" style=" text-decoration: none; transition: color 0.3s;"
+                        onmouseover="this.style.color='white'">T & C</a></li>
+                <li><a href="feedback" style=" text-decoration: none; transition: color 0.3s;"
+                        onmouseover="this.style.color='white'">Add Feedback</a></li>
+                <li><a href="{{ route('about-us.index') }}" style=" text-decoration: none; transition: color 0.3s;"
+                        onmouseover="this.style.color='white'">About Us</a></li>
             </ul>
         </div>
 
         @foreach ($contacts as $contact)
-        <div class="footer-section1" style="flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center;">
-            <h3 style="font-size: 22px; font-weight: bold; margin-bottom: 20px;">Contact</h3>
-            <ul style="font-size: 17px; line-height: 1.6; list-style-type: none; padding-left: 0; text-align: center;">
-                <li style="display: flex; align-items: center; margin-bottom: 10px; justify-content: center;">
-                    <i class="fa fa-phone" style="margin-right: 10px;"></i>
-                    <a href="tel:{{ $contact->phone }}" style="text-decoration: none; transition: color 0.3s;" >Phone: {{ $contact->phone }}</a>
-                </li>
-                <li style="display: flex; align-items: center; margin-bottom: 10px; justify-content: center;">
-                    <i class="fa fa-envelope" style="margin-right: 10px;"></i>
-                    <a href="mailto:{{ $contact->email }}" style="text-decoration: none; transition: color 0.3s;">Email: {{ $contact->email }}</a>
-                </li>
-                <li style="display: flex; align-items: center; margin-bottom: 10px; justify-content: center;">
-                    <i class="fa fa-map-marker" style="margin-right: 10px;"></i>
-                    <a href="https://www.google.com/maps/place/{{ $contact->address }}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; transition: color 0.3s;" >Address: {{ $contact->address }}</a>
-                </li>
-            </ul>
-        </div>
+            <div class="footer-section1"
+                style="flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center;">
+                <h3 style="font-size: 22px; font-weight: bold; margin-bottom: 20px;">Contact</h3>
+                <ul
+                    style="font-size: 17px; line-height: 1.6; list-style-type: none; padding-left: 0; text-align: center;">
+                    <li style="display: flex; align-items: center; margin-bottom: 10px; justify-content: center;">
+                        <i class="fa fa-phone" style="margin-right: 10px;"></i>
+                        <a href="tel:{{ $contact->phone }}"
+                            style="text-decoration: none; transition: color 0.3s;">Phone: {{ $contact->phone }}</a>
+                    </li>
+                    <li style="display: flex; align-items: center; margin-bottom: 10px; justify-content: center;">
+                        <i class="fa fa-envelope" style="margin-right: 10px;"></i>
+                        <a href="mailto:{{ $contact->email }}"
+                            style="text-decoration: none; transition: color 0.3s;">Email: {{ $contact->email }}</a>
+                    </li>
+                    <li style="display: flex; align-items: center; margin-bottom: 10px; justify-content: center;">
+                        <i class="fa fa-map-marker" style="margin-right: 10px;"></i>
+                        <a href="https://www.google.com/maps/place/{{ $contact->address }}" target="_blank"
+                            rel="noopener noreferrer" style="text-decoration: none; transition: color 0.3s;">Address:
+                            {{ $contact->address }}</a>
+                    </li>
+                </ul>
+            </div>
         @endforeach
 
     </div>
@@ -134,92 +148,106 @@
     document.addEventListener('DOMContentLoaded', function() {
         const categoryLinks = document.querySelectorAll('.category-link');
         const jobListingsContainer = document.getElementById('job-listings');
+        const searchInput = document.getElementById('search-input'); // Add this input for keyword search
 
-        categoryLinks.forEach((link) => {
-            link.addEventListener('click', function() {
-                const categoryId = this.getAttribute('data-category-id');
+        let currentCategoryId = null; // Track the currently selected category ID
 
-                // Show loading message
-                jobListingsContainer.innerHTML = '<p>Loading jobs...</p>';
+        // Function to fetch and display jobs
+        function fetchAndDisplayJobs(categoryId, keyword = '') {
+            // Show loading message
+            jobListingsContainer.innerHTML = '<p>Loading jobs...</p>';
 
-                // Fetch jobs for the selected category
-                fetch(`/jobs/category/${categoryId}`)
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then((jobs) => {
-                        // Clear the loading message
-                        jobListingsContainer.innerHTML = '';
+            // Fetch jobs for the selected category and keyword
+            fetch(`/jobs/category/${categoryId}?keyword=${encodeURIComponent(keyword)}`)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then((jobs) => {
+                    // Clear the loading message
+                    jobListingsContainer.innerHTML = '';
 
-                        if (jobs.length > 0) {
-                            // Display the job count above the table
-                            const jobCountTitle =
-                                `<h3>Available Jobs (${jobs.length})</h3>`;
-
-                            // Create a table structure
-                            const table = `
-                <div class="table-container"> <!-- Scrollable container -->
-                    <table class="job-table">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Reference Number</th>
-                                <th>Job Title</th>
-                                <th>Description</th>
-
-                                <th>Location</th>
-                                <th>Posted Date</th>
-                                <th>Closing Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${jobs
-                                .map(
-                                    (job, index) => `
-                                    <tr>
-                                        <td>${index + 1}</td> <!-- Row Number -->
-                                        <td>${job.job_id || 'N/A'}</td> <!-- Reference Number -->
-                                        <td>
-                                            <a href="/jobs/${job.id}" class="job-title">
-                                                ${job.title}
-                                            </a>
-                                            <br>
-                                            <a href="/jobs/${job.id}" class="company-name">
-                                                ${job.employer.company_name}
-                                            </a>
-                                        </td>
-                                        <td>${job.description || 'No description provided'}</td>
-
-                                        <td>${job.location || 'Not specified'}</td>
-                                        <td>
-                                            ${job.created_at
-                                                ? `${new Date(job.created_at).toISOString().split('T')[0]}`
-                                                : 'N/A'}
-                                        </td>
-                                        <td>${job.closing_date || 'N/A'}</td>
-                                    </tr>
-                                `
-                                )
-                                .join('')}
-                        </tbody>
-                    </table>
-                </div>
-            `;
-                            jobListingsContainer.innerHTML = jobCountTitle + table;
-                        } else {
-                            jobListingsContainer.innerHTML =
-                                '<p>No jobs found for this category.</p>';
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching jobs:', error);
+                    if (jobs.length > 0) {
+                        // Display the job count above the table
+                        const jobCountTitle = `<h3>Available Jobs (${jobs.length})</h3>`;
+                        // Create a table structure
+                        const table = `
+                            <div class="table-container"> <!-- Scrollable container -->
+                                <table class="job-table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Reference Number</th>
+                                            <th>Job Title</th>
+                                            <th>Description</th>
+                                            <th>Location</th>
+                                            <th>Posted Date</th>
+                                            <th>Closing Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${jobs
+                                            .map(
+                                                (job, index) => `
+                                                <tr>
+                                                    <td>${index + 1}</td> <!-- Row Number -->
+                                                    <td>${job.job_id || 'N/A'}</td> <!-- Reference Number -->
+                                                    <td>
+                                                        <a href="/jobs/${job.id}" class="job-title">
+                                                            ${job.title}
+                                                        </a>
+                                                        <br>
+                                                        <a href="/jobs/${job.id}" class="company-name">
+                                                            ${job.employer.company_name}
+                                                        </a>
+                                                    </td>
+                                                    <td>${job.description || 'No description provided'}</td>
+                                                    <td>${job.location || 'Not specified'}</td>
+                                                    <td>
+                                                        ${job.created_at
+                                                            ? `${new Date(job.created_at).toISOString().split('T')[0]}`
+                                                            : 'N/A'}
+                                                    </td>
+                                                    <td>${job.closing_date || 'N/A'}</td>
+                                                </tr>
+                                            `
+                                            )
+                                            .join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        `;
+                        jobListingsContainer.innerHTML = jobCountTitle + table;
+                    } else {
                         jobListingsContainer.innerHTML =
-                            '<p>Failed to load jobs. Please try again later.</p>';
-                    });
+                            '<p>No jobs found matching your criteria.</p>';
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error fetching jobs:', error);
+                    jobListingsContainer.innerHTML =
+                        '<p>Failed to load jobs. Please try again later.</p>';
+                });
+        }
+
+        // Category selection logic
+        categoryLinks.forEach((link) => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent default link behavior
+                const categoryId = this.getAttribute('data-category-id');
+                currentCategoryId = categoryId; // Update the current category ID
+                fetchAndDisplayJobs(categoryId); // Fetch jobs for the selected category
             });
+        });
+
+        // Keyword search logic
+        searchInput.addEventListener('input', function() {
+            const keyword = this.value.trim(); // Get the keyword from the input field
+            if (currentCategoryId) {
+                fetchAndDisplayJobs(currentCategoryId, keyword); // Fetch jobs with the keyword filter
+            }
         });
     });
 </script>

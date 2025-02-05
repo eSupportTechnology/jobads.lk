@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<style>
-   
-</style>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,12 +8,173 @@
 
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/expirienceprofile.css') }}">
-   
+
+    <style>
+        .experience-container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background: #fff;
+            border: 2px dashed #d01b1b;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-top: -800px;
+            margin-left: 500px;
+        }
+
+        .section-header {
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            background-color: blue;
+            padding: 10px;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .required {
+            color: red;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+
+        textarea.form-control {
+            resize: none;
+        }
+
+        .info {
+            font-size: 12px;
+            color: #666;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .example {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #d01b1b;
+        }
+
+        .btn-primary:hover {
+            background-color: #b81717;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        .table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .table th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+
+
+        .experience-container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background: #fff;
+            border: 2px dashed #d01b1b;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-top: -800px;
+            margin-left: 500px;
+        }
+
+        /* Mobile-Friendly Adjustments */
+        @media (max-width: 768px) {
+            .experience-container {
+                width: 90%;
+                margin: 10px auto;
+                padding: 15px;
+                margin-top: 0;
+                margin-left: 0;
+            }
+
+            .section-header {
+                font-size: 18px;
+                text-align: center;
+            }
+
+            /* Adjust form layout for small screens */
+            .form-group {
+                flex: 1;
+            }
+
+            .form-control {
+                font-size: 14px;
+            }
+
+            /* Adjust button width for mobile */
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            /* Adjust table for mobile view */
+            .table {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            .table th,
+            .table td {
+                font-size: 14px;
+            }
+
+        }
+    </style>
+
 </head>
 
 <body>
-@include('user.jobseekerprofile.mainview.profilelayout')
+    @include('user.jobseekerprofile.mainview.profilelayout')
     <div class="experience-container">
         <h2 class="section-header">Professional Experience</h2>
 
