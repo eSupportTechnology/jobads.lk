@@ -37,8 +37,26 @@
             border-radius: 5px 5px 0 0;
         }
 
+        .postheader2 {
+            background-color: darkblue;
+            color: #fff;
+            font-weight: bold;
+            padding: 10px 15px;
+            font-size: 1.1em;
+            border-radius: 5px 5px 0 0;
+        }
+
         .postcontent {
             padding: 15px;
+
+        }
+
+        .postcontent2 {
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center
         }
 
         .grid-row {
@@ -121,13 +139,35 @@
             text-align: left;
         }
 
+        .payment-table2 {
+            width: 80%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+
         .payment-table th,
         .payment-table td {
             border: 1px solid #ddd;
             padding: 8px;
         }
 
+        .payment-table2 th,
+        .payment-table2 td {
+            border: 1px solid #ddd;
+            padding: 4px;
+        }
+
         .payment-header {
+            background-color: #ac0c0c;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        .payment-header2 {
+            width: 7%;
             background-color: #ac0c0c;
             color: white;
             text-align: center;
@@ -140,7 +180,16 @@
             color: white;
         }
 
+        .payment-table2 .title1 {
+            background-color: #ac0c0c;
+            color: white;
+        }
+
         .payment-table .bgcolor {
+            background-color: rgb(150, 198, 238);
+        }
+
+        .payment-table2 .bgcolor {
             background-color: rgb(150, 198, 238);
         }
 
@@ -228,7 +277,7 @@
         @if (!empty($packageDetails->description_one))
             <div class="grid-row">
                 <div class="postcontainer">
-                    <div class="postheader">
+                    <div class="postheader2">
                         jobads.lk is the most trusted and effective way to advertise your vacancy and recruit talent
                         from Sri Lanka.
                         Select any of the following options.
@@ -352,8 +401,11 @@
             </div>
         @endif
 
+        <button
+            style="background-color: #00B050; color: white; border: none; padding: 6px 12px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100px; height : 40px">IPG</button>
         <!-- fourth Row -->
         <div class="grid-row">
+
             @if ($localBanks->isNotEmpty())
                 <div class="postcontainer">
                     <div class="postheader">
@@ -436,11 +488,11 @@
                     <div class="postheader">
                         Foreign Payments:
                     </div>
-                    <div class="postcontent">
-                        <div class="payment-header">
+                    <div class="postcontent2">
+                        <div class="payment-header2">
                             Online Fund Transfers or Direct Deposits
                         </div>
-                        <table class="payment-table">
+                        <table class="payment-table2">
                             <tr>
                                 <th class="title1">FOREIGN USD Payments</th>
                                 @foreach ($foreignBanks as $fb)
@@ -534,7 +586,7 @@
         @if (!empty($packageDetailsBanners->description_one))
             <div class="grid-row">
                 <div class="postcontainer">
-                    <div class="postheader">
+                    <div class="postheader2">
                         www.jobads.lk Web Site Banner Advertising
                     </div>
                     <div class="postcontent">

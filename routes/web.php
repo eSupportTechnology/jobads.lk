@@ -170,6 +170,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/cv2', [CVController::class, 'index2'])->name('generate.index2');
     Route::post('/profile/cv3', [CVController::class, 'generateCV3'])->name('generate.cv3');
     Route::get('/profile/cv3', [CVController::class, 'index3'])->name('generate.index3');
+    Route::get('/cv/download/{template}', [CVController::class, 'downloadCV'])->name('cv.download');
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');

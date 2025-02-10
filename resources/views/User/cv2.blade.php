@@ -56,12 +56,22 @@ $job_posting_id = request()->query('job_posting_id');
             overflow: hidden;
             border: 4px solid var(--secondary-color);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            /* Add this */
         }
 
         .profile-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            position: absolute;
+            /* Add this */
+            top: 50%;
+            /* Add this */
+            left: 50%;
+            /* Add this */
+            transform: translate(-50%, -50%);
+            /* Add this */
         }
 
         .header h1 {
@@ -246,10 +256,20 @@ $job_posting_id = request()->query('job_posting_id');
                     </div>
                 @endif
 
-                <button type="submit" class="download-btn"
-                    style="{{ isset($hideButton) && $hideButton ? 'display: none;' : '' }}">
-                    Submit
-                </button>
+                @if ($name && $email && $contact_number && $message && $employer_id && $job_posting_id)
+                    <!-- Submit Button -->
+                    <button type="submit" class="download-btn"
+                        style="{{ isset($hideButton) && $hideButton ? 'display: none;' : '' }}">
+                        Submit
+                    </button>
+                @else
+                    <!-- Download Button -->
+                    @if (!isset($hideButton) || !$hideButton)
+                        <a href="{{ route('cv.download', ['template' => 'cv2']) }}" class="download-btn">
+                            <i class="fas fa-download"></i> Download CV
+                        </a>
+                    @endif
+                @endif
             </form>
         </div>
 

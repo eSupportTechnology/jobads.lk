@@ -56,7 +56,36 @@
                         <img src="{{ asset('Jobads.png') }}" alt="Logo" class="unique-logo">
                     </a>
                 </div>
-                <div>
+                <h2>
+                    Contact Us
+                </h2>
+                <h4>for more details</h4>
+                <div class="postcontent">
+                    <table class="contact-table">
+                        <tr>
+                            <th class="emailth">Email:</th>
+                            <td class="email" colspan="2">jobads@jobads.lk</td>
+                        </tr>
+                        <tr>
+                            <th rowspan="{{ count($contacts) + 1 }}">
+                                Call or WhatsApp</th>
+                        </tr>
+                        @foreach ($contacts as $contact)
+                            <tr>
+                                <td class="contact-name">{{ $contact->name }}</td>
+
+                                <td class="contact-phone">{{ $contact->phone }}</td>
+                            </tr>
+                        @endforeach
+                        <tr>
+                            <td colspan="3" class="tfooter">
+                                <strong>For International:</strong> Prefix the number with '+94' e.g., +94 77 99 540
+                                63
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                {{-- <div>
                     <h3 class="highlight">Contact Us for more Details (Call or WhatsApp)</h3>
                     <p><strong>Email: <span class="email">jobads@jobads.lk</span></strong></p>
                     <div class="yellow-box">
@@ -77,7 +106,7 @@
                     </div>
 
                     <p class="working-hours">Working Hours Monday to Friday from 8:30am to 5:30pm</p>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -137,7 +166,7 @@
         display: flex;
         justify-content: space-between;
         gap: 20px;
-        margin-top: 20px;
+        margin-top: 10px;
     }
 
     .box {
@@ -243,6 +272,198 @@
             margin-top: 10px;
             justify-content: center;
         }
+    }
+</style>
+<style>
+    .container {
+        display: grid;
+        gap: 20px;
+        padding: 20px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .postcontainer {
+        border: 1px solid #409cf1;
+        border-radius: 5px;
+        background-color: #ffffff;
+        padding: 15px;
+    }
+
+    .postheader {
+        background-color: #e0f0ff;
+        color: #000;
+        font-weight: bold;
+        padding: 10px 15px;
+        font-size: 1.1em;
+        border-radius: 5px 5px 0 0;
+    }
+
+    .postcontent {
+        padding: 15px;
+        width: 600px;
+    }
+
+    .grid-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .contact-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #f9f9f9;
+    }
+
+    .contact-table th,
+    .contact-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .contact-table th {
+        font-weight: bold;
+    }
+
+    .contact-table .emailth,
+    .email,
+    .tfooter {
+        background-color: #ffe599;
+    }
+
+    .contact-table .tfooter {
+        color: blue;
+    }
+
+    .email {
+        font-style: italic;
+        color: red;
+        font-weight: bold;
+    }
+
+    .rate-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+    .rate-table th,
+    .rate-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    .rate-table th {
+        background-color: #ffe599;
+        font-weight: bold;
+    }
+
+    .rate-table .package {
+        background-color: #ac0c0c;
+        color: white;
+        font-weight: bold;
+    }
+
+    .rate-table .lkrprice {
+        background-color: rgb(162, 185, 226);
+    }
+
+    .rate-table .usdprice {
+        background-color: rgb(150, 148, 148);
+    }
+
+    .rate-table .pricetitle {
+        color: white;
+    }
+
+    .payment-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+    .payment-table th,
+    .payment-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    .payment-header {
+        background-color: #ac0c0c;
+        color: white;
+        text-align: center;
+        font-weight: bold;
+        padding: 10px;
+    }
+
+    .payment-table .title1 {
+        background-color: #ac0c0c;
+        color: white;
+    }
+
+    .payment-table .bgcolor {
+        background-color: rgb(150, 198, 238);
+    }
+
+    .section-button {
+        padding: 10px 20px;
+        margin-right: 10px;
+        background-color: #409cf1;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+
+    }
+
+    .section-button:hover {
+        background-color: #357ab7;
+    }
+
+    .btn-section {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+
+
+    }
+
+    .active-button {
+        background-color: darkblue !important;
+        color: white;
+    }
+
+    .contact-table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        /* Fix column sizes */
+    }
+
+    .contact-table th,
+    .contact-table td {
+        padding: 8px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    .contact-name {
+        width: 40%;
+        /* Adjust width for Name */
+    }
+
+    .separator {
+        width: 5%;
+        /* Adjust width for ":" */
+        text-align: center;
+        /* Center align ":" */
+    }
+
+    .contact-phone {
+        width: 55%;
+        /* Adjust width for Phone */
     }
 </style>
 

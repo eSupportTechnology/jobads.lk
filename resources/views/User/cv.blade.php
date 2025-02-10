@@ -246,10 +246,20 @@ $job_posting_id = request()->query('job_posting_id');
                     </div>
                 @endif
 
-                <button type="submit" class="download-btn"
-                    style="{{ isset($hideButton) && $hideButton ? 'display: none;' : '' }}">
-                    Submit
-                </button>
+                @if ($name && $email && $contact_number && $message && $employer_id && $job_posting_id)
+                    <!-- Submit Button -->
+                    <button type="submit" class="download-btn"
+                        style="{{ isset($hideButton) && $hideButton ? 'display: none;' : '' }}">
+                        Submit
+                    </button>
+                @else
+                    <!-- Download Button -->
+                    @if (!isset($hideButton) || !$hideButton)
+                        <a href="{{ route('cv.download', ['template' => 'cv']) }}" class="download-btn">
+                            <i class="fas fa-download"></i> Download CV
+                        </a>
+                    @endif
+                @endif
             </form>
         </div>
         <div id="cv-content">
@@ -343,6 +353,24 @@ $job_posting_id = request()->query('job_posting_id');
         </div>
     @endif
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        document.querySelector('.download-btn').addEventListener('click', function() {
+            const {
+                jsPDF
+            } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Add content from the page (customize as needed)
+            doc.html(document.body, {
+                callback: function(doc) {
+                    doc.save('cv.pdf'); // Save the generated PDF
+                },
+                x: 10,
+                y: 10
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -243,5 +243,36 @@ class CVController extends Controller
                 ->withInput();
         }
     }
+    public function downloadCV($template)
+    {
+        try {
+            $user = auth()->user();
+            $experiences = $user->jobExperiences;
+            $educations = $user->jobEducations;
 
+            // Generate PDF based on template
+            $hideButton = true;
+            $pdf = PDF::loadView('User.' . $template, compact(
+                'user',
+                'experiences',
+                'educations',
+                'hideButton'
+            ));
+
+            // Generate filename
+            $fileName = $template . '_' . $user->id . '_' . time() . '.pdf';
+
+            // Return the PDF for download
+            return $pdf->download($fileName);
+
+        } catch (\Exception $e) {
+            \Log::error('CV Download Error', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+
+            return redirect()->back()
+                ->with('error', 'Unable to download CV. Please try again.');
+        }
+    }
 }

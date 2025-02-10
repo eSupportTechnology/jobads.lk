@@ -134,12 +134,12 @@
             /* Allow vertical scrolling */
             max-height: calc(40px * 4.5);
             /* Adjust as needed */
-            padding: 20px;
+            padding: 10px 20px;
             width: 1500px;
             /* Adjust width as needed */
             scroll-behavior: smooth;
             /* Smooth scrolling */
-            margin-top: 10px;
+
         }
     </style>
 </head>

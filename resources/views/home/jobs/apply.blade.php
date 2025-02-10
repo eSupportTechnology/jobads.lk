@@ -15,7 +15,7 @@
         }
 
         .container {
-            width: 80%;
+            width: 60%;
             margin: 20px auto;
             padding: 20px;
             background: #ffffff;
@@ -215,7 +215,51 @@
         </form>
     </div>
     <script>
+        // $(document).ready(function() {
+        //     $('input[name="cv_option"]').on('change', function() {
+        //         if ($(this).val() === 'upload') {
+        //             $('#upload_cv_section').show();
+        //             $('#create_cv_section').hide();
+        //         } else if ($(this).val() === 'create') {
+        //             $('#upload_cv_section').hide();
+        //             $('#create_cv_section').show();
+        //         }
+        //     });
+
+        //     $('#create_cv_button').on('click', function() {
+        //         // Get form data
+        //         var name = $('#name').val();
+        //         var email = $('#email').val();
+        //         var contact_number = $('#contact_number').val();
+        //         var message = $('#message').val();
+        //         var job_posting_id = $('input[name="job_posting_id"]').val();
+        //         var employer_id = $('input[name="employer_id"]').val();
+        //         var selectedTemplate = $('#cv_template').val(); // Get selected template
+
+        //         // Determine the correct route based on the selected template
+        //         var route = '';
+        //         if (selectedTemplate === 'template1') {
+        //             route = "/profile/cv";
+        //         } else if (selectedTemplate === 'template2') {
+        //             route = "/profile/cv2";
+        //         } else if (selectedTemplate === 'template3') {
+        //             route = "/profile/cv3";
+        //         }
+
+        //         // Construct the URL with query parameters
+        //         var url = route + "?name=" + encodeURIComponent(name) +
+        //             "&email=" + encodeURIComponent(email) +
+        //             "&contact_number=" + encodeURIComponent(contact_number) +
+        //             "&message=" + encodeURIComponent(message) +
+        //             "&job_posting_id=" + job_posting_id +
+        //             "&employer_id=" + employer_id;
+
+        //         // Redirect to the appropriate CV generation page
+        //         window.location.href = url;
+        //     });
+        // });
         $(document).ready(function() {
+            // Handle CV option radio buttons
             $('input[name="cv_option"]').on('change', function() {
                 if ($(this).val() === 'upload') {
                     $('#upload_cv_section').show();
@@ -226,36 +270,117 @@
                 }
             });
 
-            $('#create_cv_button').on('click', function() {
-                // Get form data
-                var name = $('#name').val();
-                var email = $('#email').val();
-                var contact_number = $('#contact_number').val();
-                var message = $('#message').val();
-                var job_posting_id = $('input[name="job_posting_id"]').val();
-                var employer_id = $('input[name="employer_id"]').val();
-                var selectedTemplate = $('#cv_template').val(); // Get selected template
+            // Handle create CV button click
+            $('#create_cv_button').on('click', function(e) {
+                e.preventDefault(); // Prevent any default button behavior
+                e.stopPropagation(); // Stop event bubbling
 
-                // Determine the correct route based on the selected template
-                var route = '';
-                if (selectedTemplate === 'template1') {
-                    route = "/profile/cv";
-                } else if (selectedTemplate === 'template2') {
-                    route = "/profile/cv2";
-                } else if (selectedTemplate === 'template3') {
-                    route = "/profile/cv3";
+                // Check required fields
+                let isValid = true;
+                let errorMessage = '';
+
+                // Validate name
+                if (!$('#name').val().trim()) {
+                    isValid = false;
+                    errorMessage += 'Please enter your name\n';
+                    $('#name').css('border-color', 'red');
+                } else {
+                    $('#name').css('border-color', '#ddd');
                 }
 
-                // Construct the URL with query parameters
-                var url = route + "?name=" + encodeURIComponent(name) +
-                    "&email=" + encodeURIComponent(email) +
-                    "&contact_number=" + encodeURIComponent(contact_number) +
-                    "&message=" + encodeURIComponent(message) +
-                    "&job_posting_id=" + job_posting_id +
-                    "&employer_id=" + employer_id;
+                // Validate contact number
+                if (!$('#contact_number').val().trim()) {
+                    isValid = false;
+                    errorMessage += 'Please enter your contact number\n';
+                    $('#contact_number').css('border-color', 'red');
+                } else {
+                    $('#contact_number').css('border-color', '#ddd');
+                }
 
-                // Redirect to the appropriate CV generation page
-                window.location.href = url;
+                // Validate email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!$('#email').val().trim() || !emailRegex.test($('#email').val().trim())) {
+                    isValid = false;
+                    errorMessage += 'Please enter a valid email address\n';
+                    $('#email').css('border-color', 'red');
+                } else {
+                    $('#email').css('border-color', '#ddd');
+                }
+
+                // Validate message
+                if (!$('#message').val().trim()) {
+                    isValid = false;
+                    errorMessage += 'Please enter your message\n';
+                    $('#message').css('border-color', 'red');
+                } else {
+                    $('#message').css('border-color', '#ddd');
+                }
+
+                // Validate verify email
+                if (!$('#verify_email').val().trim()) {
+                    isValid = false;
+                    errorMessage += 'Please verify your email address\n';
+                    $('#verify_email').css('border-color', 'red');
+                } else if ($('#verify_email').val().trim() !== $('#email').val().trim()) {
+                    isValid = false;
+                    errorMessage += 'Email addresses do not match\n';
+                    $('#verify_email').css('border-color', 'red');
+                } else {
+                    $('#verify_email').css('border-color', '#ddd');
+                }
+
+                // If validation fails, show error and return
+                if (!isValid) {
+                    alert(errorMessage);
+                    return false;
+                }
+
+                // Only proceed if validation passed
+                if (isValid) {
+                    // Get form data
+                    const formData = {
+                        name: $('#name').val().trim(),
+                        email: $('#email').val().trim(),
+                        contact_number: $('#contact_number').val().trim(),
+                        message: $('#message').val().trim(),
+                        job_posting_id: $('input[name="job_posting_id"]').val(),
+                        employer_id: $('input[name="employer_id"]').val()
+                    };
+
+                    // Determine route based on selected template
+                    let route = '';
+                    const selectedTemplate = $('#cv_template').val();
+
+                    switch (selectedTemplate) {
+                        case 'template1':
+                            route = "/profile/cv";
+                            break;
+                        case 'template2':
+                            route = "/profile/cv2";
+                            break;
+                        case 'template3':
+                            route = "/profile/cv3";
+                            break;
+                    }
+
+                    // Construct URL with query parameters
+                    const queryString = Object.keys(formData)
+                        .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(formData[key])}`)
+                        .join('&');
+
+                    // Redirect to CV generation page only if validation passed
+                    window.location.href = `${route}?${queryString}`;
+                }
+            });
+
+            // Prevent form submission
+            $('form').on('submit', function(e) {
+                // Always prevent default form submission for create CV option
+                if ($('input[name="cv_option"]:checked').val() === 'create') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                }
             });
         });
     </script>
