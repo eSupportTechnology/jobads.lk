@@ -14,10 +14,11 @@
     <!-- Contact Information -->
     <div class="paymentmethod-header">For Credit/Debit Card Payments</div>
     <div class="paymentmethod-info">
-        @foreach ($contactsLists as $contactList)
-            <ul>
-                <li><strong>{{ $contactList->name }}:</strong> {{ $contactList->phone }}</li>
-            </ul>
+        @foreach ($contacts as $contact)
+            <tr>
+                <td><span class="contact-names">{{ $contact->name }}</span></td>
+                <td>{{ $contact->phone }}</td>
+            </tr>
         @endforeach
     </div>
 </body>

@@ -34,7 +34,7 @@
 
         .swiper-container {
             width: 100%;
-            height: 150px;
+            height: 220px;
             overflow: hidden;
             /* Ensure no overflow for large images */
         }
@@ -48,10 +48,10 @@
         }
 
         .banner-item img {
-            max-width: 100%;
+            max-width: 75%;
             max-height: 100%;
             border-radius: 10px;
-            object-fit: contain;
+
             /* Adjusts how the image fits within the container */
         }
 
@@ -100,6 +100,47 @@
             min-height: 50px;
             height: auto;
         }
+
+        .job-listings-container {
+            flex: 3;
+            background: #fff;
+            padding: 0px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .job-card {
+            padding: 3px 10px;
+            font-size: 14px;
+            border-bottom: 1px dotted #000;
+            cursor: pointer;
+            /* Show pointer cursor on hover */
+        }
+
+        .main-footer {
+            background-color: #18799c;
+            color: #fff;
+            padding: 4px 20px;
+            text-align: center;
+            font-size: 14px;
+            border-radius: 50px 0 0 0;
+        }
+
+        .categories-list {
+            display: flex;
+            flex-direction: column;
+            /* Keep list items vertical */
+            overflow-y: auto;
+            /* Allow vertical scrolling */
+            max-height: calc(40px * 4.5);
+            /* Adjust as needed */
+            padding: 20px;
+            width: 1500px;
+            /* Adjust width as needed */
+            scroll-behavior: smooth;
+            /* Smooth scrolling */
+            margin-top: 10px;
+        }
     </style>
 </head>
 
@@ -110,23 +151,33 @@
     <section class="categories-container">
         <div class="categories-header"
             style="background: linear-gradient(to bottom, #28adce, #18799c);justify-content: flex-end; gap: 15px; min-height:40px; height:auto">
+
             <a href="{{ route('login') }}" class="category-btn"
                 style="text-decoration: none; padding: 6px 6px; border-radius: 5px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); transition: all 0.3s ease;
-         background-color: #a4d8e6; color: black; font-weight:600"
+             background-color: #6bbed4; color: black; font-weight:600"
                 onmouseover=" this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 24px rgba(0, 0, 0, 0.3)'; this.style.backgroundColor='#6c9dbd';"
-                onmouseout=" this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.2)'; this.style.backgroundColor='#a4d8e6';">
+                onmouseout=" this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.2)'; this.style.backgroundColor='#6bbed4';">
                 JOBSEEKER LOGIN
             </a>
 
             <a href="{{ route('employer.login') }}" class="category-btn"
                 style="text-decoration: none; padding: 6px 6px; border-radius: 5px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-         transition: all 0.3s ease;  background-color: #a4d8e6; color: black; font-weight:600"
+             transition: all 0.3s ease;  background-color:  #6bbed4; color: black; font-weight:600"
                 onmouseover=" this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 24px rgba(0, 0, 0, 0.3)'; this.style.backgroundColor='#6c9dbd';"
-                onmouseout=" this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.2)'; this.style.backgroundColor='#a4d8e6';">
+                onmouseout=" this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.2)'; this.style.backgroundColor=' #6bbed4';">
                 EMPLOYER LOGIN
+            </a>
+
+            <a href="{{ route('feedback.home') }}" class="category-btn"
+                style="text-decoration: none; padding: 6px 6px; border-radius: 5px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); transition: all 0.3s ease;
+             background-color:  #6bbed4; color: black; font-weight:600"
+                onmouseover=" this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 24px rgba(0, 0, 0, 0.3)'; this.style.backgroundColor='#6c9dbd';"
+                onmouseout=" this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.2)'; this.style.backgroundColor=' #6bbed4';">
+                FEEDBACK
             </a>
         </div>
     </section>
+
 
 
 
@@ -137,13 +188,14 @@
         </button>
 
 
-        <div class="categories-list" id="categoriesList">
+        <div class="categories-list" id="categoriesList"
+            style="padding: 10px; border-radius: 15px; display: flex; flex-wrap: wrap; gap: 4px; justify-content: center;">
             @foreach ($categories as $category)
                 <a href="javascript:void(0);" data-category-id="{{ $category->id }}"
                     class="category-link {{ session('selected_category_id') == $category->id ? 'active' : '' }}"
                     style="text-decoration: none; background-color: {{ session('selected_category_id') == $category->id ? '#1267e7' : '#f8f9fa' }};
                           color: {{ session('selected_category_id') == $category->id ? 'white' : 'black' }};
-                          padding: 8px 15px; border-radius: 5px; min-width:222px; width: auto;
+                          padding: 4px 15px; border-radius: 5px; min-width:222px; width: auto;
                           font-size: 14px; transition: all 0.3s ease; white-space: nowrap; display: inline-block;">
                     {{ $category->name }}
                 </a>
@@ -172,8 +224,10 @@
                         <img src="{{ asset('storage/' . $banner->image) }}" alt="{{ $banner->title }}">
                     </div>
                 @empty
-                    <div class="swiper-slide">
-                        <p>No banners available.</p>
+                    <div class="swiper-slide banner-item">
+                        {{-- <p>No banners available.</p> --}}
+                        <img src="/banner-new.jpg" alt="">
+
                     </div>
                 @endforelse
             </div>
@@ -187,7 +241,7 @@
 
 
     <!-- Filters Section -->
-    <section class="filters" style="background-color: rgba(0, 0, 0, 0.1); padding:4px 25px">
+    <section class="filters" style="background-color: rgba(0, 0, 0, 0.1); padding:2px 25px">
         <p class="jobtitle">
             Available Jobs: {{ $jobs->count() }} new hot jobs
             @if (session('selected_category_id'))
@@ -280,7 +334,8 @@
                 <!-- Display as Cards if No Category is Selected -->
                 <div class="job-grid">
                     @foreach ($jobs as $job)
-                        <div class="job-card" style="min-height:50px;height:auto;">
+                        <div class="job-card" style="min-height:50px;height:auto; cursor: pointer;"
+                            onclick="window.location='{{ route('job.details', $job->id) }}'">
                             <a href="{{ route('job.details', $job->id) }}" class="job-title"
                                 style="font-size:15px; margin-bottom: 0px;">
                                 {{ $job->title }}
@@ -289,7 +344,8 @@
                                 style="font-size: 14px; margin-top: 2px; margin-bottom: 0px; font-weight:600; line-height:1;">
                                 {{ $job->employer->company_name }}
                             </p>
-                            <p class="location" style="font-size: 15px; margin-bottom: 0px; line-height:1;">
+                            <p class="location"
+                                style="font-size: 12px; margin-top: 1px; margin-bottom: 0px; line-height:1;">
                                 {{ $job->location }}
                             </p>
                             <p

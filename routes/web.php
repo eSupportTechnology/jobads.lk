@@ -826,7 +826,7 @@ Route::prefix('admin')->group(function () {
     Route::put('/bank-accounts/{bankAccount}', [BankAccountController::class, 'update'])->name('admin.bank-accounts.update')->middleware('auth:admin');
     Route::delete('/bank-accounts/{bankAccount}', [BankAccountController::class, 'destroy'])->name('admin.bank-accounts.destroy')->middleware('auth:admin');
 });
-
+Route::get('/ourservices', [ContactListController::class, 'ourservices'])->name('ourservices');
 // Regular bank account routes
 Route::get('/bank-accounts', [BankAccountController::class, 'index'])->name('bank-accounts.index');
 
@@ -897,4 +897,14 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/admin/job-report/date-range', [JobPostingController::class, 'generateJobAdsReportByDateRange'])
         ->name('admin.job.report.daterange');
 });
+// List all press releases
+Route::get('/press-releases', [PressReleaseController::class, 'index'])->name('press-releases.index');
+Route::get('/press-releases/create', [PressReleaseController::class, 'create'])->name('press-releases.create');
+Route::post('/press-releases/store', [PressReleaseController::class, 'store'])->name('press-releases.store');
+Route::get('/press-releases/{pressRelease}', [PressReleaseController::class, 'show'])->name('press-releases.show');
+Route::get('/press-releases/{pressRelease}/edit', [PressReleaseController::class, 'edit'])->name('press-releases.edit');
+Route::put('/press-releases/{pressRelease}/update', [PressReleaseController::class, 'update'])->name('press-releases.update');
+Route::delete('/press-releases/{pressRelease}/destroy', [PressReleaseController::class, 'destroy'])->name('press-releases.destroy');
+Route::post('/press-releases/store-multiple', [PressReleaseController::class, 'storeMultiple'])->name('press-releases.store-multiple');
+Route::get('/press-releases-page', [PressReleaseController::class, 'frontendIndex'])->name('press-releases.frontend');
 // routes/web.php

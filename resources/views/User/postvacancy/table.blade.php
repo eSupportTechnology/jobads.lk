@@ -32,7 +32,7 @@
 
     /* Header row styling */
     .rate-card-table thead tr:first-child th {
-        background: #CC0000;
+        background: ##6d0303;
         color: white;
         padding: 8px;
         border: 1px solid white;
@@ -40,7 +40,7 @@
     }
 
     .rate-card-table thead tr:last-child th {
-        background: #CC0000;
+        background: #6d0303;
         color: white;
         padding: 8px;
         border: 1px solid white;
@@ -57,7 +57,7 @@
 
     /* First column styling - red background */
     .rate-card-table tbody td:first-child {
-        background: #CC0000;
+        background: #6d0303;
         color: white;
     }
 
@@ -79,7 +79,7 @@
     }
 
     .rate-card-table tbody tr:last-child td:first-child {
-        background: #CC0000;
+        background: #6d0303;
         color: white;
     }
 

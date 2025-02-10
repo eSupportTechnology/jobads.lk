@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\ContactList;
 use Illuminate\Http\Request;
 
 class ContactListController extends Controller
@@ -18,10 +19,18 @@ class ContactListController extends Controller
         $contacts = Contact::all();
         return view('Admin.packages.ContactList.index', compact('contacts'));
     }
+    public function ourservices()
+    {
+        $contacts = Contact::all();
+        $contactslist = ContactList::all();
+        return view('Admin.about.contactus', compact('contacts', 'contactslist'));
+    }
     public function home()
     {
-        $contactsLists = Contact::all();
-        return view('User.postvacancy.paymentmethod.ipg', compact('contactsLists'));
+        $contactsLists = ContactList::all();
+        $contacts = Contact::all();
+
+        return view('User.postvacancy.paymentmethod.ipg', compact('contacts', 'contactsLists'));
     }
 
     public function storeMultiple(Request $request)

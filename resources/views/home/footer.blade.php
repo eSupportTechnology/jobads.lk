@@ -56,7 +56,7 @@
     </div>
 
     <div class="footer-bottom" style="height: 15px; display: flex; justify-content: center; align-items: center; ">
-        <p style="font-size: 16px; color: #fff; margin: 0;">&copy; 2024 Job Portal. All Rights Reserved.</p>
+        <p style="font-size: 16px; color: #fff; margin: 0;">&copy; 2024 JobAds.lk. All Rights Reserved.</p>
     </div>
 
 </footer>

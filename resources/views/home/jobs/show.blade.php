@@ -639,6 +639,7 @@
         .ads-container {
             overflow: hidden;
             width: 100%;
+            position: fixed;
         }
 
         /* Style the swiper container to ensure proper layout */
@@ -705,7 +706,7 @@
             <!-- Job Details Section -->
             <div class="showcontainer">
                 <div class="job-cardn">
-                   
+
                     <!-- Header Section -->
                     <div class="header">
                         @if (!empty($job->image))
