@@ -123,7 +123,7 @@
 
 <body>
 <header class="unique-header" 
-        style=" border-bottom: 3px solid #cccbcb;  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);">
+        style=" border-bottom: 3px solid #cccbcb;  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);  z-index: 10000;">
 
         <div class="logo">
             <a href="/">
